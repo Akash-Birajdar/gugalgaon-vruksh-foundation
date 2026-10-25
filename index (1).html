@@ -530,8 +530,8 @@ var fmtINR=function(n){return '₹'+Number(n||0).toLocaleString('en-IN')};
 var fmtDate=function(s){if(!s)return '';var d=new Date(String(s).length===10?s+'T00:00:00':s);return isNaN(d)?'':d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})};
 
 /* ===== SETUP: paste your Google Apps Script Web app URL between the quotes below. Leave it as is to keep data in this browser only. ===== */
-var SB_URL='PASTE_SUPABASE_PROJECT_URL_HERE';   /* Supabase: Project URL, like https://abcdxyz.supabase.co */
-var SB_KEY='PASTE_SUPABASE_PUBLIC_KEY_HERE';    /* Supabase: anon / publishable key (safe to publish) */
+var SB_URL='https://wtnznccjacxbsvvwlnmo.supabase.co';   /* Supabase: Project URL, like https://abcdxyz.supabase.co */
+var SB_KEY='sb_publishable_8q9AubTkLa80IkugDfKVNQ_OISoPuwO';    /* Supabase: anon / publishable key (safe to publish) */
 var API_URL='PASTE_WEB_APP_URL_HERE';           /* Optional: Google Apps Script URL, only if you use Google Sheets instead */
 var USE_SB=/^https:\/\/[^\/]+\.supabase\.co/.test(SB_URL)&&SB_KEY.length>20;
 var USE_API=USE_SB||/^https:\/\//.test(API_URL);

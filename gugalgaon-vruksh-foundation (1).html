@@ -262,7 +262,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
         <div class="qr" id="qrBox"></div>
         <div class="small" id="qrNote" style="text-align:center"></div>
       </div>
-      <div class="upi"><span class="small">UPI ID</span><code id="upiIdText">demo@upi</code>
+      <div class="upi"><span class="small">UPI ID</span><code id="upiIdText">8411939227@upi</code>
         <button type="button" class="btn ghost sm" id="copyUpi">Copy</button></div>
       <div class="notice" id="demoNote" hidden>This is a demo UPI ID. The admin must set the real UPI ID or QR in Admin → Settings before real payments.</div>
       <ol class="steps">
@@ -449,7 +449,7 @@ var mem={};
 function load(k,d){try{var v=localStorage.getItem(k);if(v!==null)return JSON.parse(v)}catch(e){}return (k in mem)?mem[k]:d}
 function save(k,v){mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}
 
-var DEF={nameMr:'गुगळगाव वृक्ष फाउंडेशन',nameEn:'Gugalgaon Vruksh Foundation',price:250,upiId:'demo@upi',payee:'Gugalgaon Vruksh Foundation',
+var DEF={nameMr:'गुगळगाव वृक्ष फाउंडेशन',nameEn:'Gugalgaon Vruksh Foundation',price:250,upiId:'8411939227@upi',payee:'Gugalgaon Vruksh Foundation',
   qrImage:'',regNo:'Registration no. pending',place:'Gugalgaon',president:'',secretary:'',phone:'',pin:'1234'};
 var KEY={s:'gvf_settings',d:'gvf_donations',r:'gvf_roadmap'};
 var S=Object.assign({},DEF,load(KEY.s,{}));

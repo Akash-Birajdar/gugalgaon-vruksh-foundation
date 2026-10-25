@@ -349,7 +349,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
     <form id="pinForm" novalidate style="margin-top:12px">
       <div class="field"><label for="pin">PIN</label><input id="pin" type="password" inputmode="numeric" autocomplete="off"><span class="err" id="err-pin"></span></div>
       <button class="btn" type="submit">Open admin</button>
-      <p class="small">First time? The default PIN is 1234. Change it in Settings. This PIN only hides the screen on this device; it is not strong security.</p>
+      <!-- <p class="small">First time? The default PIN is 1234. Change it in Settings. This PIN only hides the screen on this device; it is not strong security.</p> -->
     </form>
   </div>
 
@@ -549,7 +549,7 @@ function api(action,payload){
 }
 function apiAdmin(action,payload){return api(action,Object.assign({pin:adminPin},payload||{}))}
 var DEF={nameMr:'गुगळगाव वृक्ष फाउंडेशन',nameEn:'Gugalgaon Vruksh Foundation',price:150,upiId:'8411939227@upi',payee:'Gugalgaon Vruksh Foundation',
-  qrImage:'',regNo:'Registration no. pending',place:'Gugalgaon',president:'',secretary:'',phone:'',pin:'1234'};
+  qrImage:'',regNo:'Registration no. pending',place:'Gugalgaon',president:'',secretary:'',phone:'',pin:'9039'};
 var KEY={s:'gvf_settings',d:'gvf_donations',r:'gvf_roadmap',e:'gvf_expenses'};
 var S=Object.assign({},DEF,load(KEY.s,{}));
 var D=load(KEY.d,[]); if(!Array.isArray(D))D=[];

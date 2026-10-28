@@ -3,28 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Gugalgaon Vruksh Foundation</title>
+<title>Gugalgaon Vruksh Mitra</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700&family=Tiro+Devanagari+Marathi:ital@0;1&family=Baloo+2:wght@600;800&display=swap">
 <style>
 /* Layout concept: a calm single column. Donation form on the left, a sticky payment card on the right,
    the certificate shown as an image the donor can save. Admin is a ledger-style table with tabs. */
 :root{
   --bg:#F1F4EA; --surface:#FBFCF7; --field:#FFFFFF; --ink:#15251B; --muted:#55645A; --line:#D3DBC6;
   --leaf:#1E5C3A; --on-leaf:#FFFFFF; --haldi:#B97F06; --haldi-soft:#F5E7BD; --bad:#B3261E; --good:#1B6E3F;
+  --toon-ink:#1F2A21; --toon-bg:#E6F3DF; --toon-cell:#FFFFFF; --toon-rain:#CFE9F7; --toon-today:#FFD25A;
+  --t-leaf:#6CC47F; --t-cake:#F7A8BF; --t-cream:#FFF3D1; --t-sun:#FFD25A; --t-soil:#B98655; --t-cloud:#FFFFFF;
   --font-display:"Tiro Devanagari Marathi","Noto Serif Devanagari",Georgia,serif;
   --font-body:"Mukta","Noto Sans Devanagari",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
+    --toon-ink:#D7EBD9; --toon-bg:#1B2B21; --toon-cell:#24382B; --toon-rain:#1E3A4D; --toon-today:#C9971C;
+    --t-leaf:#5FB874; --t-cake:#E98BA6; --t-cream:#F3E4B8; --t-sun:#F2C14E; --t-soil:#9A6D42; --t-cloud:#DCE9F2;
     --bg:#0E1811; --surface:#15221A; --field:#101C14; --ink:#E6EEE1; --muted:#9CAB9F; --line:#27392D;
     --leaf:#74CF98; --on-leaf:#0A1A10; --haldi:#EDB431; --haldi-soft:#3A2E0F; --bad:#FF8F85; --good:#7ED9A2;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
+  --toon-ink:#D7EBD9; --toon-bg:#1B2B21; --toon-cell:#24382B; --toon-rain:#1E3A4D; --toon-today:#C9971C;
+  --t-leaf:#5FB874; --t-cake:#E98BA6; --t-cream:#F3E4B8; --t-sun:#F2C14E; --t-soil:#9A6D42; --t-cloud:#DCE9F2;
   --bg:#0E1811; --surface:#15221A; --field:#101C14; --ink:#E6EEE1; --muted:#9CAB9F; --line:#27392D;
   --leaf:#74CF98; --on-leaf:#0A1A10; --haldi:#EDB431; --haldi-soft:#3A2E0F; --bad:#FF8F85; --good:#7ED9A2;
   color-scheme:dark;
@@ -150,6 +156,8 @@ tfoot td{font-weight:700;border-top:2px solid var(--line);border-bottom:none;bac
 .bar2 i{display:block;height:100%;background:var(--leaf);width:0}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
 .two > *{min-width:0}
+#books{grid-template-columns:minmax(0,1fr)}
+#books > *{min-width:0}
 textarea.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;min-height:120px}
 .gate{max-width:380px;margin:40px auto}
 
@@ -161,19 +169,96 @@ textarea.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;
   background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:8px;z-index:30;max-width:calc(100% - 32px);font-size:.92rem}
 footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+/* header language button */
+.navrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+/* cartoon calendar */
+.s-ink{stroke:var(--toon-ink);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round}
+.f-none{fill:none}.f-ink{fill:var(--toon-ink)}.f-leaf{fill:var(--t-leaf)}.f-cake{fill:var(--t-cake)}.f-cream{fill:var(--t-cream)}.f-flame{fill:var(--t-sun)}.f-soil{fill:var(--t-soil)}.f-cloud{fill:var(--t-cloud)}
+.toon{max-width:680px;background:var(--toon-bg);color:var(--toon-ink);border:3px solid var(--toon-ink);border-radius:20px;box-shadow:5px 5px 0 var(--toon-ink);padding:14px;font-family:"Baloo 2","Mukta",system-ui,sans-serif}
+.toon.season{background:var(--toon-rain)}
+.toon-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:12px}
+.mascot{width:58px;height:58px;flex:none}
+.toon-title{flex:1 1 150px;min-width:0}
+.toon-month{font-size:1.75rem;font-weight:800;line-height:1.1}
+.toon-sub{font-size:.9rem;font-weight:600}
+.toon-nav{display:flex;gap:6px}
+.tbtn{min-width:44px;min-height:44px;border:3px solid var(--toon-ink);background:var(--toon-cell);color:var(--toon-ink);border-radius:12px;font:inherit;font-weight:800;cursor:pointer;box-shadow:2px 2px 0 var(--toon-ink)}
+.tbtn:active{transform:translate(2px,2px);box-shadow:none}
+.tbtn.wide{padding:0 14px}
+.toon-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.dow{text-align:center;font-weight:800;font-size:.85rem;padding:4px 0}
+.dc{position:relative;aspect-ratio:1/1.05;border:2.5px solid var(--toon-ink);border-radius:10px;background:var(--toon-cell);color:var(--toon-ink);font:inherit;padding:2px;cursor:pointer;display:block;overflow:hidden;min-width:0;text-align:left}
+.dc.blank{border:none;background:none;cursor:default}
+.dc .dn{display:block;font-weight:800;font-size:.95rem;line-height:1;padding:2px 3px}
+.dc svg{position:absolute;right:1px;bottom:1px;width:62%;max-width:34px;height:auto}
+.dc.today{background:var(--toon-today);color:#1F2A21}
+.dc.sel{outline:3px solid var(--toon-ink);outline-offset:1px;box-shadow:2px 2px 0 var(--toon-ink)}
+.dc .bd{position:absolute;top:2px;right:2px;background:var(--toon-ink);color:var(--toon-bg);border-radius:99px;font-size:.7rem;padding:0 5px;font-weight:800;line-height:1.3}
+.dc:focus-visible,.tbtn:focus-visible{outline:3px solid var(--haldi);outline-offset:2px}
+.toon-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px;font-weight:600;font-size:.88rem}
+.toon-legend>span{display:inline-flex;align-items:center;gap:6px}
+.toon-legend svg{width:26px;height:26px}
+.dot-today{width:16px;height:16px;border-radius:5px;border:2.5px solid var(--toon-ink);background:var(--toon-today);display:inline-block}
+.toon-card{border:3px solid var(--toon-ink);box-shadow:4px 4px 0 var(--toon-ink)}
+.evrow{display:flex;gap:10px;align-items:center;padding:6px 0}
+.evrow svg{width:36px;height:36px;flex:none}
+/* admin visitor chart */
+.vchart{display:flex;align-items:flex-end;gap:6px;height:160px;padding:8px;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow-x:auto}
+.vbar{flex:1 0 26px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;min-width:26px}
+.vbar i{display:block;width:100%;background:var(--leaf);border-radius:4px 4px 0 0;opacity:.75}
+.vbar.now i{opacity:1;background:var(--haldi)}
+.vn,.vd{font-size:.72rem;color:var(--muted)}
+
 </style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="toon-sapling" viewBox="0 0 64 64">
+      <path class="s-ink f-soil" d="M10 56c2-9 10-13 22-13s20 4 22 13z"/>
+      <path class="s-ink f-none" d="M32 44V28"/>
+      <path class="s-ink f-leaf" d="M32 30C20 30 11 24 9 12c12-1 21 4 23 18z"/>
+      <path class="s-ink f-leaf" d="M32 26c1-12 9-19 22-19 1 12-8 19-22 19z"/>
+      <circle class="f-ink" cx="27" cy="51" r="1.8"/><circle class="f-ink" cx="37" cy="51" r="1.8"/>
+      <path class="s-ink f-none" d="M28.5 54.5q3.5 3 7 0"/>
+    </symbol>
+    <symbol id="toon-cake" viewBox="0 0 64 64">
+      <path class="s-ink f-flame" d="M32 5c4 4 5 7 0 11-5-4-4-7 0-11z"/>
+      <rect class="s-ink f-cream" x="29.5" y="15" width="5" height="11" rx="1.5"/>
+      <path class="s-ink f-cake" d="M10 34c0-6 5-9 11-9h22c6 0 11 3 11 9v20H10z"/>
+      <path class="s-ink f-cream" d="M10 38c4 5 8 5 11 0 3 5 7 5 11 0 3 5 7 5 11 0 3 5 6 5 11 0v-4"/>
+      <circle class="f-ink" cx="25" cy="46" r="1.8"/><circle class="f-ink" cx="39" cy="46" r="1.8"/>
+      <path class="s-ink f-none" d="M28.5 49.5q3.5 3 7 0"/>
+    </symbol>
+    <symbol id="toon-cloud" viewBox="0 0 64 64">
+      <path class="s-ink f-cloud" d="M18 38a10 10 0 0 1 2-19.8A13 13 0 0 1 45 20a9.5 9.5 0 0 1 1 18z"/>
+      <circle class="f-ink" cx="26" cy="28" r="1.8"/><circle class="f-ink" cx="37" cy="28" r="1.8"/>
+      <path class="s-ink f-none" d="M28.5 32q3.5 3 7 0"/>
+      <path class="s-ink f-none" d="M20 45v6M32 45v9M44 45v6"/>
+    </symbol>
+    <symbol id="toon-sun" viewBox="0 0 64 64">
+      <circle class="s-ink f-flame" cx="32" cy="32" r="12"/>
+      <path class="s-ink f-none" d="M32 8v7M32 49v7M8 32h7M49 32h7M15 15l5 5M44 44l5 5M49 15l-5 5M20 44l-5 5"/>
+      <circle class="f-ink" cx="28" cy="30" r="1.6"/><circle class="f-ink" cx="36" cy="30" r="1.6"/>
+      <path class="s-ink f-none" d="M28 35q4 3.5 8 0"/>
+    </symbol>
+  </defs>
+</svg>
 
 <header class="top">
   <div class="wrap bar">
     <a class="brand" href="#donate" data-view="donate">
       <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><g fill="currentColor"><circle cx="20" cy="14" r="10"/><circle cx="11" cy="20" r="7"/><circle cx="29" cy="20" r="7"/><rect x="18" y="22" width="4" height="14" rx="1"/></g></svg>
-      <span><b id="brandMr" lang="mr">गुगळगाव वृक्ष फाउंडेशन</b><small id="brandEn">Gugalgaon Vruksh Foundation</small></span>
+      <span><b id="brandMr" lang="mr">गुगळगाव वृक्ष मित्र मंडळ</b><small id="brandEn">Gugalgaon Vruksh Mitra Group</small></span>
     </a>
-    <nav aria-label="Main">
-      <a href="#donate" data-view="donate">Donate</a>
-      <a href="#certificate" data-view="certificate">My certificate</a>
-      <a href="#admin" data-view="admin">Admin</a>
-    </nav>
+    <div class="navrow">
+      <nav aria-label="Main">
+        <a href="#donate" data-view="donate" data-i="nav_donate">दान</a>
+        <a href="#calendar" data-view="calendar" data-i="nav_cal">कॅलेंडर</a>
+        <a href="#certificate" data-view="certificate" data-i="nav_cert">माझे प्रमाणपत्र</a>
+        <a href="#admin" data-view="admin">Admin</a>
+      </nav>
+      <button type="button" class="btn ghost sm" id="langBtn" aria-label="Language">English</button>
+    </div>
   </div>
 </header>
 
@@ -182,137 +267,174 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
 <!-- ============ DONATE ============ -->
 <section id="view-donate">
   <div class="hero">
-    <div class="eyebrow" lang="mr">वाढदिवस • वृक्षदान</div>
-    <h1 lang="mr">वाढदिवसाला एक झाड लावा</h1>
-    <div class="en">Plant a tree on your birthday.</div>
-    <p class="lead" lang="mr">प्रत्येक झाडासाठी <b id="heroPrice">₹100</b>. तुमच्या नावाने झाड <span id="heroPlace">Gugalgaon</span> येथे लावले जाते आणि तुम्हाला प्रमाणपत्र मिळते.</p>
-    <p class="lead" lang="mr">झाडे पावसाळ्यात लावली जातात, त्यामुळे जगण्याची शक्यता जास्त असते.</p>
-    <p class="lead small">Plants go in the ground in the monsoon, when they survive best. Every plant costs <b id="heroPrice2">₹150</b>. You can give more too. It is planted in your name and you get a certificate.</p>
+    <div class="eyebrow" data-i="h_eyebrow"></div>
+    <h1 data-i="h_title"></h1>
+    <div class="en" data-i="h_sub"></div>
+    <p class="lead" data-i="h_lead1"></p>
+    <p class="lead" data-i="h_lead2"></p>
+    <div class="notice" style="max-width:70ch" data-i="h_inf"></div>
     <div class="stats" aria-label="Impact so far">
-      <div class="stat"><b id="stPlants">0</b><span lang="mr">झाडे</span> · <span>Plants</span></div>
-      <div class="stat"><b id="stDonors">0</b><span lang="mr">दाते</span> · <span>Donors</span></div>
-      <div class="stat"><b id="stRaised">₹0</b><span lang="mr">निधी</span> · <span>Raised</span></div>
+      <div class="stat"><b id="stPlants">0</b><span data-i="st_plants"></span></div>
+      <div class="stat"><b id="stDonors">0</b><span data-i="st_donors"></span></div>
+      <div class="stat"><b id="stRaised">₹0</b><span data-i="st_raised"></span></div>
     </div>
-    <p id="firstLine" class="small" lang="mr">पहिले झाड तुमचे असू शकते. Be the first donor.</p>
+    <p id="firstLine" class="small" data-i="h_first"></p>
   </div>
 
   <!-- result after submit -->
   <div id="result" class="card" hidden aria-live="polite">
-    <h2 lang="mr">धन्यवाद! तुमची नोंद मिळाली</h2>
+    <h2 data-i="r_title"></h2>
     <p id="resultMsg"></p>
-    <div class="notice"><span lang="mr">पेमेंट तपासल्यानंतरच प्रमाणपत्र दिले जाईल.</span> The certificate is issued only after the foundation verifies your payment, and it is sent to you on WhatsApp.</div>
+    <div class="notice" data-i="r_note"></div>
     <div class="row">
-      <a class="btn" id="waFound" target="_blank" rel="noopener" hidden>Send details to the foundation on WhatsApp</a>
-      <button type="button" class="btn ghost" id="againBtn">Donate again</button>
+      <a class="btn" id="waFound" target="_blank" rel="noopener" hidden data-i="r_wa"></a>
+      <button type="button" class="btn ghost" id="againBtn" data-i="r_again"></button>
     </div>
-    <p class="small" id="waHelp" hidden>Tap the green button so the team can match your payment and send your certificate.</p>
+    <p class="small" id="waHelp" hidden data-i="r_wahelp"></p>
   </div>
 
   <div class="split" id="donateSplit">
     <div class="card">
-      <h2 lang="mr">वृक्षदान फॉर्म <small>Donation form</small></h2>
-      <div class="notice" style="margin-bottom:16px"><span lang="mr">ही झाडे येत्या पावसाळ्यात लावली जातील.</span> These trees will be planted in the coming monsoon season (June to July), in the donor’s name.</div>
+      <h2 data-i="f_title"></h2>
+      <div class="notice" style="margin-bottom:16px" data-i="f_monsoon"></div>
       <form id="donForm" novalidate>
         <div class="grid2">
-          <div class="field"><label for="donorName"><span lang="mr">तुमचे नाव</span> <small>Your name *</small></label>
+          <div class="field"><label for="donorName" data-i="f_name"></label>
             <input id="donorName" type="text" autocomplete="name" maxlength="60"><span class="err" id="err-donorName"></span></div>
-          <div class="field"><label for="mobile"><span lang="mr">मोबाईल नंबर</span> <small>Mobile *</small></label>
-            <input id="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="12" placeholder="10 digits"><span class="err" id="err-mobile"></span></div>
-          <div class="field"><label for="email"><span lang="mr">ईमेल</span> <small>Email (optional)</small></label>
+          <div class="field"><label for="mobile" data-i="f_mobile"></label>
+            <input id="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="12" data-ip="f_mobile_ph"><span class="err" id="err-mobile"></span></div>
+          <div class="field"><label for="email" data-i="f_email"></label>
             <input id="email" type="email" autocomplete="email" maxlength="80"><span class="err" id="err-email"></span></div>
-          <div class="field"><label for="place"><span lang="mr">गाव / शहर</span> <small>Village or city</small></label>
+          <div class="field"><label for="place" data-i="f_place"></label>
             <input id="place" type="text" maxlength="60"></div>
-          <div class="field"><label for="bdayName"><span lang="mr">वाढदिवस कोणाचा?</span> <small>Whose birthday?</small></label>
-            <input id="bdayName" type="text" maxlength="60" placeholder="Leave empty if it is yours"></div>
-          <div class="field"><label for="bdayDate"><span lang="mr">वाढदिवसाची तारीख</span> <small>Birthday date *</small></label>
+          <div class="field"><label for="bdayName" data-i="f_bname"></label>
+            <input id="bdayName" type="text" maxlength="60" data-ip="f_bname_ph"></div>
+          <div class="field"><label for="bdayDate" data-i="f_bdate"></label>
             <input id="bdayDate" type="date"><span class="err" id="err-bdayDate"></span></div>
-          <div class="field"><label for="donAmt"><span lang="mr">दान रक्कम (₹)</span> <small>Amount, minimum ₹150 *</small></label>
+          <div class="field"><label for="donAmt" data-i="f_amt"></label>
             <input id="donAmt" type="number" min="150" max="1000000" step="1" inputmode="numeric" value="150">
             <div class="row" id="presets" style="gap:6px"></div>
             <span class="help" id="plantsHelp"></span><span class="err" id="err-donAmt"></span></div>
-          <div class="field"><label for="species"><span lang="mr">झाडाचा प्रकार</span> <small>Tree type</small></label>
+          <div class="field"><label for="species" data-i="f_species"></label>
             <select id="species">
-              <option value="Foundation decides">फाउंडेशन ठरवेल · Foundation decides</option>
-              <option value="Neem">कडुलिंब · Neem</option>
-              <option value="Banyan">वड · Banyan</option>
-              <option value="Peepal">पिंपळ · Peepal</option>
-              <option value="Mango">आंबा · Mango</option>
-              <option value="Jamun">जांभूळ · Jamun</option>
-              <option value="Karanj">करंज · Karanj</option>
-              <option value="Tamarind">चिंच · Tamarind</option>
-              <option value="Bael">बेल · Bael</option>
-              <option value="Amla">आवळा · Amla</option>
+              <option value="Group decides" data-i="sp_decides"></option>
+              <option value="Neem" data-i="sp_neem"></option>
+              <option value="Banyan" data-i="sp_banyan"></option>
+              <option value="Peepal" data-i="sp_peepal"></option>
+              <option value="Mango" data-i="sp_mango"></option>
+              <option value="Jamun" data-i="sp_jamun"></option>
+              <option value="Karanj" data-i="sp_karanj"></option>
+              <option value="Tamarind" data-i="sp_tamarind"></option>
+              <option value="Bael" data-i="sp_bael"></option>
+              <option value="Amla" data-i="sp_amla"></option>
             </select></div>
         </div>
-        <div class="field"><label for="wish"><span lang="mr">शुभेच्छा संदेश</span> <small>Birthday wish (optional, printed on the certificate)</small></label>
-          <textarea id="wish" maxlength="120" placeholder="Happy birthday! May you grow like this tree."></textarea></div>
-        <div class="field"><label for="utr"><span lang="mr">UPI व्यवहार क्रमांक</span> <small>UPI reference / UTR *</small></label>
-          <input id="utr" type="text" autocomplete="off" maxlength="24" placeholder="Pay first, then enter the number from your UPI app">
-          <span class="help">After paying, open the payment in your UPI app and copy the 12-digit UTR or reference number.</span>
+        <div class="field"><label for="wish" data-i="f_wish"></label>
+          <textarea id="wish" maxlength="120" data-ip="f_wish_ph"></textarea></div>
+        <div class="field"><label for="utr" data-i="f_utr"></label>
+          <input id="utr" type="text" autocomplete="off" maxlength="24" data-ip="f_utr_ph">
+          <span class="help" data-i="f_utr_help"></span>
           <span class="err" id="err-utr"></span></div>
-        <div class="field"><label class="check"><input id="consent" type="checkbox"><span>माझी माहिती फक्त वृक्षदान नोंद व प्रमाणपत्रासाठी वापरावी. <small>Use my details only for the donation record and certificate.</small></span></label>
+        <div class="field"><label class="check"><input id="consent" type="checkbox"><span data-i="f_consent"></span></label>
           <span class="err" id="err-consent"></span></div>
-        <div class="field"><label class="check"><input id="showName" type="checkbox"><span>माझे नाव सार्वजनिक दाते यादीत दाखवा. <small>Show my name in the public donor list. If unticked, the list shows “Anonymous”.</small></span></label></div>
-        <div class="row"><button class="btn" type="submit"><span lang="mr">दान नोंदवा</span> · Submit donation</button></div>
+        <div class="field"><label class="check"><input id="showName" type="checkbox"><span data-i="f_show"></span></label></div>
+        <div class="row"><button class="btn" type="submit" data-i="f_submit"></button></div>
       </form>
     </div>
 
     <aside class="card pay" aria-label="Payment">
-      <h3 lang="mr">पेमेंट <small>Payment</small></h3>
+      <h3 data-i="p_title"></h3>
       <div>
-        <div class="amount" id="amount">₹100</div>
+        <div class="amount" id="amount">₹150</div>
         <div class="small" id="amountNote"></div>
       </div>
       <div class="qrWrap">
         <div class="qr" id="qrBox"></div>
         <div class="small" id="qrNote" style="text-align:center"></div>
       </div>
-      <a class="btn" id="upiPay" href="#" style="width:100%">Pay with UPI app</a>
-      <p class="small" style="text-align:center">On a phone this opens GPay, PhonePe, Paytm or your bank app with the amount filled in. On a computer, scan the QR.</p>
-      <div class="upi"><span class="small">UPI ID</span><code id="upiIdText">demo@upi</code>
-        <button type="button" class="btn ghost sm" id="copyUpi">Copy</button></div>
-      <div class="notice" id="demoNote" hidden>This is a demo UPI ID. The admin must set the real UPI ID or QR in Admin → Settings before real payments.</div>
+      <a class="btn" id="upiPay" href="#" style="width:100%">Pay</a>
+      <p class="small" style="text-align:center" data-i="p_help"></p>
+      <div class="upi"><span class="small" data-i="p_upiid"></span><code id="upiIdText">demo@upi</code>
+        <button type="button" class="btn ghost sm" id="copyUpi" data-i="p_copy"></button></div>
+      <div class="notice" id="demoNote" hidden data-i="p_demo"></div>
       <ol class="steps">
-        <li><span lang="mr">कोणत्याही UPI अ‍ॅपने QR स्कॅन करा.</span> Scan with any UPI app.</li>
-        <li><span lang="mr">वर दाखवलेली रक्कम भरा.</span> Pay the amount shown.</li>
-        <li><span lang="mr">UTR क्रमांक फॉर्ममध्ये टाका.</span> Enter the UTR in the form.</li>
-        <li><span lang="mr">पेमेंट तपासल्यावर प्रमाणपत्र WhatsApp वर मिळेल.</span> The certificate comes after the foundation verifies your payment.</li>
+        <li data-i="p_s1"></li>
+        <li data-i="p_s2"></li>
+        <li data-i="p_s3"></li>
+        <li data-i="p_s4"></li>
       </ol>
     </aside>
   </div>
 
   <div id="books" style="margin-top:44px;display:grid;gap:22px">
     <div>
-      <div class="eyebrow">Open books · <span lang="mr">पारदर्शकता</span></div>
-      <h2 lang="mr">दाते आणि खर्च <small>Donors and spending</small></h2>
+      <div class="eyebrow" data-i="b_eyebrow"></div>
+      <h2 data-i="b_title"></h2>
       <p class="small" id="booksNote" style="margin-top:6px"></p>
     </div>
     <div class="tiles" style="margin:0">
-      <div class="stat"><b id="bRecv">₹0</b><span lang="mr">मिळालेली रक्कम</span> · <span>Received</span></div>
-      <div class="stat"><b id="bSpent">₹0</b><span lang="mr">खर्च</span> · <span>Spent</span></div>
-      <div class="stat"><b id="bBal">₹0</b><span lang="mr">शिल्लक</span> · <span>Balance</span></div>
+      <div class="stat"><b id="bRecv">₹0</b><span data-i="b_recv"></span></div>
+      <div class="stat"><b id="bSpent">₹0</b><span data-i="b_spent"></span></div>
+      <div class="stat"><b id="bBal">₹0</b><span data-i="b_bal"></span></div>
     </div>
     <div>
-      <h3 style="margin-bottom:10px" lang="mr">दात्यांची यादी <small>Donors</small></h3>
+      <h3 style="margin-bottom:10px" data-i="b_donors"></h3>
       <div class="scroll">
         <table style="min-width:520px">
-          <thead><tr><th>Date</th><th>Donor</th><th class="num">Plants</th><th class="num">Amount</th></tr></thead>
+          <thead><tr><th data-i="th_date"></th><th data-i="th_donor"></th><th class="num" data-i="th_plants"></th><th class="num" data-i="th_amount"></th></tr></thead>
           <tbody id="bDonors"></tbody>
-          <tfoot><tr><td colspan="2">Total</td><td class="num" id="bDPlants"></td><td class="num" id="bDAmt"></td></tr></tfoot>
+          <tfoot><tr><td colspan="2" data-i="th_total"></td><td class="num" id="bDPlants"></td><td class="num" id="bDAmt"></td></tr></tfoot>
         </table>
-        <div class="empty" id="bDEmpty" hidden>No verified donations yet. Every donor appears here after the foundation checks the payment.</div>
+        <div class="empty" id="bDEmpty" hidden data-i="b_dempty"></div>
       </div>
     </div>
     <div>
-      <h3 style="margin-bottom:10px" lang="mr">खर्चाचा तपशील <small>Spending</small></h3>
+      <h3 style="margin-bottom:10px" data-i="b_spending"></h3>
       <div class="scroll">
         <table style="min-width:560px">
-          <thead><tr><th>Date</th><th>Category</th><th>Description</th><th class="num">Amount</th></tr></thead>
+          <thead><tr><th data-i="th_date"></th><th data-i="th_cat"></th><th data-i="th_desc"></th><th class="num" data-i="th_amount"></th></tr></thead>
           <tbody id="bSpend"></tbody>
-          <tfoot><tr><td colspan="3">Total spent</td><td class="num" id="bSAmt"></td></tr></tfoot>
+          <tfoot><tr><td colspan="3" data-i="th_stotal"></td><td class="num" id="bSAmt"></td></tr></tfoot>
         </table>
-        <div class="empty" id="bSEmpty" hidden>No spending recorded yet.</div>
+        <div class="empty" id="bSEmpty" hidden data-i="b_sempty"></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CALENDAR ============ -->
+<section id="view-calendar" hidden>
+  <div class="hero" style="padding-bottom:8px">
+    <div class="eyebrow" data-i="c_eyebrow"></div>
+    <h1 data-i="c_title"></h1>
+    <p class="lead small" data-i="c_lead"></p>
+  </div>
+  <div class="toon" id="calBox">
+    <div class="toon-head">
+      <svg class="mascot" id="calMascot" viewBox="0 0 64 64" aria-hidden="true"><use href="#toon-sapling"/></svg>
+      <div class="toon-title">
+        <div class="toon-month" id="calTitle"></div>
+        <div class="toon-sub" id="calSub"></div>
+      </div>
+      <div class="toon-nav">
+        <button type="button" class="tbtn" id="calPrev" aria-label="Previous month">&#9664;</button>
+        <button type="button" class="tbtn wide" id="calToday" data-i="c_today"></button>
+        <button type="button" class="tbtn" id="calNext" aria-label="Next month">&#9654;</button>
+      </div>
+    </div>
+    <div class="toon-grid" id="calHead" role="presentation"></div>
+    <div class="toon-grid" id="calGrid"></div>
+    <div class="toon-legend">
+      <span><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#toon-cake"/></svg><span data-i="c_leg_b"></span></span>
+      <span><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#toon-cloud"/></svg><span data-i="c_leg_s"></span></span>
+      <span><i class="dot-today"></i><span data-i="c_leg_t"></span></span>
+    </div>
+  </div>
+  <div class="split" style="margin-top:20px">
+    <div class="card toon-card" id="calSel"></div>
+    <div class="card toon-card">
+      <h3 data-i="c_next"></h3>
+      <div id="calNextList" style="margin-top:10px"></div>
     </div>
   </div>
 </section>
@@ -320,24 +442,24 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
 <!-- ============ CERTIFICATE LOOKUP ============ -->
 <section id="view-certificate" hidden>
   <div class="hero">
-    <div class="eyebrow">Certificate</div>
-    <h1 lang="mr">माझे प्रमाणपत्र शोधा</h1>
-    <p class="lead small">Enter the certificate number and the mobile number you used. The certificate opens only after the foundation has verified your payment.</p>
+    <div class="eyebrow" data-i="l_eyebrow"></div>
+    <h1 data-i="l_title"></h1>
+    <p class="lead small" data-i="l_lead"></p>
   </div>
   <div class="split">
     <div class="card">
       <form id="lookupForm" novalidate>
-        <div class="field"><label for="lkNo">Certificate number</label><input id="lkNo" type="text" placeholder="GVF-20261025-AB12" autocomplete="off"></div>
-        <div class="field"><label for="lkMobile">Mobile number</label><input id="lkMobile" type="tel" inputmode="numeric" maxlength="12"></div>
+        <div class="field"><label for="lkNo" data-i="l_no"></label><input id="lkNo" type="text" placeholder="GVF-20261025-AB12" autocomplete="off"></div>
+        <div class="field"><label for="lkMobile" data-i="l_mob"></label><input id="lkMobile" type="tel" inputmode="numeric" maxlength="12"></div>
         <span class="err" id="err-lookup"></span>
         <p class="notice" id="lkInfo" hidden></p>
-        <div class="row"><button class="btn" type="submit">Find certificate</button></div>
+        <div class="row"><button class="btn" type="submit" data-i="l_find"></button></div>
       </form>
     </div>
     <div class="card" id="lkResult" hidden>
       <img id="lkImg" class="certImg" alt="Certificate">
-      <div class="row" style="margin-top:12px"><button type="button" class="btn" id="lkDl">Download</button></div>
-      <p class="small" style="margin-top:8px">Press and hold (phone) or right-click (computer) the image to save it.</p>
+      <div class="row" style="margin-top:12px"><button type="button" class="btn" id="lkDl" data-i="l_dl"></button></div>
+      <p class="small" style="margin-top:8px" data-i="l_hold"></p>
     </div>
   </div>
 </section>
@@ -349,14 +471,14 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
     <form id="pinForm" novalidate style="margin-top:12px">
       <div class="field"><label for="pin">PIN</label><input id="pin" type="password" inputmode="numeric" autocomplete="off"><span class="err" id="err-pin"></span></div>
       <button class="btn" type="submit">Open admin</button>
-      <!-- <p class="small">First time? The default PIN is 1234. Change it in Settings. This PIN only hides the screen on this device; it is not strong security.</p> -->
+      <p class="small">First time? The default PIN is 1234. Change it in Settings. This PIN only hides the screen on this device; it is not strong security.</p>
     </form>
   </div>
 
   <div id="adminApp" hidden>
     <div class="hero" style="padding-bottom:0">
       <div class="row" style="justify-content:space-between">
-        <div><div class="eyebrow">Admin</div><h1 style="font-size:2rem">Foundation desk</h1></div>
+        <div><div class="eyebrow">Admin</div><h1 style="font-size:2rem">Group desk</h1></div>
         <button class="btn ghost" id="lockBtn" type="button">Lock</button>
       </div>
     </div>
@@ -370,6 +492,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
     <div class="tabs" role="tablist">
       <button role="tab" data-tab="donations" aria-selected="true">Donations</button>
       <button role="tab" data-tab="spending" aria-selected="false">Spending</button>
+      <button role="tab" data-tab="visitors" aria-selected="false">Visitors</button>
       <button role="tab" data-tab="settings" aria-selected="false">Settings</button>
       <button role="tab" data-tab="roadmap" aria-selected="false">Registration roadmap</button>
       <button role="tab" data-tab="data" aria-selected="false">Data &amp; backup</button>
@@ -418,25 +541,30 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
       </div>
     </div>
 
+    <div id="tab-visitors" hidden>
+      <div class="notice" style="margin-bottom:16px">Visits are counted anonymously. Each visitor gets a random code (like V-7F3A) stored in their browser. The site cannot tell who a visitor is, and it stores no IP address, name or phone number. The same code appearing again means the same browser came back.</div>
+      <div id="visBody"></div>
+    </div>
+
     <div id="tab-settings" hidden>
       <div class="notice apionly" style="margin-bottom:16px" hidden>These settings change only what you see on this device. Visitors see the price, UPI ID and names written in the website file. The admin PIN is set inside your Google Apps Script (ADMIN_PIN).</div>
       <form id="setForm" novalidate>
         <div class="two">
-          <div class="field"><label for="s-nameMr">Foundation name (Marathi)</label><input id="s-nameMr" type="text" lang="mr"></div>
-          <div class="field"><label for="s-nameEn">Foundation name (English)</label><input id="s-nameEn" type="text"></div>
+          <div class="field"><label for="s-nameMr">Group name (Marathi)</label><input id="s-nameMr" type="text" lang="mr"></div>
+          <div class="field"><label for="s-nameEn">Group name (English)</label><input id="s-nameEn" type="text"></div>
           <div class="field"><label for="s-price">Price of one plant (₹)</label><input id="s-price" type="number" min="1" max="100000"><span class="err" id="err-s-price"></span></div>
           <div class="field"><label for="s-place">Planting place</label><input id="s-place" type="text"></div>
-          <div class="field"><label for="s-upi">Foundation UPI ID</label><input id="s-upi" type="text" placeholder="name@bank"><span class="help">The QR on the donate page is generated from this, with the amount filled in.</span><span class="err" id="err-s-upi"></span></div>
+          <div class="field"><label for="s-upi">Group UPI ID</label><input id="s-upi" type="text" placeholder="name@bank"><span class="help">The QR on the donate page is generated from this, with the amount filled in.</span><span class="err" id="err-s-upi"></span></div>
           <div class="field"><label for="s-payee">Name on the UPI account</label><input id="s-payee" type="text"></div>
           <div class="field"><span class="lbl">Or use your own QR image</span>
             <input id="s-qr" type="file" accept="image/*">
             <span class="help">A bank or PhonePe QR works too, but it will not fill the amount. Donors type it themselves.</span>
             <img id="qrPrev" alt="QR preview" style="max-width:140px;border:1px solid var(--line);border-radius:6px" hidden>
             <div><button type="button" class="btn ghost sm" id="qrRemove">Remove my QR image</button></div></div>
-          <div class="field"><label for="s-regNo">Registration number (printed on certificate)</label><input id="s-regNo" type="text" placeholder="Reg. No. E-xxxx (District)"></div>
+          <div class="field"><label for="s-regNo">Line printed at the bottom of the certificate</label><input id="s-regNo" type="text" placeholder="After you register: Reg. No. E-xxxx (District)"></div>
           <div class="field"><label for="s-president">President name</label><input id="s-president" type="text"></div>
           <div class="field"><label for="s-secretary">Secretary name</label><input id="s-secretary" type="text"></div>
-          <div class="field"><label for="s-phone">Foundation WhatsApp number (10 digits)</label><input id="s-phone" type="tel" inputmode="numeric" maxlength="10"><span class="help">Donors on their own phones can send their details to this number.</span><span class="err" id="err-s-phone"></span></div>
+          <div class="field"><label for="s-phone">Group WhatsApp number (10 digits)</label><input id="s-phone" type="tel" inputmode="numeric" maxlength="10"><span class="help">Donors on their own phones can send their details to this number.</span><span class="err" id="err-s-phone"></span></div>
           <div class="field"><label for="s-pin">Admin PIN</label><input id="s-pin" type="text" maxlength="10"><span class="err" id="err-s-pin"></span></div>
         </div>
         <div class="row"><button class="btn" type="submit">Save settings</button></div>
@@ -444,7 +572,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
     </div>
 
     <div id="tab-roadmap" hidden>
-      <p class="small" style="max-width:70ch">A step-by-step path from idea to a registered foundation that can receive donations. Tick items as you finish them. This is general guidance, not legal advice. Confirm fees, forms and timelines with a CA or lawyer before filing, because they change.</p>
+      <p class="small" style="max-width:70ch">Optional, for later: a path from an informal group to a registered organisation that can receive donations and offer tax benefits. You do not need any of this to start small. Tick items as you finish them. This is general guidance, not legal advice. Confirm fees, forms and timelines with a CA or lawyer before filing, because they change.</p>
       <div style="margin-block:14px 22px">
         <div class="small" id="rmCount"></div>
         <div class="bar2"><i id="rmBar"></i></div>
@@ -504,7 +632,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
 </section>
 
 <footer class="small">
-  <span id="footReg"></span> · <span lang="mr">झाडे लावा, झाडे जगवा.</span> Plant trees, keep them alive.
+  <span id="footReg"></span> · <span data-i="foot_tag"></span> <span id="footVisits"></span>
 </footer>
 </main>
 
@@ -528,9 +656,9 @@ var fmtINR=function(n){return '₹'+Number(n||0).toLocaleString('en-IN')};
 var fmtDate=function(s){if(!s)return '';var d=new Date(String(s).length===10?s+'T00:00:00':s);return isNaN(d)?'':d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})};
 
 /* ===== SETUP: paste your Google Apps Script Web app URL between the quotes below. Leave it as is to keep data in this browser only. ===== */
-var SB_URL=' https://wtnznccjacxbsvvwlnmo.supabase.co';   /* Supabase: Project URL, like https://abcdxyz.supabase.co */
+var SB_URL='PASTE_SUPABASE_PROJECT_URL_HERE';   /* Supabase: Project URL, like https://abcdxyz.supabase.co */
 var SB_KEY='PASTE_SUPABASE_PUBLIC_KEY_HERE';    /* Supabase: anon / publishable key (safe to publish) */
-var API_URL='sb_publishable_8q9AubTkLa80IkugDfKVNQ_OISoPuwO';           /* Optional: Google Apps Script URL, only if you use Google Sheets instead */
+var API_URL='PASTE_WEB_APP_URL_HERE';           /* Optional: Google Apps Script URL, only if you use Google Sheets instead */
 var USE_SB=/^https:\/\/[^\/]+\.supabase\.co/.test(SB_URL)&&SB_KEY.length>20;
 var USE_API=USE_SB||/^https:\/\//.test(API_URL);
 var adminPin='';
@@ -548,8 +676,8 @@ function api(action,payload){
   return fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({action:action},payload||{}))}).then(function(r){return r.json()});
 }
 function apiAdmin(action,payload){return api(action,Object.assign({pin:adminPin},payload||{}))}
-var DEF={nameMr:'गुगळगाव वृक्ष फाउंडेशन',nameEn:'Gugalgaon Vruksh Foundation',price:150,upiId:'8411939227@upi',payee:'Gugalgaon Vruksh Foundation',
-  qrImage:'',regNo:'Registration no. pending',place:'Gugalgaon',president:'',secretary:'',phone:'',pin:'9039'};
+var DEF={nameMr:'गुगळगाव वृक्ष मित्र मंडळ',nameEn:'Gugalgaon Vruksh Mitra Group',price:150,upiId:'8411939227@upi',payee:'Gugalgaon Vruksh Mitra',
+  qrImage:'',regNo:'Informal friends group, not a registered organisation. Thank-you certificate, not a tax receipt.',place:'Gugalgaon',president:'',secretary:'',phone:'',pin:'1234'};
 var KEY={s:'gvf_settings',d:'gvf_donations',r:'gvf_roadmap',e:'gvf_expenses'};
 var S=Object.assign({},DEF,load(KEY.s,{}));
 var D=load(KEY.d,[]); if(!Array.isArray(D))D=[];
@@ -564,14 +692,123 @@ function copyText(txt,okMsg,srcEl){
   try{navigator.clipboard.writeText(txt).then(function(){toast(okMsg)},fallback)}catch(e){fallback()}
 }
 
+/* ---------- language (Marathi / English) ---------- */
+var LANG='mr';
+try{var _l=localStorage.getItem('gvf_lang');if(_l==='en'||_l==='mr')LANG=_l}catch(e){}
+var I18N={
+nav_donate:{mr:'दान',en:'Donate'},nav_cal:{mr:'कॅलेंडर',en:'Calendar'},nav_cert:{mr:'माझे प्रमाणपत्र',en:'My certificate'},
+h_eyebrow:{mr:'वाढदिवस • वृक्षदान',en:'Birthday • Plant donation'},
+h_title:{mr:'वाढदिवसाला एक झाड लावा',en:'Plant a tree on your birthday'},
+h_sub:{mr:'दरवर्षीच्या वाढदिवसासोबत वाढणारे झाड.',en:'A tree that grows with every birthday.'},
+h_lead1:{mr:'एका झाडासाठी {price}. किमान दान {min} आहे, त्यापेक्षा जास्तही देऊ शकता. तुमच्या नावाने झाड {place} येथे लावले जाते आणि तुम्हाला प्रमाणपत्र मिळते.',en:'One plant costs {price}. The minimum donation is {min} and you can give more. The tree is planted in your name in {place} and you receive a certificate.'},
+h_lead2:{mr:'झाडे पावसाळ्यात (जून ते जुलै) लावली जातात, कारण तेव्हा ती सर्वात चांगली जगतात.',en:'Trees go into the ground in the monsoon (June to July), when they survive best.'},
+h_inf:{mr:'हा मित्रांचा अनौपचारिक गट आहे, नोंदणीकृत संस्था नाही. तुमचे दान स्वेच्छेने आहे. प्रमाणपत्र धन्यवादासाठी आहे, कर पावती नाही, आणि कोणताही कर लाभ दिला जात नाही.',en:'This is an informal group of friends, not a registered organisation. Your contribution is voluntary. The certificate is a thank-you, not a tax receipt, and no tax benefit is offered.'},
+st_plants:{mr:'झाडे',en:'Plants'},st_donors:{mr:'दाते',en:'Donors'},st_raised:{mr:'जमा रक्कम',en:'Raised'},
+h_first:{mr:'पहिले झाड तुमचे असू शकते.',en:'Be the first donor.'},
+r_title:{mr:'धन्यवाद! तुमची नोंद मिळाली',en:'Thank you! Your donation is recorded'},
+r_note:{mr:'पेमेंट तपासल्यानंतरच प्रमाणपत्र दिले जाईल आणि ते WhatsApp वर पाठवले जाईल.',en:'The certificate is issued only after the group verifies your payment, and it is sent to you on WhatsApp.'},
+r_wa:{mr:'WhatsApp वर गटाला तपशील पाठवा',en:'Send details to the group on WhatsApp'},
+r_again:{mr:'पुन्हा दान करा',en:'Donate again'},
+r_wahelp:{mr:'हिरवे बटण दाबा, म्हणजे आम्ही तुमचे पेमेंट जुळवून प्रमाणपत्र पाठवू.',en:'Tap the green button so the team can match your payment and send your certificate.'},
+r_msg:{mr:'तुमचा संदर्भ क्रमांक <b>{no}</b> आहे. तो जपून ठेवा. {plants}, {amt}, UTR {utr}.',en:'Your reference number is <b>{no}</b>. Please keep it. {plants}, {amt}, UTR {utr}.'},
+f_title:{mr:'वृक्षदान फॉर्म',en:'Donation form'},
+f_monsoon:{mr:'ही झाडे येत्या पावसाळ्यात (जून ते जुलै) दात्याच्या नावाने लावली जातील.',en:'These trees will be planted in the coming monsoon (June to July), in the donor’s name.'},
+f_name:{mr:'तुमचे नाव *',en:'Your name *'},f_mobile:{mr:'मोबाईल नंबर *',en:'Mobile number *'},f_mobile_ph:{mr:'१० अंकी',en:'10 digits'},
+f_email:{mr:'ईमेल (ऐच्छिक)',en:'Email (optional)'},f_place:{mr:'गाव / शहर',en:'Village or city'},
+f_bname:{mr:'वाढदिवस कोणाचा?',en:'Whose birthday?'},f_bname_ph:{mr:'तुमचाच असल्यास रिकामे ठेवा',en:'Leave empty if it is yours'},
+f_bdate:{mr:'वाढदिवसाची तारीख *',en:'Birthday date *'},f_amt:{mr:'दान रक्कम (₹), किमान {min} *',en:'Amount (₹), minimum {min} *'},
+f_species:{mr:'झाडाचा प्रकार',en:'Tree type'},
+sp_decides:{mr:'गट ठरवेल',en:'Group decides'},sp_neem:{mr:'कडुलिंब',en:'Neem'},sp_banyan:{mr:'वड',en:'Banyan'},sp_peepal:{mr:'पिंपळ',en:'Peepal'},
+sp_mango:{mr:'आंबा',en:'Mango'},sp_jamun:{mr:'जांभूळ',en:'Jamun'},sp_karanj:{mr:'करंज',en:'Karanj'},sp_tamarind:{mr:'चिंच',en:'Tamarind'},sp_bael:{mr:'बेल',en:'Bael'},sp_amla:{mr:'आवळा',en:'Amla'},
+f_wish:{mr:'शुभेच्छा संदेश (ऐच्छिक, प्रमाणपत्रावर छापला जाईल)',en:'Birthday wish (optional, printed on the certificate)'},
+f_wish_ph:{mr:'वाढदिवसाच्या शुभेच्छा! या झाडासारखे तुम्ही बहरा.',en:'Happy birthday! May you grow like this tree.'},
+f_utr:{mr:'UPI व्यवहार क्रमांक (UTR) *',en:'UPI reference (UTR) *'},
+f_utr_ph:{mr:'आधी पेमेंट करा, मग UPI अ‍ॅपमधील क्रमांक टाका',en:'Pay first, then enter the number from your UPI app'},
+f_utr_help:{mr:'पेमेंट केल्यानंतर UPI अ‍ॅपमध्ये व्यवहार उघडा आणि १२ अंकी UTR / रेफरन्स क्रमांक कॉपी करा.',en:'After paying, open the payment in your UPI app and copy the 12-digit UTR or reference number.'},
+f_consent:{mr:'माझी माहिती फक्त वृक्षदान नोंद व प्रमाणपत्रासाठी वापरावी. मला माहीत आहे की हा नोंदणीकृत संस्थेचा नाही तर मित्रांच्या गटाचा उपक्रम आहे आणि कर पावती मिळणार नाही. *',en:'Use my details only for the donation record and certificate. I understand this is an informal friends group, not a registered organisation, and there is no tax receipt. *'},
+f_show:{mr:'माझे नाव सार्वजनिक दाते यादीत आणि कॅलेंडरमध्ये दाखवा. निवडले नाही तर “अनामिक” दिसेल (तारीख दिसेल).',en:'Show my name in the public donor list and calendar. If unticked it shows “Anonymous” (the date still appears).'},
+f_submit:{mr:'दान नोंदवा',en:'Submit donation'},
+e_name:{mr:'तुमचे पूर्ण नाव लिहा.',en:'Enter your full name.'},e_mobile:{mr:'१० अंकी मोबाईल नंबर लिहा.',en:'Enter a 10-digit mobile number.'},
+e_email:{mr:'ईमेल अपूर्ण दिसत आहे.',en:'This email looks incomplete.'},e_bdate:{mr:'वाढदिवसाची तारीख निवडा.',en:'Pick the birthday date.'},
+e_amt:{mr:'किमान {min} रक्कम लिहा.',en:'Enter an amount of at least {min}.'},
+e_utr:{mr:'UPI अ‍ॅपमधील UTR लिहा: ८ ते २२ अक्षरे किंवा अंक.',en:'Enter the UTR from your UPI app: 8 to 22 letters or digits.'},
+e_utr_dup:{mr:'हा क्रमांक आधीच वापरला आहे. क्रमांक तपासा.',en:'This UTR is already used. Check the number.'},
+e_consent:{mr:'पुढे जाण्यासाठी टिक करा.',en:'Tick to continue.'},
+e_save:{mr:'दान नोंदवता आले नाही. पुन्हा प्रयत्न करा.',en:'Could not save your donation. Please try again.'},
+e_net:{mr:'इंटरनेट नाही. कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.',en:'No connection. Check your internet and try again.'},
+p_title:{mr:'पेमेंट',en:'Payment'},
+p_help:{mr:'फोनवर हे GPay, PhonePe, Paytm किंवा बँक अ‍ॅप रक्कम भरून उघडते. संगणकावर QR स्कॅन करा.',en:'On a phone this opens GPay, PhonePe, Paytm or your bank app with the amount filled in. On a computer, scan the QR.'},
+p_upiid:{mr:'UPI आयडी',en:'UPI ID'},p_copy:{mr:'कॉपी',en:'Copy'},p_copied:{mr:'UPI आयडी कॉपी झाला',en:'UPI ID copied'},
+p_demo:{mr:'हा डेमो UPI आयडी आहे. खऱ्या पेमेंटआधी Admin → Settings मध्ये खरा UPI आयडी टाका.',en:'This is a demo UPI ID. Set the real UPI ID in Admin → Settings before real payments.'},
+p_s1:{mr:'कोणत्याही UPI अ‍ॅपने QR स्कॅन करा.',en:'Scan with any UPI app.'},p_s2:{mr:'वर दाखवलेली रक्कम भरा.',en:'Pay the amount shown.'},
+p_s3:{mr:'UTR क्रमांक फॉर्ममध्ये टाका.',en:'Enter the UTR in the form.'},p_s4:{mr:'पेमेंट तपासल्यावर प्रमाणपत्र WhatsApp वर मिळेल.',en:'The certificate comes after the group verifies your payment.'},
+p_btn:{mr:'UPI अ‍ॅपने {amt} भरा',en:'Pay {amt} with UPI app'},
+p_note1:{mr:'{count}. एका झाडाची किंमत {price}.',en:'Counts as {count}. One plant = {price}.'},
+p_min:{mr:'किमान {min} आहे. ',en:'Minimum is {min}. '},
+p_plants_help:{mr:'तुमच्या दानातून: {count}. एका झाडाची किंमत {price}.',en:'Your donation counts as {count}. One plant = {price}.'},
+p_scan:{mr:'स्कॅन करा, मग UPI अ‍ॅपमध्ये {amt} टाका.',en:'Scan, then type {amt} in your UPI app.'},
+p_auto:{mr:'रक्कम {amt} आपोआप भरली जाते.',en:'Amount {amt} is filled in automatically.'},
+p_noqr:{mr:'QR दिसला नाही. खालील UPI आयडीवर पैसे पाठवा.',en:'QR could not load. Pay to the UPI ID below.'},
+n_plant:{mr:'{n} झाड',en:'{n} plant'},n_plants:{mr:'{n} झाडे',en:'{n} plants'},
+b_eyebrow:{mr:'पारदर्शकता',en:'Open books'},b_title:{mr:'दाते आणि खर्च',en:'Donors and spending'},
+b_recv:{mr:'मिळालेली रक्कम',en:'Received'},b_spent:{mr:'खर्च',en:'Spent'},b_bal:{mr:'शिल्लक',en:'Balance'},
+b_donors:{mr:'दात्यांची यादी',en:'Donors'},b_spending:{mr:'खर्चाचा तपशील',en:'Spending'},
+th_date:{mr:'तारीख',en:'Date'},th_donor:{mr:'दाता',en:'Donor'},th_plants:{mr:'झाडे',en:'Plants'},th_amount:{mr:'रक्कम',en:'Amount'},th_total:{mr:'एकूण',en:'Total'},
+th_cat:{mr:'प्रकार',en:'Category'},th_desc:{mr:'तपशील',en:'Description'},th_stotal:{mr:'एकूण खर्च',en:'Total spent'},
+b_dempty:{mr:'अजून एकही दान तपासलेले नाही. पेमेंट तपासल्यानंतर प्रत्येक दाता इथे दिसेल.',en:'No verified donations yet. Every donor appears here after the group checks the payment.'},
+b_sempty:{mr:'अजून खर्च नोंदवलेला नाही.',en:'No spending recorded yet.'},
+b_loading:{mr:'यादी लोड होत आहे…',en:'Loading the list…'},
+b_prev:{mr:'या उपकरणावरील पूर्वावलोकन. सर्वांना हे दाखवण्यासाठी डेटाबेस जोडा.',en:'Preview from this device. Connect the database to show these tables to everyone.'},
+b_fill:{mr:'गटाने पहिली नोंद प्रसिद्ध केल्यावर ही यादी भरेल.',en:'The tables fill in after the group publishes its first update.'},
+b_upd:{mr:'शेवटचा बदल {date}. फक्त तपासलेली दाने दाखवली आहेत.',en:'Last updated {date}. Only verified donations are listed.'},
+anon:{mr:'अनामिक',en:'Anonymous'},
+c_eyebrow:{mr:'कॅलेंडर',en:'Calendar'},c_title:{mr:'वाढदिवस आणि वृक्षारोपण कॅलेंडर',en:'Birthday and planting calendar'},
+c_lead:{mr:'जून ते जुलै हा झाडे लावण्याचा काळ आहे. प्रत्येक केक म्हणजे कोणीतरी वाढदिवसाला झाड दिले. कोणत्याही दिवसावर दाबा.',en:'June to July is planting season. Every cake means someone gave a tree on a birthday. Tap any day.'},
+c_today:{mr:'आज',en:'Today'},c_leg_b:{mr:'वाढदिवस',en:'Birthday'},c_leg_s:{mr:'लावणीचा काळ',en:'Planting season'},c_leg_t:{mr:'आजचा दिवस',en:'Today'},
+c_next:{mr:'येणारे वाढदिवस',en:'Coming up'},c_none_next:{mr:'येत्या दिवसांत अजून कोणीही नाही. तुमचा वाढदिवस इथे आणा!',en:'Nobody yet in the coming days. Bring your birthday here!'},
+c_sub_season:{mr:'झाडे लावण्याचा काळ',en:'Tree planting season'},c_sub_norm:{mr:'येत्या पावसाळ्याची तयारी',en:'Getting ready for the monsoon'},
+c_month_stat:{mr:'या महिन्यात {b} वाढदिवस, {p} झाडे',en:'This month: {b} birthday(s), {p} tree(s)'},
+c_sel_none:{mr:'या दिवशी अजून कोणाचा वाढदिवस नोंदलेला नाही.',en:'No birthday is recorded for this day yet.'},
+c_sel_btn:{mr:'या दिवसासाठी झाड लावा',en:'Plant a tree for this day'},
+c_sel_past:{mr:'हा दिवस होऊन गेला आहे.',en:'This day has already passed.'},
+c_ev:{mr:'{name}: {plants}',en:'{name}: {plants}'},
+l_eyebrow:{mr:'प्रमाणपत्र',en:'Certificate'},l_title:{mr:'माझे प्रमाणपत्र शोधा',en:'Find my certificate'},
+l_lead:{mr:'प्रमाणपत्र क्रमांक आणि तुम्ही दिलेला मोबाईल नंबर टाका. गटाने पेमेंट तपासल्यानंतरच प्रमाणपत्र उघडते.',en:'Enter the certificate number and the mobile number you used. The certificate opens only after the group has verified your payment.'},
+l_no:{mr:'प्रमाणपत्र क्रमांक',en:'Certificate number'},l_mob:{mr:'मोबाईल नंबर',en:'Mobile number'},l_find:{mr:'प्रमाणपत्र शोधा',en:'Find certificate'},
+l_dl:{mr:'डाउनलोड',en:'Download'},l_hold:{mr:'फोनवर प्रतिमा दाबून धरा किंवा संगणकावर राईट-क्लिक करून सेव्ह करा.',en:'Press and hold (phone) or right-click (computer) the image to save it.'},
+l_nomatch:{mr:'काहीही सापडले नाही. प्रमाणपत्र क्रमांक आणि मोबाईल नंबर तपासा.',en:'No match found. Check the certificate number and mobile number.'},
+l_pending:{mr:'तुमचे पेमेंट अजून तपासलेले नाही. गटाने तपासल्यानंतरच प्रमाणपत्र मिळते. थोड्या वेळाने पुन्हा पहा.',en:'Your payment is not verified yet. The certificate is issued only after the group checks it. Please check again later.'},
+l_net:{mr:'इंटरनेट नाही. पुन्हा प्रयत्न करा.',en:'No connection. Please try again.'},
+v_count:{mr:'भेटी: {n}',en:'Visits: {n}'},
+foot_tag:{mr:'झाडे लावा, झाडे जगवा.',en:'Plant trees, keep them alive.'}
+};
+function tv(key,vars){
+  var e=I18N[key],s=e?(e[LANG]||e.en):key;
+  var base={price:fmtINR(S.price),min:fmtINR(MIN_AMT),place:(LANG==='mr'&&S.place==='Gugalgaon')?'गुगळगाव':S.place};
+  return String(s).replace(/\{(\w+)\}/g,function(_,k){return (vars&&k in vars)?vars[k]:(k in base?base[k]:'')});
+}
+function nPlants(n){return tv(n>1?'n_plants':'n_plant',{n:Number(n).toLocaleString('en-IN')})}
+function applyLang(){
+  document.documentElement.lang=LANG;document.documentElement.setAttribute('data-lang',LANG);
+  document.querySelectorAll('[data-i]').forEach(function(el){el.innerHTML=tv(el.getAttribute('data-i'))});
+  document.querySelectorAll('[data-ip]').forEach(function(el){el.setAttribute('placeholder',tv(el.getAttribute('data-ip')))});
+  $('langBtn').textContent=LANG==='mr'?'English':'मराठी';
+}
+function setLang(l){
+  LANG=l;try{localStorage.setItem('gvf_lang',l)}catch(e){}
+  applyLang();renderPublic();if(!$('view-calendar').hidden)renderCalendar();
+}
+
 /* ---------- routing ---------- */
-var VIEWS=['donate','certificate','admin'];
+var VIEWS=['donate','calendar','certificate','admin'];
 function render(v){
   if(VIEWS.indexOf(v)<0)v='donate';
   VIEWS.forEach(function(x){$('view-'+x).hidden=(x!==v)});
   document.querySelectorAll('nav a').forEach(function(a){a.setAttribute('aria-current',a.getAttribute('data-view')===v?'page':'false')});
   if(v==='donate'){renderPublic();if(USE_API)fetchPublic();}
+  if(v==='calendar'){calSel=calSel||null;renderCalendar();if(USE_API)fetchPublic();}
   if(v==='admin')renderAdmin();
+  track(v);
 }
 function go(v){try{location.hash=v}catch(e){}render(v)}
 document.addEventListener('click',function(e){
@@ -583,6 +820,7 @@ window.addEventListener('hashchange',function(){render((location.hash||'').slice
 function applyBranding(){
   $('brandMr').textContent=S.nameMr;$('brandEn').textContent=S.nameEn;
   $('footReg').textContent=S.nameEn+' · '+S.regNo;
+  $('footVisits').textContent=(PUB&&PUB.visits&&PUB.visits.total!=null)?'· '+tv('v_count',{n:Number(PUB.visits.total).toLocaleString('en-IN')}):'';
 }
 function realDonations(){
   if(PUB)return (PUB.donors||[]).map(function(x){return {plants:Number(x.p)||0,amount:Number(x.a)||0}});
@@ -596,10 +834,10 @@ function renderPublic(){
   $('stDonors').textContent=real.length.toLocaleString('en-IN');
   $('stRaised').textContent=fmtINR(real.reduce(function(a,d){return a+d.amount},0));
   $('firstLine').hidden=real.length>0;
-  $('heroPrice').textContent=fmtINR(S.price);$('heroPrice2').textContent=fmtINR(S.price);$('heroPlace').textContent=S.place;
   $('upiIdText').textContent=S.upiId;renderBooks();
   $('demoNote').hidden=S.upiId!=='demo@upi';
   updateAmount();
+  if(!$('view-calendar').hidden)renderCalendar();
 }
 var MIN_AMT=150,MAX_AMT=1000000;
 function amountVal(){var n=parseInt($('donAmt').value,10);return isNaN(n)?0:n}
@@ -609,25 +847,25 @@ function updateAmount(){
   var amt=amountVal(),n=plantsFor(amt);
   if(amt<MIN_AMT)amt=MIN_AMT;
   $('upiPay').href='upi://pay?pa='+encodeURIComponent(S.upiId)+'&pn='+encodeURIComponent(S.payee)+'&am='+amt+'.00&cu=INR&tn='+encodeURIComponent('Vruksh donation '+n+' plant');
-  $('upiPay').textContent='Pay '+fmtINR(amt)+' with UPI app';
+  $('upiPay').textContent=tv('p_btn',{amt:fmtINR(amt)});
   $('amount').textContent=fmtINR(amt);
-  $('amountNote').textContent=(amountVal()<MIN_AMT?'Minimum is '+fmtINR(MIN_AMT)+'. ':'')+'Counts as '+n+(n>1?' plants':' plant')+' (one plant = '+fmtINR(S.price)+')';
-  $('plantsHelp').textContent='This gives '+n+(n>1?' plants':' plant')+'. One plant = '+fmtINR(S.price)+'.';
+  $('amountNote').textContent=(amountVal()<MIN_AMT?tv('p_min'):'')+tv('p_note1',{count:nPlants(n)});
+  $('plantsHelp').textContent=tv('p_plants_help',{count:nPlants(n)});
   var box=$('qrBox');
   if(S.qrImage){
-    box.innerHTML='<img alt="Foundation payment QR" src="'+S.qrImage+'">';
-    $('qrNote').textContent='Scan, then type '+fmtINR(amt)+' in your UPI app.';return;
+    box.innerHTML='<img alt="Group payment QR" src="'+S.qrImage+'">';
+    $('qrNote').textContent=tv('p_scan',{amt:fmtINR(amt)});return;
   }
-  if(typeof QRCode==='undefined'){box.textContent='QR could not load. Pay to the UPI ID below.';$('qrNote').textContent='';return}
+  if(typeof QRCode==='undefined'){box.textContent=tv('p_noqr');$('qrNote').textContent='';return}
   box.innerHTML='';
   var link='upi://pay?pa='+encodeURIComponent(S.upiId)+'&pn='+encodeURIComponent(S.payee)+'&am='+amt+'.00&cu=INR&tn='+encodeURIComponent('Vruksh donation '+n+' plant');
   try{new QRCode(box,{text:link,width:200,height:200,colorDark:'#000000',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M})}catch(e){box.textContent='QR could not be drawn.'}
-  $('qrNote').textContent='Amount '+fmtINR(amt)+' is filled in automatically.';
+  $('qrNote').textContent=tv('p_auto',{amt:fmtINR(amt)});
 }
 $('presets').innerHTML=[150,300,450,750,1500].map(function(a){return '<button type="button" class="btn ghost sm" data-amt="'+a+'">'+fmtINR(a)+'</button>'}).join('');
 $('presets').addEventListener('click',function(e){var b=e.target.closest('button[data-amt]');if(b){$('donAmt').value=b.getAttribute('data-amt');updateAmount()}});
 $('donAmt').addEventListener('input',updateAmount);
-$('copyUpi').addEventListener('click',function(){copyText(S.upiId,'UPI ID copied')});
+$('copyUpi').addEventListener('click',function(){copyText(S.upiId,tv('p_copied'))});
 
 var FIELDS=['donorName','mobile','email','bdayDate','donAmt','utr','consent'];
 function validate(){
@@ -635,14 +873,14 @@ function validate(){
     place:$('place').value.trim(),bdayName:$('bdayName').value.trim(),bdayDate:$('bdayDate').value,donAmt:amountVal(),amount:amountVal(),plants:plantsFor(amountVal()),
     species:$('species').value,wish:$('wish').value.trim(),utr:$('utr').value.replace(/\s+/g,'').toUpperCase(),consent:$('consent').checked,showName:$('showName').checked};
   var e={};
-  if(v.donorName.length<2)e.donorName='Enter your full name. / नाव लिहा.';
-  if(!/^[6-9]\d{9}$/.test(v.mobile))e.mobile='Enter a 10-digit mobile number. / १० अंकी मोबाईल नंबर लिहा.';
-  if(v.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email))e.email='This email looks incomplete.';
-  if(!v.bdayDate)e.bdayDate='Pick the birthday date. / तारीख निवडा.';
-  if(!(v.amount>=MIN_AMT&&v.amount<=MAX_AMT))e.donAmt='Enter an amount of at least '+fmtINR(MIN_AMT)+'. / किमान ₹१५० रक्कम लिहा.';
-  if(!/^[A-Z0-9]{8,22}$/.test(v.utr))e.utr='Enter the UTR from your UPI app: 8 to 22 letters or digits. / UTR क्रमांक लिहा.';
-  else if(D.some(function(d){return !d.sample&&d.utr===v.utr}))e.utr='This UTR is already used. Check the number. / हा क्रमांक आधीच वापरला आहे.';
-  if(!v.consent)e.consent='Tick to continue. / पुढे जाण्यासाठी टिक करा.';
+  if(v.donorName.length<2)e.donorName=tv('e_name');
+  if(!/^[6-9]\d{9}$/.test(v.mobile))e.mobile=tv('e_mobile');
+  if(v.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email))e.email=tv('e_email');
+  if(!v.bdayDate)e.bdayDate=tv('e_bdate');
+  if(!(v.amount>=MIN_AMT&&v.amount<=MAX_AMT))e.donAmt=tv('e_amt');
+  if(!/^[A-Z0-9]{8,22}$/.test(v.utr))e.utr=tv('e_utr');
+  else if(D.some(function(d){return !d.sample&&d.utr===v.utr}))e.utr=tv('e_utr_dup');
+  if(!v.consent)e.consent=tv('e_consent');
   return {v:v,e:e};
 }
 function showErrors(e){
@@ -672,10 +910,10 @@ $('donForm').addEventListener('submit',function(ev){
     api('submit',{rec:rec}).then(function(res){
       btn.disabled=false;
       if(res&&res.ok){if(res.certNo)rec.certNo=res.certNo;done();return}
-      if(res&&res.error==='amount'){showErrors({donAmt:'Enter an amount of at least '+fmtINR(MIN_AMT)+'.'});return}
-      if(res&&res.error==='dup'){showErrors({utr:'This UTR is already used. Check the number. / हा क्रमांक आधीच वापरला आहे.'});return}
-      toast('Could not save your donation. Please try again.');
-    }).catch(function(){btn.disabled=false;toast('No connection. Check your internet and try again.')});
+      if(res&&res.error==='amount'){showErrors({donAmt:tv('e_amt')});return}
+      if(res&&res.error==='dup'){showErrors({utr:tv('e_utr_dup')});return}
+      toast(tv('e_save'));
+    }).catch(function(){btn.disabled=false;toast(tv('e_net'))});
     return;
   }
   D.push(rec);
@@ -684,7 +922,7 @@ $('donForm').addEventListener('submit',function(ev){
 });
 function showResult(rec){
   var box=$('result');box.hidden=false;
-  $('resultMsg').innerHTML='Your reference number is <b>'+esc(rec.certNo)+'</b>. Please keep it. '+rec.plants+(rec.plants>1?' plants':' plant')+', '+fmtINR(rec.amount)+', UTR '+esc(rec.utr)+'.';
+  $('resultMsg').innerHTML=tv('r_msg',{no:esc(rec.certNo),plants:nPlants(rec.plants),amt:fmtINR(rec.amount),utr:esc(rec.utr)});
   var fnd=$('waFound');
   if(!USE_API&&/^\d{10}$/.test(S.phone)){
     var txt='Vruksh donation\n'+rec.certNo+'\n'+rec.donorName+' ('+rec.mobile+')\n'+rec.plants+' plant(s), '+fmtINR(rec.amount)+'\nUTR '+rec.utr+'\nGVF-CODE:'+b64(rec);
@@ -708,15 +946,15 @@ function renderBooks(){
       sp=(src.spending||[]).slice().sort(function(a,b){return String(b.d).localeCompare(String(a.d))});
   var tot=function(a){return a.reduce(function(t,x){return t+(Number(x.a)||0)},0)},recv=tot(donors),spent=tot(sp);
   $('bRecv').textContent=fmtINR(recv);$('bSpent').textContent=fmtINR(spent);$('bBal').textContent=fmtINR(recv-spent);
-  $('bDonors').innerHTML=donors.map(function(x){return '<tr><td>'+fmtDate(x.d)+'</td><td>'+esc(x.n)+'</td><td class="num">'+(Number(x.p)||0)+'</td><td class="num">'+fmtINR(x.a)+'</td></tr>'}).join('');
+  $('bDonors').innerHTML=donors.map(function(x){return '<tr><td>'+fmtDate(x.d)+'</td><td>'+esc(x.n==='Anonymous'?tv('anon'):x.n)+'</td><td class="num">'+(Number(x.p)||0)+'</td><td class="num">'+fmtINR(x.a)+'</td></tr>'}).join('');
   $('bDEmpty').hidden=donors.length>0;
   $('bDPlants').textContent=donors.reduce(function(t,x){return t+(Number(x.p)||0)},0).toLocaleString('en-IN');$('bDAmt').textContent=fmtINR(recv);
   $('bSpend').innerHTML=sp.map(function(x){return '<tr><td>'+fmtDate(x.d)+'</td><td>'+esc(x.c)+'</td><td>'+esc(x.t)+'</td><td class="num">'+fmtINR(x.a)+'</td></tr>'}).join('');
   $('bSEmpty').hidden=sp.length>0;$('bSAmt').textContent=fmtINR(spent);
   $('booksNote').textContent=local
-    ?((donors.length||sp.length)?'Preview from this device. Publish public-data.json (Admin, Data and backup) to show these tables to everyone.':'The tables fill in after the foundation publishes its first update.')
-    :'Last updated '+fmtDate(src.updated)+'. Only verified donations are listed.';
-  if(local&&USE_API)$('booksNote').textContent='Loading the list…';
+    ?((donors.length||sp.length)?tv('b_prev'):tv('b_fill'))
+    :tv('b_upd',{date:fmtDate(src.updated)});
+  if(local&&USE_API)$('booksNote').textContent=tv('b_loading');
 }
 function fetchPublic(){
   if(USE_SB){api('public').then(function(j){if(j&&Array.isArray(j.donors)&&Array.isArray(j.spending)){PUB=j;renderPublic()}}).catch(function(){});return}
@@ -734,10 +972,10 @@ $('lookupForm').addEventListener('submit',async function(ev){
   var rec=null;
   if(USE_API){
     try{var res=await api('lookup',{certNo:no,mobile:mob});if(res&&res.found)rec=res.record||{status:res.status}}
-    catch(e){$('err-lookup').textContent='No connection. Please try again.';return}
+    catch(e){$('err-lookup').textContent=tv('l_net');return}
   }else rec=D.find(function(d){return d.certNo.toUpperCase()===no&&d.mobile===mob});
-  if(!rec){$('err-lookup').textContent='No match found. Check the certificate number and mobile number.';return}
-  if(rec.status!=='verified'){$('lkInfo').textContent='Your payment is not verified yet. The certificate is issued only after the foundation checks it. Please check again later.';$('lkInfo').hidden=false;return}
+  if(!rec){$('err-lookup').textContent=tv('l_nomatch');return}
+  if(rec.status!=='verified'){$('lkInfo').textContent=tv('l_pending');$('lkInfo').hidden=false;return}
   lkUrl=(await drawCert(rec)).toDataURL('image/png');lkRec=rec;$('lkImg').src=lkUrl;$('lkResult').hidden=false;
 });
 $('lkDl').addEventListener('click',function(){if(lkRec)download(lkUrl,lkRec)});
@@ -847,10 +1085,11 @@ document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener
 function setTab(t){
   tab=t;
   document.querySelectorAll('.tabs button').forEach(function(b){b.setAttribute('aria-selected',b.getAttribute('data-tab')===t?'true':'false')});
-  ['donations','spending','settings','roadmap','data'].forEach(function(x){$('tab-'+x).hidden=(x!==t)});
+  ['donations','spending','visitors','settings','roadmap','data'].forEach(function(x){$('tab-'+x).hidden=(x!==t)});
   renderTiles();
   if(t==='donations')renderDonations();
   if(t==='spending')renderSpending();
+  if(t==='visitors')renderVisitors();
   if(t==='settings')fillSettings();
   if(t==='roadmap')renderRoadmap();
 }
@@ -989,7 +1228,7 @@ $('setForm').addEventListener('submit',function(ev){
 var ROAD=[
 {h:'1. Decide and prepare',i:[
  ['legal','Choose the legal form','A Public Trust under the Maharashtra Public Trusts Act is the usual route for a village plantation foundation. A Society or a Section 8 company also works, with more paperwork and compliance.'],
- ['name','Confirm the name and objects','Check that “Gugalgaon Vruksh Foundation” is not already in use. Write 4 to 6 objects: tree planting, care and watering, environment awareness, school programmes.'],
+ ['name','Confirm the name and objects','Check that the name is not already in use by someone else. Write 4 to 6 objects: tree planting, care and watering, environment awareness, school programmes.'],
  ['trustees','Fix the trustees','At least 2, ideally 3 to 5 (President, Secretary, Treasurer). Collect PAN, Aadhaar, address proof and passport photos from each.'],
  ['office','Arrange an office address','Rent agreement or owner consent letter, plus a recent electricity bill.']]},
 {h:'2. Register the foundation',i:[
@@ -1050,7 +1289,7 @@ function exportXlsx(){
   var rd=D.filter(function(d){return !d.sample}),ver=rd.filter(function(d){return d.status==='verified'}),pen=rd.filter(function(d){return d.status!=='verified'});
   var sm=function(a,f){return a.reduce(function(t,x){return t+f(x)},0)};
   var spent=sm(E.filter(function(x){return !x.sample}),function(x){return x.amount}),recv=sm(ver,function(d){return d.amount});
-  var sum=XLSX.utils.aoa_to_sheet([['Foundation',S.nameEn],['Exported on',fmtDate(new Date().toISOString())],[],
+  var sum=XLSX.utils.aoa_to_sheet([['Group',S.nameEn],['Exported on',fmtDate(new Date().toISOString())],[],
     ['Verified plants',sm(ver,function(d){return d.plants})],['Received, verified (Rs)',recv],['Waiting for verification (Rs)',sm(pen,function(d){return d.amount})],
     ['Spent (Rs)',spent],['Balance (Rs)',recv-spent]]);
   sum['!cols']=[{wch:30},{wch:34}];
@@ -1125,9 +1364,99 @@ $('addSamples').addEventListener('click',function(){
 });
 $('rmSamples').addEventListener('click',function(){D=D.filter(function(d){return !d.sample});E=E.filter(function(x){return !x.sample});save(KEY.d,D);save(KEY.e,E);toast('Sample rows removed')});
 
+/* ---------- calendar ---------- */
+var MONTHS={mr:['जानेवारी','फेब्रुवारी','मार्च','एप्रिल','मे','जून','जुलै','ऑगस्ट','सप्टेंबर','ऑक्टोबर','नोव्हेंबर','डिसेंबर'],
+  en:['January','February','March','April','May','June','July','August','September','October','November','December']};
+var WDAYS={mr:['रवि','सोम','मंगळ','बुध','गुरु','शुक्र','शनि'],en:['Sun','Mon','Tue','Wed','Thu','Fri','Sat']};
+var calY,calM,calSel=null;
+function pad2(n){return String(n).padStart(2,'0')}
+function todayStr(){var d=new Date();return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())}
+function calEvents(){
+  var out=[];
+  if(PUB){(PUB.donors||[]).forEach(function(x){if(x.b)out.push({date:String(x.b).slice(0,10),name:x.n==='Anonymous'?tv('anon'):x.n,plants:Number(x.p)||1})})}
+  else if(!USE_API){D.forEach(function(d){if(!d.sample&&d.status==='verified'&&d.bdayDate)out.push({date:String(d.bdayDate).slice(0,10),name:d.showName?d.donorName:tv('anon'),plants:d.plants})})}
+  return out;
+}
+function fmtDay(ds){var p=String(ds).split('-');return (+p[2])+' '+MONTHS[LANG][(+p[1])-1]+' '+p[0]}
+function monthSvg(id){return '<svg viewBox="0 0 64 64" aria-hidden="true"><use href="#'+id+'"/></svg>'}
+function renderCalendar(){
+  if(calY==null){var n=new Date();calY=n.getFullYear();calM=n.getMonth();calSel=todayStr()}
+  var ev=calEvents(),by={};ev.forEach(function(e){(by[e.date]=by[e.date]||[]).push(e)});
+  var season=(calM===5||calM===6);
+  $('calBox').className='toon'+(season?' season':'');
+  $('calMascot').innerHTML='<use href="#'+(season?'toon-cloud':'toon-sapling')+'"/>';
+  $('calTitle').textContent=MONTHS[LANG][calM]+' '+calY;
+  var first=new Date(calY,calM,1).getDay(),days=new Date(calY,calM+1,0).getDate(),tstr=todayStr();
+  var mb=0,mp=0;
+  for(var k=1;k<=days;k++){var key=calY+'-'+pad2(calM+1)+'-'+pad2(k);(by[key]||[]).forEach(function(e){mb++;mp+=e.plants})}
+  $('calSub').textContent=(season?tv('c_sub_season'):tv('c_sub_norm'))+(mb?' · '+tv('c_month_stat',{b:mb,p:mp}):'');
+  $('calHead').innerHTML=WDAYS[LANG].map(function(w){return '<div class="dow">'+esc(w)+'</div>'}).join('');
+  var html='';
+  for(var i=0;i<first;i++)html+='<div class="dc blank"></div>';
+  for(var d=1;d<=days;d++){
+    var ds=calY+'-'+pad2(calM+1)+'-'+pad2(d),list=by[ds]||[],cls='dc'+(ds===tstr?' today':'')+(ds===calSel?' sel':'')+(list.length?' has':'')+(season?' rain':'');
+    html+='<button type="button" class="'+cls+'" data-d="'+ds+'" aria-label="'+d+' '+esc(MONTHS[LANG][calM])+(list.length?', '+list.length:'')+'"><span class="dn">'+d+'</span>'+
+      (list.length?monthSvg('toon-cake')+(list.length>1?'<span class="bd">'+list.length+'</span>':''):'')+'</button>';
+  }
+  $('calGrid').innerHTML=html;
+  renderCalSel(by);
+  var up=ev.filter(function(e){return e.date>=tstr}).sort(function(a,b){return a.date.localeCompare(b.date)}).slice(0,6);
+  $('calNextList').innerHTML=up.length?up.map(function(e){return '<div class="evrow">'+monthSvg('toon-cake')+'<div><b>'+esc(fmtDay(e.date))+'</b><br><span class="small">'+esc(e.name)+' · '+esc(nPlants(e.plants))+'</span></div></div>'}).join(''):'<p class="small">'+tv('c_none_next')+'</p>';
+}
+function renderCalSel(by){
+  if(!calSel){$('calSel').innerHTML='';return}
+  by=by||{};var list=by[calSel]||[],past=calSel<todayStr();
+  var h='<h3>'+esc(fmtDay(calSel))+'</h3>';
+  if(list.length)h+='<div style="margin-top:10px">'+list.map(function(e){return '<div class="evrow">'+monthSvg('toon-cake')+'<div><b>'+esc(e.name)+'</b><br><span class="small">'+esc(nPlants(e.plants))+'</span></div></div>'}).join('')+'</div>';
+  else h+='<p class="small" style="margin-top:8px">'+tv('c_sel_none')+'</p>';
+  if(!past)h+='<div class="row" style="margin-top:12px"><button type="button" class="btn" id="calPlant" data-d="'+calSel+'">'+tv('c_sel_btn')+'</button></div>';
+  else h+='<p class="small" style="margin-top:8px">'+tv('c_sel_past')+'</p>';
+  $('calSel').innerHTML=h;
+}
+$('calGrid').addEventListener('click',function(e){
+  var b=e.target.closest('button[data-d]');if(!b)return;calSel=b.getAttribute('data-d');renderCalendar();
+});
+$('calSel').addEventListener('click',function(e){
+  var b=e.target.closest('#calPlant');if(!b)return;
+  $('bdayDate').value=b.getAttribute('data-d');go('donate');setTimeout(function(){$('donForm').scrollIntoView({behavior:'smooth',block:'start'});$('donorName').focus()},60);
+});
+function calGo(dm){calM+=dm;if(calM<0){calM=11;calY--}if(calM>11){calM=0;calY++}renderCalendar()}
+$('calPrev').addEventListener('click',function(){calGo(-1)});$('calNext').addEventListener('click',function(){calGo(1)});
+$('calToday').addEventListener('click',function(){calY=null;renderCalendar()});
+
+/* ---------- anonymous visit counter ---------- */
+function rid(n){var c='abcdefghijklmnopqrstuvwxyz0123456789',s='';for(var i=0;i<n;i++)s+=c.charAt(Math.floor(Math.random()*c.length));return s}
+var VID=(function(){try{var v=localStorage.getItem('gvf_vid');if(!v){v=rid(14);localStorage.setItem('gvf_vid',v)}return v}catch(e){return rid(14)}})();
+function devType(){var u=navigator.userAgent||'';return /iPad|Tablet/i.test(u)?'tablet':(/Mobi|Android|iPhone/i.test(u)?'mobile':'desktop')}
+function track(page){
+  if(!USE_SB||page==='admin')return;
+  var k='gvf_t_'+page;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1')}catch(e){}
+  api('visit',{vid:VID,page:page,lang:LANG,dev:devType()}).catch(function(){});
+}
+
+/* ---------- admin: visitors ---------- */
+function renderVisitors(){
+  var box=$('visBody');
+  if(!USE_SB){box.innerHTML='<div class="notice">Visitor counting needs the Supabase database. Connect it first (SB_URL and SB_KEY in the website file), then run supabase-update-3.sql.</div>';return}
+  box.innerHTML='<p class="small">Loading…</p>';
+  apiAdmin('stats').then(function(r){
+    if(!r||!r.ok)throw new Error('stats');
+    var max=Math.max.apply(null,r.days.map(function(x){return x.n}).concat([1]));
+    var bars=r.days.map(function(x,i){var hgt=Math.max(3,Math.round(x.n/max*110));
+      return '<div class="vbar'+(i===r.days.length-1?' now':'')+'" title="'+esc(fmtDate(x.d))+': '+x.n+'"><span class="vn">'+x.n+'</span><i style="height:'+hgt+'px"></i><span class="vd">'+x.d.slice(8)+'</span></div>'}).join('');
+    var rows=r.recent.map(function(x){return '<tr><td>'+esc(new Date(x.at).toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}))+'</td><td class="mono">V-'+esc(x.vid)+'</td><td>'+esc(x.page)+'</td><td>'+esc(x.dev)+'</td><td>'+(x.lang==='mr'?'Marathi':'English')+'</td><td class="num">'+x.n+(x.n>1?' (returning)':' (new)')+'</td></tr>'}).join('');
+    box.innerHTML='<div class="tiles"><div class="stat"><b>'+Number(r.total).toLocaleString('en-IN')+'</b><span>Total visits</span></div><div class="stat"><b>'+Number(r.uniq).toLocaleString('en-IN')+'</b><span>Unique visitors</span></div><div class="stat"><b>'+Number(r.today).toLocaleString('en-IN')+'</b><span>Visits today</span></div></div>'+
+      '<h3 style="margin-bottom:8px">Last 14 days</h3><div class="vchart">'+bars+'</div>'+
+      '<h3 style="margin:20px 0 8px">Recent visits</h3><div class="scroll"><table style="min-width:640px"><thead><tr><th>Time</th><th>Visitor</th><th>First page</th><th>Device</th><th>Language</th><th class="num">Visit no.</th></tr></thead><tbody>'+(rows||'<tr><td colspan="6" class="empty">No visits yet.</td></tr>')+'</tbody></table></div>';
+  }).catch(function(){box.innerHTML='<div class="notice">Could not load visitor numbers. Make sure supabase-update-3.sql was run, then press Refresh.</div>'});
+}
+
+
 /* ---------- start ---------- */
 document.querySelectorAll('.apionly').forEach(function(el){el.hidden=!USE_API});
 document.querySelectorAll('.localonly').forEach(function(el){el.hidden=USE_API});
+$('langBtn').addEventListener('click',function(){setLang(LANG==='mr'?'en':'mr')});
+applyLang();
 render((location.hash||'').slice(1));
 if(!USE_API)fetchPublic();
 })();

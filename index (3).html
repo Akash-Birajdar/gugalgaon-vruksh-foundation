@@ -1,0 +1,1465 @@
+<!doctype html>
+<html lang="mr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Gugalgaon Vruksh Mitra</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700&family=Tiro+Devanagari+Marathi:ital@0;1&family=Baloo+2:wght@600;800&display=swap">
+<style>
+/* Layout concept: a calm single column. Donation form on the left, a sticky payment card on the right,
+   the certificate shown as an image the donor can save. Admin is a ledger-style table with tabs. */
+:root{
+  --bg:#F1F4EA; --surface:#FBFCF7; --field:#FFFFFF; --ink:#15251B; --muted:#55645A; --line:#D3DBC6;
+  --leaf:#1E5C3A; --on-leaf:#FFFFFF; --haldi:#B97F06; --haldi-soft:#F5E7BD; --bad:#B3261E; --good:#1B6E3F;
+  --toon-ink:#1F2A21; --toon-bg:#E6F3DF; --toon-cell:#FFFFFF; --toon-rain:#CFE9F7; --toon-today:#FFD25A;
+  --t-leaf:#6CC47F; --t-cake:#F7A8BF; --t-cream:#FFF3D1; --t-sun:#FFD25A; --t-soil:#B98655; --t-cloud:#FFFFFF;
+  --font-display:"Tiro Devanagari Marathi","Noto Serif Devanagari",Georgia,serif;
+  --font-body:"Mukta","Noto Sans Devanagari",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --toon-ink:#D7EBD9; --toon-bg:#1B2B21; --toon-cell:#24382B; --toon-rain:#1E3A4D; --toon-today:#C9971C;
+    --t-leaf:#5FB874; --t-cake:#E98BA6; --t-cream:#F3E4B8; --t-sun:#F2C14E; --t-soil:#9A6D42; --t-cloud:#DCE9F2;
+    --bg:#0E1811; --surface:#15221A; --field:#101C14; --ink:#E6EEE1; --muted:#9CAB9F; --line:#27392D;
+    --leaf:#74CF98; --on-leaf:#0A1A10; --haldi:#EDB431; --haldi-soft:#3A2E0F; --bad:#FF8F85; --good:#7ED9A2;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --toon-ink:#D7EBD9; --toon-bg:#1B2B21; --toon-cell:#24382B; --toon-rain:#1E3A4D; --toon-today:#C9971C;
+  --t-leaf:#5FB874; --t-cake:#E98BA6; --t-cream:#F3E4B8; --t-sun:#F2C14E; --t-soil:#9A6D42; --t-cloud:#DCE9F2;
+  --bg:#0E1811; --surface:#15221A; --field:#101C14; --ink:#E6EEE1; --muted:#9CAB9F; --line:#27392D;
+  --leaf:#74CF98; --on-leaf:#0A1A10; --haldi:#EDB431; --haldi-soft:#3A2E0F; --bad:#FF8F85; --good:#7ED9A2;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  background:var(--bg); color:var(--ink); font-family:var(--font-body); font-size:16px; line-height:1.55;
+  padding-block:0 48px;
+  padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;line-height:1.2;margin:0;text-wrap:balance}
+h2{font-size:1.6rem} h3{font-size:1.2rem}
+p{margin:0}
+small,.small{font-size:.84rem;color:var(--muted)}
+a{color:var(--leaf)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--haldi);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.84rem;word-break:break-all}
+
+/* header */
+.top{border-bottom:1px solid var(--line)}
+.bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);min-width:0}
+.brand .mark{width:40px;height:40px;color:var(--leaf);flex:none}
+.brand b{display:block;font-family:var(--font-display);font-weight:400;font-size:1.25rem;line-height:1.15}
+.brand small{display:block;letter-spacing:.04em}
+nav{display:flex;flex-wrap:wrap;gap:4px}
+nav a{padding:8px 14px;border-radius:999px;text-decoration:none;color:var(--ink);font-weight:600;font-size:.95rem}
+nav a:hover{background:var(--haldi-soft)}
+nav a[aria-current="page"]{background:var(--leaf);color:var(--on-leaf)}
+
+/* hero */
+.hero{padding-block:36px 24px;display:grid;gap:20px}
+.eyebrow{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--haldi);font-weight:700}
+.hero h1{font-size:clamp(2rem,5.4vw,3.4rem)}
+.hero .en{font-family:var(--font-display);font-style:italic;font-size:clamp(1.15rem,2.6vw,1.5rem);color:var(--muted)}
+.hero p.lead{max-width:60ch}
+.stats{display:flex;flex-wrap:wrap;gap:8px 40px;padding-top:14px;border-top:1px solid var(--line)}
+.stat b{display:block;font-family:var(--font-display);font-weight:400;font-size:2rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:.84rem;color:var(--muted)}
+
+/* layout */
+.split{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:820px){.split{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px}
+.pay{position:sticky;top:16px;display:grid;gap:14px}
+@media (max-width:820px){.pay{position:static}}
+.card > h2,.card > h3{margin-bottom:14px}
+
+/* forms */
+form{display:grid;gap:16px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.field{display:grid;gap:5px;min-width:0}
+.field label,.lbl{font-weight:600;font-size:.95rem}
+.field label small{font-weight:400;margin-left:4px}
+input[type=text],input[type=tel],input[type=email],input[type=date],input[type=number],input[type=password],select,textarea{
+  width:100%;min-width:0;background:var(--field);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-height:44px}
+textarea{min-height:84px;resize:vertical}
+input[aria-invalid="true"],select[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:var(--bad)}
+.err{color:var(--bad);font-size:.85rem;min-height:0}
+.err:empty{display:none}
+.help{font-size:.84rem;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:.92rem}
+.check input{margin-top:4px;width:18px;height:18px;flex:none;accent-color:var(--leaf)}
+.stepper{display:flex;gap:8px}
+.stepper input{text-align:center;max-width:96px;font-variant-numeric:tabular-nums}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:9px 18px;border-radius:8px;
+  border:1px solid var(--leaf);background:var(--leaf);color:var(--on-leaf);font-weight:700;cursor:pointer;text-decoration:none}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--leaf)}
+.btn.ghost:hover{background:var(--haldi-soft);filter:none}
+.btn.warn{background:transparent;border-color:var(--bad);color:var(--bad)}
+.btn.warn[data-armed="1"]{background:var(--bad);color:var(--surface)}
+.btn.sm{min-height:34px;padding:4px 10px;font-size:.86rem}
+.btn.square{padding:0;width:44px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* payment */
+.amount{font-family:var(--font-display);font-size:2.6rem;line-height:1;font-variant-numeric:tabular-nums}
+.qrWrap{display:grid;justify-items:center;gap:8px}
+.qr{background:#fff;padding:12px;border-radius:10px;border:1px solid var(--line);display:grid;place-items:center;min-height:224px;min-width:224px;max-width:100%}
+.qr img,.qr canvas{display:block;max-width:100%;height:auto}
+.upi{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;border:1px dashed var(--line);border-radius:8px;padding:8px 12px}
+.upi code{font-size:.95rem;word-break:break-all}
+.steps{margin:0;padding-left:1.2rem;display:grid;gap:4px;font-size:.92rem}
+.notice{background:var(--haldi-soft);border-radius:8px;padding:10px 12px;font-size:.88rem}
+
+/* result */
+#result{display:grid;gap:16px;margin-bottom:24px}
+.certImg{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff;display:block}
+
+/* admin */
+.tabs{display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--line);margin-block:20px 18px}
+.tabs button{background:none;border:none;border-bottom:3px solid transparent;padding:10px 14px;font-weight:600;cursor:pointer;color:var(--muted)}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--haldi)}
+.tiles{display:flex;flex-wrap:wrap;gap:8px 36px;margin-bottom:18px}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:900px;font-size:.92rem}
+th{text-align:left;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right}
+.acts{white-space:nowrap}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.78rem;font-weight:700;background:var(--haldi-soft);color:var(--ink)}
+.pill.verified{background:var(--good);color:var(--surface)}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.toolbar input{flex:1 1 220px}
+.toolbar select{flex:0 1 180px}
+.toolbar input[type=date]{flex:0 1 150px}
+tfoot td{font-weight:700;border-top:2px solid var(--line);border-bottom:none;background:var(--bg)}
+.phase{display:grid;gap:10px;margin-bottom:22px}
+.phase h3{border-bottom:1px solid var(--line);padding-bottom:6px}
+.task{display:flex;gap:12px;align-items:flex-start}
+.task input{width:20px;height:20px;margin-top:4px;flex:none;accent-color:var(--leaf)}
+.task label{font-weight:600;cursor:pointer}
+.task p{font-size:.9rem;color:var(--muted);max-width:70ch}
+.bar2{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar2 i{display:block;height:100%;background:var(--leaf);width:0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.two > *{min-width:0}
+#books{grid-template-columns:minmax(0,1fr)}
+#books > *{min-width:0}
+textarea.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;min-height:120px}
+.gate{max-width:380px;margin:40px auto}
+
+/* modal + toast */
+.overlay{position:fixed;inset:0;background:rgba(8,16,11,.72);display:grid;place-items:center;z-index:20;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));overflow:auto}
+.modal{background:var(--surface);border-radius:12px;padding:18px;max-width:980px;width:100%;display:grid;gap:12px}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));
+  background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:8px;z-index:30;max-width:calc(100% - 32px);font-size:.92rem}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+/* header language button */
+.navrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+/* cartoon calendar */
+.s-ink{stroke:var(--toon-ink);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round}
+.f-none{fill:none}.f-ink{fill:var(--toon-ink)}.f-leaf{fill:var(--t-leaf)}.f-cake{fill:var(--t-cake)}.f-cream{fill:var(--t-cream)}.f-flame{fill:var(--t-sun)}.f-soil{fill:var(--t-soil)}.f-cloud{fill:var(--t-cloud)}
+.toon{max-width:680px;background:var(--toon-bg);color:var(--toon-ink);border:3px solid var(--toon-ink);border-radius:20px;box-shadow:5px 5px 0 var(--toon-ink);padding:14px;font-family:"Baloo 2","Mukta",system-ui,sans-serif}
+.toon.season{background:var(--toon-rain)}
+.toon-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:12px}
+.mascot{width:58px;height:58px;flex:none}
+.toon-title{flex:1 1 150px;min-width:0}
+.toon-month{font-size:1.75rem;font-weight:800;line-height:1.1}
+.toon-sub{font-size:.9rem;font-weight:600}
+.toon-nav{display:flex;gap:6px}
+.tbtn{min-width:44px;min-height:44px;border:3px solid var(--toon-ink);background:var(--toon-cell);color:var(--toon-ink);border-radius:12px;font:inherit;font-weight:800;cursor:pointer;box-shadow:2px 2px 0 var(--toon-ink)}
+.tbtn:active{transform:translate(2px,2px);box-shadow:none}
+.tbtn.wide{padding:0 14px}
+.toon-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.dow{text-align:center;font-weight:800;font-size:.85rem;padding:4px 0}
+.dc{position:relative;aspect-ratio:1/1.05;border:2.5px solid var(--toon-ink);border-radius:10px;background:var(--toon-cell);color:var(--toon-ink);font:inherit;padding:2px;cursor:pointer;display:block;overflow:hidden;min-width:0;text-align:left}
+.dc.blank{border:none;background:none;cursor:default}
+.dc .dn{display:block;font-weight:800;font-size:.95rem;line-height:1;padding:2px 3px}
+.dc svg{position:absolute;right:1px;bottom:1px;width:62%;max-width:34px;height:auto}
+.dc.today{background:var(--toon-today);color:#1F2A21}
+.dc.sel{outline:3px solid var(--toon-ink);outline-offset:1px;box-shadow:2px 2px 0 var(--toon-ink)}
+.dc .bd{position:absolute;top:2px;right:2px;background:var(--toon-ink);color:var(--toon-bg);border-radius:99px;font-size:.7rem;padding:0 5px;font-weight:800;line-height:1.3}
+.dc:focus-visible,.tbtn:focus-visible{outline:3px solid var(--haldi);outline-offset:2px}
+.toon-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px;font-weight:600;font-size:.88rem}
+.toon-legend>span{display:inline-flex;align-items:center;gap:6px}
+.toon-legend svg{width:26px;height:26px}
+.dot-today{width:16px;height:16px;border-radius:5px;border:2.5px solid var(--toon-ink);background:var(--toon-today);display:inline-block}
+.toon-card{border:3px solid var(--toon-ink);box-shadow:4px 4px 0 var(--toon-ink)}
+.evrow{display:flex;gap:10px;align-items:center;padding:6px 0}
+.evrow svg{width:36px;height:36px;flex:none}
+/* admin visitor chart */
+.vchart{display:flex;align-items:flex-end;gap:6px;height:160px;padding:8px;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow-x:auto}
+.vbar{flex:1 0 26px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;min-width:26px}
+.vbar i{display:block;width:100%;background:var(--leaf);border-radius:4px 4px 0 0;opacity:.75}
+.vbar.now i{opacity:1;background:var(--haldi)}
+.vn,.vd{font-size:.72rem;color:var(--muted)}
+
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="toon-sapling" viewBox="0 0 64 64">
+      <path class="s-ink f-soil" d="M10 56c2-9 10-13 22-13s20 4 22 13z"/>
+      <path class="s-ink f-none" d="M32 44V28"/>
+      <path class="s-ink f-leaf" d="M32 30C20 30 11 24 9 12c12-1 21 4 23 18z"/>
+      <path class="s-ink f-leaf" d="M32 26c1-12 9-19 22-19 1 12-8 19-22 19z"/>
+      <circle class="f-ink" cx="27" cy="51" r="1.8"/><circle class="f-ink" cx="37" cy="51" r="1.8"/>
+      <path class="s-ink f-none" d="M28.5 54.5q3.5 3 7 0"/>
+    </symbol>
+    <symbol id="toon-cake" viewBox="0 0 64 64">
+      <path class="s-ink f-flame" d="M32 5c4 4 5 7 0 11-5-4-4-7 0-11z"/>
+      <rect class="s-ink f-cream" x="29.5" y="15" width="5" height="11" rx="1.5"/>
+      <path class="s-ink f-cake" d="M10 34c0-6 5-9 11-9h22c6 0 11 3 11 9v20H10z"/>
+      <path class="s-ink f-cream" d="M10 38c4 5 8 5 11 0 3 5 7 5 11 0 3 5 7 5 11 0 3 5 6 5 11 0v-4"/>
+      <circle class="f-ink" cx="25" cy="46" r="1.8"/><circle class="f-ink" cx="39" cy="46" r="1.8"/>
+      <path class="s-ink f-none" d="M28.5 49.5q3.5 3 7 0"/>
+    </symbol>
+    <symbol id="toon-cloud" viewBox="0 0 64 64">
+      <path class="s-ink f-cloud" d="M18 38a10 10 0 0 1 2-19.8A13 13 0 0 1 45 20a9.5 9.5 0 0 1 1 18z"/>
+      <circle class="f-ink" cx="26" cy="28" r="1.8"/><circle class="f-ink" cx="37" cy="28" r="1.8"/>
+      <path class="s-ink f-none" d="M28.5 32q3.5 3 7 0"/>
+      <path class="s-ink f-none" d="M20 45v6M32 45v9M44 45v6"/>
+    </symbol>
+    <symbol id="toon-sun" viewBox="0 0 64 64">
+      <circle class="s-ink f-flame" cx="32" cy="32" r="12"/>
+      <path class="s-ink f-none" d="M32 8v7M32 49v7M8 32h7M49 32h7M15 15l5 5M44 44l5 5M49 15l-5 5M20 44l-5 5"/>
+      <circle class="f-ink" cx="28" cy="30" r="1.6"/><circle class="f-ink" cx="36" cy="30" r="1.6"/>
+      <path class="s-ink f-none" d="M28 35q4 3.5 8 0"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#donate" data-view="donate">
+      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><g fill="currentColor"><circle cx="20" cy="14" r="10"/><circle cx="11" cy="20" r="7"/><circle cx="29" cy="20" r="7"/><rect x="18" y="22" width="4" height="14" rx="1"/></g></svg>
+      <span><b id="brandMr" lang="mr">गुगळगाव वृक्ष मित्र मंडळ</b><small id="brandEn">Gugalgaon Vruksh Mitra Group</small></span>
+    </a>
+    <div class="navrow">
+      <nav aria-label="Main">
+        <a href="#donate" data-view="donate" data-i="nav_donate">दान</a>
+        <a href="#calendar" data-view="calendar" data-i="nav_cal">कॅलेंडर</a>
+        <a href="#certificate" data-view="certificate" data-i="nav_cert">माझे प्रमाणपत्र</a>
+        <a href="#admin" data-view="admin">Admin</a>
+      </nav>
+      <button type="button" class="btn ghost sm" id="langBtn" aria-label="Language">English</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ DONATE ============ -->
+<section id="view-donate">
+  <div class="hero">
+    <div class="eyebrow" data-i="h_eyebrow"></div>
+    <h1 data-i="h_title"></h1>
+    <div class="en" data-i="h_sub"></div>
+    <p class="lead" data-i="h_lead1"></p>
+    <p class="lead" data-i="h_lead2"></p>
+    <div class="notice" style="max-width:70ch" data-i="h_inf"></div>
+    <div class="stats" aria-label="Impact so far">
+      <div class="stat"><b id="stPlants">0</b><span data-i="st_plants"></span></div>
+      <div class="stat"><b id="stDonors">0</b><span data-i="st_donors"></span></div>
+      <div class="stat"><b id="stRaised">₹0</b><span data-i="st_raised"></span></div>
+    </div>
+    <p id="firstLine" class="small" data-i="h_first"></p>
+  </div>
+
+  <!-- result after submit -->
+  <div id="result" class="card" hidden aria-live="polite">
+    <h2 data-i="r_title"></h2>
+    <p id="resultMsg"></p>
+    <div class="notice" data-i="r_note"></div>
+    <div class="row">
+      <a class="btn" id="waFound" target="_blank" rel="noopener" hidden data-i="r_wa"></a>
+      <button type="button" class="btn ghost" id="againBtn" data-i="r_again"></button>
+    </div>
+    <p class="small" id="waHelp" hidden data-i="r_wahelp"></p>
+  </div>
+
+  <div class="split" id="donateSplit">
+    <div class="card">
+      <h2 data-i="f_title"></h2>
+      <div class="notice" style="margin-bottom:16px" data-i="f_monsoon"></div>
+      <form id="donForm" novalidate>
+        <div class="grid2">
+          <div class="field"><label for="donorName" data-i="f_name"></label>
+            <input id="donorName" type="text" autocomplete="name" maxlength="60"><span class="err" id="err-donorName"></span></div>
+          <div class="field"><label for="mobile" data-i="f_mobile"></label>
+            <input id="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="12" data-ip="f_mobile_ph"><span class="err" id="err-mobile"></span></div>
+          <div class="field"><label for="email" data-i="f_email"></label>
+            <input id="email" type="email" autocomplete="email" maxlength="80"><span class="err" id="err-email"></span></div>
+          <div class="field"><label for="place" data-i="f_place"></label>
+            <input id="place" type="text" maxlength="60"></div>
+          <div class="field"><label for="bdayName" data-i="f_bname"></label>
+            <input id="bdayName" type="text" maxlength="60" data-ip="f_bname_ph"></div>
+          <div class="field"><label for="bdayDate" data-i="f_bdate"></label>
+            <input id="bdayDate" type="date"><span class="err" id="err-bdayDate"></span></div>
+          <div class="field"><label for="donAmt" data-i="f_amt"></label>
+            <input id="donAmt" type="number" min="150" max="1000000" step="1" inputmode="numeric" value="150">
+            <div class="row" id="presets" style="gap:6px"></div>
+            <span class="help" id="plantsHelp"></span><span class="err" id="err-donAmt"></span></div>
+          <div class="field"><label for="species" data-i="f_species"></label>
+            <select id="species">
+              <option value="Group decides" data-i="sp_decides"></option>
+              <option value="Neem" data-i="sp_neem"></option>
+              <option value="Banyan" data-i="sp_banyan"></option>
+              <option value="Peepal" data-i="sp_peepal"></option>
+              <option value="Mango" data-i="sp_mango"></option>
+              <option value="Jamun" data-i="sp_jamun"></option>
+              <option value="Karanj" data-i="sp_karanj"></option>
+              <option value="Tamarind" data-i="sp_tamarind"></option>
+              <option value="Bael" data-i="sp_bael"></option>
+              <option value="Amla" data-i="sp_amla"></option>
+            </select></div>
+        </div>
+        <div class="field"><label for="wish" data-i="f_wish"></label>
+          <textarea id="wish" maxlength="120" data-ip="f_wish_ph"></textarea></div>
+        <div class="field"><label for="utr" data-i="f_utr"></label>
+          <input id="utr" type="text" autocomplete="off" maxlength="24" data-ip="f_utr_ph">
+          <span class="help" data-i="f_utr_help"></span>
+          <span class="err" id="err-utr"></span></div>
+        <div class="field"><label class="check"><input id="consent" type="checkbox"><span data-i="f_consent"></span></label>
+          <span class="err" id="err-consent"></span></div>
+        <div class="field"><label class="check"><input id="showName" type="checkbox"><span data-i="f_show"></span></label></div>
+        <div class="row"><button class="btn" type="submit" data-i="f_submit"></button></div>
+      </form>
+    </div>
+
+    <aside class="card pay" aria-label="Payment">
+      <h3 data-i="p_title"></h3>
+      <div>
+        <div class="amount" id="amount">₹150</div>
+        <div class="small" id="amountNote"></div>
+      </div>
+      <div class="qrWrap">
+        <div class="qr" id="qrBox"></div>
+        <div class="small" id="qrNote" style="text-align:center"></div>
+      </div>
+      <a class="btn" id="upiPay" href="#" style="width:100%">Pay</a>
+      <p class="small" style="text-align:center" data-i="p_help"></p>
+      <div class="upi"><span class="small" data-i="p_upiid"></span><code id="upiIdText">demo@upi</code>
+        <button type="button" class="btn ghost sm" id="copyUpi" data-i="p_copy"></button></div>
+      <div class="notice" id="demoNote" hidden data-i="p_demo"></div>
+      <ol class="steps">
+        <li data-i="p_s1"></li>
+        <li data-i="p_s2"></li>
+        <li data-i="p_s3"></li>
+        <li data-i="p_s4"></li>
+      </ol>
+    </aside>
+  </div>
+
+  <div id="books" style="margin-top:44px;display:grid;gap:22px">
+    <div>
+      <div class="eyebrow" data-i="b_eyebrow"></div>
+      <h2 data-i="b_title"></h2>
+      <p class="small" id="booksNote" style="margin-top:6px"></p>
+    </div>
+    <div class="tiles" style="margin:0">
+      <div class="stat"><b id="bRecv">₹0</b><span data-i="b_recv"></span></div>
+      <div class="stat"><b id="bSpent">₹0</b><span data-i="b_spent"></span></div>
+      <div class="stat"><b id="bBal">₹0</b><span data-i="b_bal"></span></div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px" data-i="b_donors"></h3>
+      <div class="scroll">
+        <table style="min-width:520px">
+          <thead><tr><th data-i="th_date"></th><th data-i="th_donor"></th><th class="num" data-i="th_plants"></th><th class="num" data-i="th_amount"></th></tr></thead>
+          <tbody id="bDonors"></tbody>
+          <tfoot><tr><td colspan="2" data-i="th_total"></td><td class="num" id="bDPlants"></td><td class="num" id="bDAmt"></td></tr></tfoot>
+        </table>
+        <div class="empty" id="bDEmpty" hidden data-i="b_dempty"></div>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px" data-i="b_spending"></h3>
+      <div class="scroll">
+        <table style="min-width:560px">
+          <thead><tr><th data-i="th_date"></th><th data-i="th_cat"></th><th data-i="th_desc"></th><th class="num" data-i="th_amount"></th></tr></thead>
+          <tbody id="bSpend"></tbody>
+          <tfoot><tr><td colspan="3" data-i="th_stotal"></td><td class="num" id="bSAmt"></td></tr></tfoot>
+        </table>
+        <div class="empty" id="bSEmpty" hidden data-i="b_sempty"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CALENDAR ============ -->
+<section id="view-calendar" hidden>
+  <div class="hero" style="padding-bottom:8px">
+    <div class="eyebrow" data-i="c_eyebrow"></div>
+    <h1 data-i="c_title"></h1>
+    <p class="lead small" data-i="c_lead"></p>
+  </div>
+  <div class="toon" id="calBox">
+    <div class="toon-head">
+      <svg class="mascot" id="calMascot" viewBox="0 0 64 64" aria-hidden="true"><use href="#toon-sapling"/></svg>
+      <div class="toon-title">
+        <div class="toon-month" id="calTitle"></div>
+        <div class="toon-sub" id="calSub"></div>
+      </div>
+      <div class="toon-nav">
+        <button type="button" class="tbtn" id="calPrev" aria-label="Previous month">&#9664;</button>
+        <button type="button" class="tbtn wide" id="calToday" data-i="c_today"></button>
+        <button type="button" class="tbtn" id="calNext" aria-label="Next month">&#9654;</button>
+      </div>
+    </div>
+    <div class="toon-grid" id="calHead" role="presentation"></div>
+    <div class="toon-grid" id="calGrid"></div>
+    <div class="toon-legend">
+      <span><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#toon-cake"/></svg><span data-i="c_leg_b"></span></span>
+      <span><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#toon-cloud"/></svg><span data-i="c_leg_s"></span></span>
+      <span><i class="dot-today"></i><span data-i="c_leg_t"></span></span>
+    </div>
+  </div>
+  <div class="split" style="margin-top:20px">
+    <div class="card toon-card" id="calSel"></div>
+    <div class="card toon-card">
+      <h3 data-i="c_next"></h3>
+      <div id="calNextList" style="margin-top:10px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CERTIFICATE LOOKUP ============ -->
+<section id="view-certificate" hidden>
+  <div class="hero">
+    <div class="eyebrow" data-i="l_eyebrow"></div>
+    <h1 data-i="l_title"></h1>
+    <p class="lead small" data-i="l_lead"></p>
+  </div>
+  <div class="split">
+    <div class="card">
+      <form id="lookupForm" novalidate>
+        <div class="field"><label for="lkNo" data-i="l_no"></label><input id="lkNo" type="text" placeholder="GVF-20261025-AB12" autocomplete="off"></div>
+        <div class="field"><label for="lkMobile" data-i="l_mob"></label><input id="lkMobile" type="tel" inputmode="numeric" maxlength="12"></div>
+        <span class="err" id="err-lookup"></span>
+        <p class="notice" id="lkInfo" hidden></p>
+        <div class="row"><button class="btn" type="submit" data-i="l_find"></button></div>
+      </form>
+    </div>
+    <div class="card" id="lkResult" hidden>
+      <img id="lkImg" class="certImg" alt="Certificate">
+      <div class="row" style="margin-top:12px"><button type="button" class="btn" id="lkDl" data-i="l_dl"></button></div>
+      <p class="small" style="margin-top:8px" data-i="l_hold"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ADMIN ============ -->
+<section id="view-admin" hidden>
+  <div id="adminGate" class="card gate">
+    <h2>Admin</h2>
+    <form id="pinForm" novalidate style="margin-top:12px">
+      <div class="field"><label for="pin">PIN</label><input id="pin" type="password" inputmode="numeric" autocomplete="off"><span class="err" id="err-pin"></span></div>
+      <button class="btn" type="submit">Open admin</button>
+      <p class="small">First time? The default PIN is 1234. Change it in Settings. This PIN only hides the screen on this device; it is not strong security.</p>
+    </form>
+  </div>
+
+  <div id="adminApp" hidden>
+    <div class="hero" style="padding-bottom:0">
+      <div class="row" style="justify-content:space-between">
+        <div><div class="eyebrow">Admin</div><h1 style="font-size:2rem">Group desk</h1></div>
+        <button class="btn ghost" id="lockBtn" type="button">Lock</button>
+      </div>
+    </div>
+    <div class="tiles" id="adminTiles">
+      <div class="stat"><b id="tRecv">₹0</b><span>Received (verified)</span></div>
+      <div class="stat"><b id="tSpent">₹0</b><span>Spent</span></div>
+      <div class="stat"><b id="tBal">₹0</b><span>Balance</span></div>
+      <div class="stat"><b id="tPend">₹0</b><span id="tPendLbl">Waiting for verification</span></div>
+      <div class="stat"><b id="tPlants">0</b><span>Plants (verified)</span></div>
+    </div>
+    <div class="tabs" role="tablist">
+      <button role="tab" data-tab="donations" aria-selected="true">Donations</button>
+      <button role="tab" data-tab="spending" aria-selected="false">Spending</button>
+      <button role="tab" data-tab="visitors" aria-selected="false">Visitors</button>
+      <button role="tab" data-tab="settings" aria-selected="false">Settings</button>
+      <button role="tab" data-tab="roadmap" aria-selected="false">Registration roadmap</button>
+      <button role="tab" data-tab="data" aria-selected="false">Data &amp; backup</button>
+    </div>
+
+    <div id="tab-donations">
+            <div class="toolbar">
+        <input id="fSearch" type="text" placeholder="Search name, mobile, UTR, certificate no." aria-label="Search">
+        <input id="fFrom" type="date" aria-label="From date" title="From date">
+        <input id="fTo" type="date" aria-label="To date" title="To date">
+        <select id="fStatus" aria-label="Status filter"><option value="all">All</option><option value="pending">Pending</option><option value="verified">Verified</option></select>
+        <button class="btn" type="button" id="xlsxTop">Download Excel</button>
+        <button class="btn ghost apionly" type="button" id="refreshBtn" hidden>Refresh</button>
+      </div>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Certificate</th><th>Donor</th><th>Birthday</th><th class="num">Plants</th><th class="num">Amount</th><th>UTR</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="dRows"></tbody>
+          <tfoot><tr><td colspan="3">Total (rows shown)</td><td class="num" id="fPlants"></td><td class="num" id="fAmt"></td><td colspan="3" class="small" id="fNote"></td></tr></tfoot>
+        </table>
+        <div class="empty" id="dEmpty" hidden>No donations yet. When someone submits the form, it appears here. Compare the UTR with your bank statement, then press Verify.</div>
+      </div>
+    </div>
+
+    <div id="tab-spending" hidden>
+      <form id="expForm" class="card" novalidate style="margin-bottom:18px">
+        <h3>Add spending</h3>
+        <div class="grid2">
+          <div class="field"><label for="eDate">Date</label><input id="eDate" type="date"></div>
+          <div class="field"><label for="eCat">Category</label><select id="eCat"><option>Plants / saplings</option><option>Tree guards</option><option>Soil, manure, pits</option><option>Watering</option><option>Labour</option><option>Transport</option><option>Printing / website</option><option>Registration / legal</option><option>Other</option></select></div>
+          <div class="field"><label for="eDesc">What was it for?</label><input id="eDesc" type="text" maxlength="100" placeholder="e.g. 20 neem saplings"><span class="err" id="err-eDesc"></span></div>
+          <div class="field"><label for="ePaid">Paid to</label><input id="ePaid" type="text" maxlength="60"></div>
+          <div class="field"><label for="eAmt">Amount (₹)</label><input id="eAmt" type="number" min="1" step="1" inputmode="numeric"><span class="err" id="err-eAmt"></span></div>
+          <div class="field"><label for="eRef">Bill or receipt no. (optional)</label><input id="eRef" type="text" maxlength="40"></div>
+        </div>
+        <div class="row"><button class="btn" type="submit">Add spending</button></div>
+      </form>
+      <div class="small" id="eCats" style="margin-bottom:10px"></div>
+      <div class="scroll">
+        <table style="min-width:760px">
+          <thead><tr><th>Date</th><th>Category</th><th>Description</th><th>Paid to</th><th>Bill / ref</th><th class="num">Amount</th><th>Actions</th></tr></thead>
+          <tbody id="eRows"></tbody>
+          <tfoot><tr><td colspan="5">Total spent</td><td class="num" id="eTotal"></td><td></td></tr></tfoot>
+        </table>
+        <div class="empty" id="eEmpty" hidden>No spending yet. Add every payment you make, with the bill number, so you can show donors where the money went.</div>
+      </div>
+    </div>
+
+    <div id="tab-visitors" hidden>
+      <div class="notice" style="margin-bottom:16px">Visits are counted anonymously. Each visitor gets a random code (like V-7F3A) stored in their browser. The site cannot tell who a visitor is, and it stores no IP address, name or phone number. The same code appearing again means the same browser came back.</div>
+      <div id="visBody"></div>
+    </div>
+
+    <div id="tab-settings" hidden>
+      <div class="notice apionly" style="margin-bottom:16px" hidden>These settings change only what you see on this device. Visitors see the price, UPI ID and names written in the website file. The admin PIN is set inside your Google Apps Script (ADMIN_PIN).</div>
+      <form id="setForm" novalidate>
+        <div class="two">
+          <div class="field"><label for="s-nameMr">Group name (Marathi)</label><input id="s-nameMr" type="text" lang="mr"></div>
+          <div class="field"><label for="s-nameEn">Group name (English)</label><input id="s-nameEn" type="text"></div>
+          <div class="field"><label for="s-price">Price of one plant (₹)</label><input id="s-price" type="number" min="1" max="100000"><span class="err" id="err-s-price"></span></div>
+          <div class="field"><label for="s-place">Planting place</label><input id="s-place" type="text"></div>
+          <div class="field"><label for="s-upi">Group UPI ID</label><input id="s-upi" type="text" placeholder="name@bank"><span class="help">The QR on the donate page is generated from this, with the amount filled in.</span><span class="err" id="err-s-upi"></span></div>
+          <div class="field"><label for="s-payee">Name on the UPI account</label><input id="s-payee" type="text"></div>
+          <div class="field"><span class="lbl">Or use your own QR image</span>
+            <input id="s-qr" type="file" accept="image/*">
+            <span class="help">A bank or PhonePe QR works too, but it will not fill the amount. Donors type it themselves.</span>
+            <img id="qrPrev" alt="QR preview" style="max-width:140px;border:1px solid var(--line);border-radius:6px" hidden>
+            <div><button type="button" class="btn ghost sm" id="qrRemove">Remove my QR image</button></div></div>
+          <div class="field"><label for="s-regNo">Line printed at the bottom of the certificate</label><input id="s-regNo" type="text" placeholder="After you register: Reg. No. E-xxxx (District)"></div>
+          <div class="field"><label for="s-president">President name</label><input id="s-president" type="text"></div>
+          <div class="field"><label for="s-secretary">Secretary name</label><input id="s-secretary" type="text"></div>
+          <div class="field"><label for="s-phone">Group WhatsApp number (10 digits)</label><input id="s-phone" type="tel" inputmode="numeric" maxlength="10"><span class="help">Donors on their own phones can send their details to this number.</span><span class="err" id="err-s-phone"></span></div>
+          <div class="field"><label for="s-pin">Admin PIN</label><input id="s-pin" type="text" maxlength="10"><span class="err" id="err-s-pin"></span></div>
+        </div>
+        <div class="row"><button class="btn" type="submit">Save settings</button></div>
+      </form>
+    </div>
+
+    <div id="tab-roadmap" hidden>
+      <p class="small" style="max-width:70ch">Optional, for later: a path from an informal group to a registered organisation that can receive donations and offer tax benefits. You do not need any of this to start small. Tick items as you finish them. This is general guidance, not legal advice. Confirm fees, forms and timelines with a CA or lawyer before filing, because they change.</p>
+      <div style="margin-block:14px 22px">
+        <div class="small" id="rmCount"></div>
+        <div class="bar2"><i id="rmBar"></i></div>
+      </div>
+      <div id="rmList"></div>
+      <div class="small">Official portals:
+        <a href="https://charity.maharashtra.gov.in" target="_blank" rel="noopener">Charity Commissioner, Maharashtra</a> ·
+        <a href="https://www.incometax.gov.in" target="_blank" rel="noopener">Income Tax portal</a> ·
+        <a href="https://ngodarpan.gov.in" target="_blank" rel="noopener">NGO Darpan</a></div>
+    </div>
+
+    <div id="tab-data" hidden>
+      <div class="notice apionly" style="margin-bottom:18px" hidden>Donations and spending are stored in your Google Sheet, so they show on every device after you log in. For an Excel copy, open the sheet and use File, Download, Microsoft Excel (.xlsx).</div>
+      <div class="notice localonly" style="margin-bottom:18px">All data is saved only in this browser, on this device. Donors who fill the form on their own phones save to their own phones, not here. Use “Add from WhatsApp code” below to bring their entries in, and export a backup every week.</div>
+      <div class="two">
+        <div class="card">
+          <h3>Export</h3>
+          <div class="row" style="margin-block:12px">
+            <button class="btn" type="button" id="xlsxBtn">Download Excel</button>
+            <button class="btn ghost" type="button" id="exCsv">Show CSV</button>
+            <button class="btn ghost" type="button" id="exJson">Show JSON backup</button>
+          </div>
+          <textarea class="code" id="dataOut" readonly aria-label="Export output" placeholder="Export appears here"></textarea>
+          <div class="row" style="margin-top:10px"><button class="btn ghost sm" type="button" id="copyOut">Copy</button><button class="btn ghost sm" type="button" id="saveOut">Download file</button></div>
+        </div>
+        <div class="card localonly">
+          <h3>Publish donors and spending</h3>
+          <p class="small" style="margin-block:6px 10px">Creates <b>public-data.json</b> with verified donors and all spending. It never includes mobile numbers or UTR. A name shows only if the donor ticked the box, otherwise “Anonymous”.</p>
+          <div class="row" style="margin-bottom:10px"><button class="btn" type="button" id="pubMake">Create public-data.json</button><button class="btn ghost sm" type="button" id="pubCopy">Copy</button></div>
+          <textarea class="code" id="pubOut" readonly aria-label="public-data.json" placeholder="Press Create"></textarea>
+          <ol class="steps small" style="margin-top:10px"><li>Open your GitHub repository.</li><li>Add file → Create new file. Name it <b>public-data.json</b>.</li><li>Paste the copied text and press Commit changes. The website updates in 1 to 2 minutes.</li><li>Next time: open the file, press the pencil icon, replace the text, commit.</li></ol>
+        </div>
+        <div class="card localonly">
+          <h3>Add from WhatsApp code</h3>
+          <p class="small" style="margin-block:6px 10px">Paste the whole WhatsApp message a donor sent. It contains a GVF-CODE line.</p>
+          <textarea class="code" id="codeIn" aria-label="Paste donor message" placeholder="Paste message here"></textarea>
+          <div class="row" style="margin-top:10px"><button class="btn" type="button" id="codeAdd">Add entries</button></div>
+        </div>
+        <div class="card localonly">
+          <h3>Restore a backup</h3>
+          <p class="small" style="margin-block:6px 10px">Paste a JSON backup. This replaces everything on this device.</p>
+          <textarea class="code" id="jsonIn" aria-label="Paste JSON backup" placeholder="Paste JSON here"></textarea>
+          <div class="row" style="margin-top:10px"><button class="btn warn" type="button" id="jsonRestore">Replace data with backup</button></div>
+        </div>
+        <div class="card localonly">
+          <h3>Sample data and reset</h3>
+          <p class="small" style="margin-block:6px 10px">Sample rows are tagged and left out of the public counters.</p>
+          <div class="row">
+            <button class="btn ghost" type="button" id="addSamples">Add 3 sample rows</button>
+            <button class="btn ghost" type="button" id="rmSamples">Remove sample rows</button>
+            <button class="btn warn" type="button" id="wipeAll">Delete all data</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="small">
+  <span id="footReg"></span> · <span data-i="foot_tag"></span> <span id="footVisits"></span>
+</footer>
+</main>
+
+<div class="overlay" id="modal" hidden role="dialog" aria-modal="true" aria-label="Certificate">
+  <div class="modal">
+    <img id="modalImg" class="certImg" alt="Certificate">
+    <p class="small">To send it: download it (or press and hold the image to save it), open the WhatsApp chat with the donor, and attach it.</p>
+    <div class="row"><button class="btn" type="button" id="modalDl">Download</button><a class="btn ghost" id="modalWa" target="_blank" rel="noopener">Open WhatsApp chat with donor</a><button class="btn ghost" type="button" id="modalClose">Close</button></div>
+  </div>
+</div>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+var fmtINR=function(n){return '₹'+Number(n||0).toLocaleString('en-IN')};
+var fmtDate=function(s){if(!s)return '';var d=new Date(String(s).length===10?s+'T00:00:00':s);return isNaN(d)?'':d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})};
+
+/* ===== SETUP: paste your Google Apps Script Web app URL between the quotes below. Leave it as is to keep data in this browser only. ===== */
+var SB_URL='PASTE_SUPABASE_PROJECT_URL_HERE';   /* Supabase: Project URL, like https://abcdxyz.supabase.co */
+var SB_KEY='PASTE_SUPABASE_PUBLIC_KEY_HERE';    /* Supabase: anon / publishable key (safe to publish) */
+var API_URL='PASTE_WEB_APP_URL_HERE';           /* Optional: Google Apps Script URL, only if you use Google Sheets instead */
+var USE_SB=/^https:\/\/[^\/]+\.supabase\.co/.test(SB_URL)&&SB_KEY.length>20;
+var USE_API=USE_SB||/^https:\/\//.test(API_URL);
+var adminPin='';
+
+/* ---------- storage (localStorage, with in-memory fallback) ---------- */
+var mem={};
+function load(k,d){try{var v=localStorage.getItem(k);if(v!==null)return JSON.parse(v)}catch(e){}return (k in mem)?mem[k]:d}
+function save(k,v){if(USE_API&&(k==='gvf_donations'||k==='gvf_expenses'))return true;mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}
+
+function api(action,payload){
+  if(USE_SB){
+    return fetch(SB_URL.replace(/\/+$/,'')+'/rest/v1/rpc/gvf_api',{method:'POST',headers:{'Content-Type':'application/json','apikey':SB_KEY},
+      body:JSON.stringify({req:Object.assign({action:action},payload||{})})}).then(function(r){if(!r.ok)throw new Error('http');return r.json()});
+  }
+  return fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({action:action},payload||{}))}).then(function(r){return r.json()});
+}
+function apiAdmin(action,payload){return api(action,Object.assign({pin:adminPin},payload||{}))}
+var DEF={nameMr:'गुगळगाव वृक्ष मित्र मंडळ',nameEn:'Gugalgaon Vruksh Mitra Group',price:150,upiId:'8411939227@upi',payee:'Gugalgaon Vruksh Mitra',
+  qrImage:'',regNo:'Informal friends group, not a registered organisation. Thank-you certificate, not a tax receipt.',place:'Gugalgaon',president:'',secretary:'',phone:'',pin:'1234'};
+var KEY={s:'gvf_settings',d:'gvf_donations',r:'gvf_roadmap',e:'gvf_expenses'};
+var S=Object.assign({},DEF,load(KEY.s,{}));
+var D=load(KEY.d,[]); if(!Array.isArray(D))D=[];
+var R=load(KEY.r,{}); if(!R||typeof R!=='object')R={};
+var E=load(KEY.e,[]); if(!Array.isArray(E))E=[];
+if(USE_API){D=[];E=[];}
+var authed=false, pendingQr, lastRec=null, lastUrl='', tab='donations';
+
+var tt;function toast(m){var t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(function(){t.hidden=true},3800)}
+function copyText(txt,okMsg,srcEl){
+  function fallback(){if(srcEl){srcEl.focus();srcEl.select();}toast('Select the text and copy it.')}
+  try{navigator.clipboard.writeText(txt).then(function(){toast(okMsg)},fallback)}catch(e){fallback()}
+}
+
+/* ---------- language (Marathi / English) ---------- */
+var LANG='mr';
+try{var _l=localStorage.getItem('gvf_lang');if(_l==='en'||_l==='mr')LANG=_l}catch(e){}
+var I18N={
+nav_donate:{mr:'दान',en:'Donate'},nav_cal:{mr:'कॅलेंडर',en:'Calendar'},nav_cert:{mr:'माझे प्रमाणपत्र',en:'My certificate'},
+h_eyebrow:{mr:'वाढदिवस • वृक्षदान',en:'Birthday • Plant donation'},
+h_title:{mr:'वाढदिवसाला एक झाड लावा',en:'Plant a tree on your birthday'},
+h_sub:{mr:'दरवर्षीच्या वाढदिवसासोबत वाढणारे झाड.',en:'A tree that grows with every birthday.'},
+h_lead1:{mr:'एका झाडासाठी {price}. किमान दान {min} आहे, त्यापेक्षा जास्तही देऊ शकता. तुमच्या नावाने झाड {place} येथे लावले जाते आणि तुम्हाला प्रमाणपत्र मिळते.',en:'One plant costs {price}. The minimum donation is {min} and you can give more. The tree is planted in your name in {place} and you receive a certificate.'},
+h_lead2:{mr:'झाडे पावसाळ्यात (जून ते जुलै) लावली जातात, कारण तेव्हा ती सर्वात चांगली जगतात.',en:'Trees go into the ground in the monsoon (June to July), when they survive best.'},
+h_inf:{mr:'हा मित्रांचा अनौपचारिक गट आहे, नोंदणीकृत संस्था नाही. तुमचे दान स्वेच्छेने आहे. प्रमाणपत्र धन्यवादासाठी आहे, कर पावती नाही, आणि कोणताही कर लाभ दिला जात नाही.',en:'This is an informal group of friends, not a registered organisation. Your contribution is voluntary. The certificate is a thank-you, not a tax receipt, and no tax benefit is offered.'},
+st_plants:{mr:'झाडे',en:'Plants'},st_donors:{mr:'दाते',en:'Donors'},st_raised:{mr:'जमा रक्कम',en:'Raised'},
+h_first:{mr:'पहिले झाड तुमचे असू शकते.',en:'Be the first donor.'},
+r_title:{mr:'धन्यवाद! तुमची नोंद मिळाली',en:'Thank you! Your donation is recorded'},
+r_note:{mr:'पेमेंट तपासल्यानंतरच प्रमाणपत्र दिले जाईल आणि ते WhatsApp वर पाठवले जाईल.',en:'The certificate is issued only after the group verifies your payment, and it is sent to you on WhatsApp.'},
+r_wa:{mr:'WhatsApp वर गटाला तपशील पाठवा',en:'Send details to the group on WhatsApp'},
+r_again:{mr:'पुन्हा दान करा',en:'Donate again'},
+r_wahelp:{mr:'हिरवे बटण दाबा, म्हणजे आम्ही तुमचे पेमेंट जुळवून प्रमाणपत्र पाठवू.',en:'Tap the green button so the team can match your payment and send your certificate.'},
+r_msg:{mr:'तुमचा संदर्भ क्रमांक <b>{no}</b> आहे. तो जपून ठेवा. {plants}, {amt}, UTR {utr}.',en:'Your reference number is <b>{no}</b>. Please keep it. {plants}, {amt}, UTR {utr}.'},
+f_title:{mr:'वृक्षदान फॉर्म',en:'Donation form'},
+f_monsoon:{mr:'ही झाडे येत्या पावसाळ्यात (जून ते जुलै) दात्याच्या नावाने लावली जातील.',en:'These trees will be planted in the coming monsoon (June to July), in the donor’s name.'},
+f_name:{mr:'तुमचे नाव *',en:'Your name *'},f_mobile:{mr:'मोबाईल नंबर *',en:'Mobile number *'},f_mobile_ph:{mr:'१० अंकी',en:'10 digits'},
+f_email:{mr:'ईमेल (ऐच्छिक)',en:'Email (optional)'},f_place:{mr:'गाव / शहर',en:'Village or city'},
+f_bname:{mr:'वाढदिवस कोणाचा?',en:'Whose birthday?'},f_bname_ph:{mr:'तुमचाच असल्यास रिकामे ठेवा',en:'Leave empty if it is yours'},
+f_bdate:{mr:'वाढदिवसाची तारीख *',en:'Birthday date *'},f_amt:{mr:'दान रक्कम (₹), किमान {min} *',en:'Amount (₹), minimum {min} *'},
+f_species:{mr:'झाडाचा प्रकार',en:'Tree type'},
+sp_decides:{mr:'गट ठरवेल',en:'Group decides'},sp_neem:{mr:'कडुलिंब',en:'Neem'},sp_banyan:{mr:'वड',en:'Banyan'},sp_peepal:{mr:'पिंपळ',en:'Peepal'},
+sp_mango:{mr:'आंबा',en:'Mango'},sp_jamun:{mr:'जांभूळ',en:'Jamun'},sp_karanj:{mr:'करंज',en:'Karanj'},sp_tamarind:{mr:'चिंच',en:'Tamarind'},sp_bael:{mr:'बेल',en:'Bael'},sp_amla:{mr:'आवळा',en:'Amla'},
+f_wish:{mr:'शुभेच्छा संदेश (ऐच्छिक, प्रमाणपत्रावर छापला जाईल)',en:'Birthday wish (optional, printed on the certificate)'},
+f_wish_ph:{mr:'वाढदिवसाच्या शुभेच्छा! या झाडासारखे तुम्ही बहरा.',en:'Happy birthday! May you grow like this tree.'},
+f_utr:{mr:'UPI व्यवहार क्रमांक (UTR) *',en:'UPI reference (UTR) *'},
+f_utr_ph:{mr:'आधी पेमेंट करा, मग UPI अ‍ॅपमधील क्रमांक टाका',en:'Pay first, then enter the number from your UPI app'},
+f_utr_help:{mr:'पेमेंट केल्यानंतर UPI अ‍ॅपमध्ये व्यवहार उघडा आणि १२ अंकी UTR / रेफरन्स क्रमांक कॉपी करा.',en:'After paying, open the payment in your UPI app and copy the 12-digit UTR or reference number.'},
+f_consent:{mr:'माझी माहिती फक्त वृक्षदान नोंद व प्रमाणपत्रासाठी वापरावी. मला माहीत आहे की हा नोंदणीकृत संस्थेचा नाही तर मित्रांच्या गटाचा उपक्रम आहे आणि कर पावती मिळणार नाही. *',en:'Use my details only for the donation record and certificate. I understand this is an informal friends group, not a registered organisation, and there is no tax receipt. *'},
+f_show:{mr:'माझे नाव सार्वजनिक दाते यादीत आणि कॅलेंडरमध्ये दाखवा. निवडले नाही तर “अनामिक” दिसेल (तारीख दिसेल).',en:'Show my name in the public donor list and calendar. If unticked it shows “Anonymous” (the date still appears).'},
+f_submit:{mr:'दान नोंदवा',en:'Submit donation'},
+e_name:{mr:'तुमचे पूर्ण नाव लिहा.',en:'Enter your full name.'},e_mobile:{mr:'१० अंकी मोबाईल नंबर लिहा.',en:'Enter a 10-digit mobile number.'},
+e_email:{mr:'ईमेल अपूर्ण दिसत आहे.',en:'This email looks incomplete.'},e_bdate:{mr:'वाढदिवसाची तारीख निवडा.',en:'Pick the birthday date.'},
+e_amt:{mr:'किमान {min} रक्कम लिहा.',en:'Enter an amount of at least {min}.'},
+e_utr:{mr:'UPI अ‍ॅपमधील UTR लिहा: ८ ते २२ अक्षरे किंवा अंक.',en:'Enter the UTR from your UPI app: 8 to 22 letters or digits.'},
+e_utr_dup:{mr:'हा क्रमांक आधीच वापरला आहे. क्रमांक तपासा.',en:'This UTR is already used. Check the number.'},
+e_consent:{mr:'पुढे जाण्यासाठी टिक करा.',en:'Tick to continue.'},
+e_save:{mr:'दान नोंदवता आले नाही. पुन्हा प्रयत्न करा.',en:'Could not save your donation. Please try again.'},
+e_net:{mr:'इंटरनेट नाही. कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.',en:'No connection. Check your internet and try again.'},
+p_title:{mr:'पेमेंट',en:'Payment'},
+p_help:{mr:'फोनवर हे GPay, PhonePe, Paytm किंवा बँक अ‍ॅप रक्कम भरून उघडते. संगणकावर QR स्कॅन करा.',en:'On a phone this opens GPay, PhonePe, Paytm or your bank app with the amount filled in. On a computer, scan the QR.'},
+p_upiid:{mr:'UPI आयडी',en:'UPI ID'},p_copy:{mr:'कॉपी',en:'Copy'},p_copied:{mr:'UPI आयडी कॉपी झाला',en:'UPI ID copied'},
+p_demo:{mr:'हा डेमो UPI आयडी आहे. खऱ्या पेमेंटआधी Admin → Settings मध्ये खरा UPI आयडी टाका.',en:'This is a demo UPI ID. Set the real UPI ID in Admin → Settings before real payments.'},
+p_s1:{mr:'कोणत्याही UPI अ‍ॅपने QR स्कॅन करा.',en:'Scan with any UPI app.'},p_s2:{mr:'वर दाखवलेली रक्कम भरा.',en:'Pay the amount shown.'},
+p_s3:{mr:'UTR क्रमांक फॉर्ममध्ये टाका.',en:'Enter the UTR in the form.'},p_s4:{mr:'पेमेंट तपासल्यावर प्रमाणपत्र WhatsApp वर मिळेल.',en:'The certificate comes after the group verifies your payment.'},
+p_btn:{mr:'UPI अ‍ॅपने {amt} भरा',en:'Pay {amt} with UPI app'},
+p_note1:{mr:'{count}. एका झाडाची किंमत {price}.',en:'Counts as {count}. One plant = {price}.'},
+p_min:{mr:'किमान {min} आहे. ',en:'Minimum is {min}. '},
+p_plants_help:{mr:'तुमच्या दानातून: {count}. एका झाडाची किंमत {price}.',en:'Your donation counts as {count}. One plant = {price}.'},
+p_scan:{mr:'स्कॅन करा, मग UPI अ‍ॅपमध्ये {amt} टाका.',en:'Scan, then type {amt} in your UPI app.'},
+p_auto:{mr:'रक्कम {amt} आपोआप भरली जाते.',en:'Amount {amt} is filled in automatically.'},
+p_noqr:{mr:'QR दिसला नाही. खालील UPI आयडीवर पैसे पाठवा.',en:'QR could not load. Pay to the UPI ID below.'},
+n_plant:{mr:'{n} झाड',en:'{n} plant'},n_plants:{mr:'{n} झाडे',en:'{n} plants'},
+b_eyebrow:{mr:'पारदर्शकता',en:'Open books'},b_title:{mr:'दाते आणि खर्च',en:'Donors and spending'},
+b_recv:{mr:'मिळालेली रक्कम',en:'Received'},b_spent:{mr:'खर्च',en:'Spent'},b_bal:{mr:'शिल्लक',en:'Balance'},
+b_donors:{mr:'दात्यांची यादी',en:'Donors'},b_spending:{mr:'खर्चाचा तपशील',en:'Spending'},
+th_date:{mr:'तारीख',en:'Date'},th_donor:{mr:'दाता',en:'Donor'},th_plants:{mr:'झाडे',en:'Plants'},th_amount:{mr:'रक्कम',en:'Amount'},th_total:{mr:'एकूण',en:'Total'},
+th_cat:{mr:'प्रकार',en:'Category'},th_desc:{mr:'तपशील',en:'Description'},th_stotal:{mr:'एकूण खर्च',en:'Total spent'},
+b_dempty:{mr:'अजून एकही दान तपासलेले नाही. पेमेंट तपासल्यानंतर प्रत्येक दाता इथे दिसेल.',en:'No verified donations yet. Every donor appears here after the group checks the payment.'},
+b_sempty:{mr:'अजून खर्च नोंदवलेला नाही.',en:'No spending recorded yet.'},
+b_loading:{mr:'यादी लोड होत आहे…',en:'Loading the list…'},
+b_prev:{mr:'या उपकरणावरील पूर्वावलोकन. सर्वांना हे दाखवण्यासाठी डेटाबेस जोडा.',en:'Preview from this device. Connect the database to show these tables to everyone.'},
+b_fill:{mr:'गटाने पहिली नोंद प्रसिद्ध केल्यावर ही यादी भरेल.',en:'The tables fill in after the group publishes its first update.'},
+b_upd:{mr:'शेवटचा बदल {date}. फक्त तपासलेली दाने दाखवली आहेत.',en:'Last updated {date}. Only verified donations are listed.'},
+anon:{mr:'अनामिक',en:'Anonymous'},
+c_eyebrow:{mr:'कॅलेंडर',en:'Calendar'},c_title:{mr:'वाढदिवस आणि वृक्षारोपण कॅलेंडर',en:'Birthday and planting calendar'},
+c_lead:{mr:'जून ते जुलै हा झाडे लावण्याचा काळ आहे. प्रत्येक केक म्हणजे कोणीतरी वाढदिवसाला झाड दिले. कोणत्याही दिवसावर दाबा.',en:'June to July is planting season. Every cake means someone gave a tree on a birthday. Tap any day.'},
+c_today:{mr:'आज',en:'Today'},c_leg_b:{mr:'वाढदिवस',en:'Birthday'},c_leg_s:{mr:'लावणीचा काळ',en:'Planting season'},c_leg_t:{mr:'आजचा दिवस',en:'Today'},
+c_next:{mr:'येणारे वाढदिवस',en:'Coming up'},c_none_next:{mr:'येत्या दिवसांत अजून कोणीही नाही. तुमचा वाढदिवस इथे आणा!',en:'Nobody yet in the coming days. Bring your birthday here!'},
+c_sub_season:{mr:'झाडे लावण्याचा काळ',en:'Tree planting season'},c_sub_norm:{mr:'येत्या पावसाळ्याची तयारी',en:'Getting ready for the monsoon'},
+c_month_stat:{mr:'या महिन्यात {b} वाढदिवस, {p} झाडे',en:'This month: {b} birthday(s), {p} tree(s)'},
+c_sel_none:{mr:'या दिवशी अजून कोणाचा वाढदिवस नोंदलेला नाही.',en:'No birthday is recorded for this day yet.'},
+c_sel_btn:{mr:'या दिवसासाठी झाड लावा',en:'Plant a tree for this day'},
+c_sel_past:{mr:'हा दिवस होऊन गेला आहे.',en:'This day has already passed.'},
+c_ev:{mr:'{name}: {plants}',en:'{name}: {plants}'},
+l_eyebrow:{mr:'प्रमाणपत्र',en:'Certificate'},l_title:{mr:'माझे प्रमाणपत्र शोधा',en:'Find my certificate'},
+l_lead:{mr:'प्रमाणपत्र क्रमांक आणि तुम्ही दिलेला मोबाईल नंबर टाका. गटाने पेमेंट तपासल्यानंतरच प्रमाणपत्र उघडते.',en:'Enter the certificate number and the mobile number you used. The certificate opens only after the group has verified your payment.'},
+l_no:{mr:'प्रमाणपत्र क्रमांक',en:'Certificate number'},l_mob:{mr:'मोबाईल नंबर',en:'Mobile number'},l_find:{mr:'प्रमाणपत्र शोधा',en:'Find certificate'},
+l_dl:{mr:'डाउनलोड',en:'Download'},l_hold:{mr:'फोनवर प्रतिमा दाबून धरा किंवा संगणकावर राईट-क्लिक करून सेव्ह करा.',en:'Press and hold (phone) or right-click (computer) the image to save it.'},
+l_nomatch:{mr:'काहीही सापडले नाही. प्रमाणपत्र क्रमांक आणि मोबाईल नंबर तपासा.',en:'No match found. Check the certificate number and mobile number.'},
+l_pending:{mr:'तुमचे पेमेंट अजून तपासलेले नाही. गटाने तपासल्यानंतरच प्रमाणपत्र मिळते. थोड्या वेळाने पुन्हा पहा.',en:'Your payment is not verified yet. The certificate is issued only after the group checks it. Please check again later.'},
+l_net:{mr:'इंटरनेट नाही. पुन्हा प्रयत्न करा.',en:'No connection. Please try again.'},
+v_count:{mr:'भेटी: {n}',en:'Visits: {n}'},
+foot_tag:{mr:'झाडे लावा, झाडे जगवा.',en:'Plant trees, keep them alive.'}
+};
+function tv(key,vars){
+  var e=I18N[key],s=e?(e[LANG]||e.en):key;
+  var base={price:fmtINR(S.price),min:fmtINR(MIN_AMT),place:(LANG==='mr'&&S.place==='Gugalgaon')?'गुगळगाव':S.place};
+  return String(s).replace(/\{(\w+)\}/g,function(_,k){return (vars&&k in vars)?vars[k]:(k in base?base[k]:'')});
+}
+function nPlants(n){return tv(n>1?'n_plants':'n_plant',{n:Number(n).toLocaleString('en-IN')})}
+function applyLang(){
+  document.documentElement.lang=LANG;document.documentElement.setAttribute('data-lang',LANG);
+  document.querySelectorAll('[data-i]').forEach(function(el){el.innerHTML=tv(el.getAttribute('data-i'))});
+  document.querySelectorAll('[data-ip]').forEach(function(el){el.setAttribute('placeholder',tv(el.getAttribute('data-ip')))});
+  $('langBtn').textContent=LANG==='mr'?'English':'मराठी';
+}
+function setLang(l){
+  LANG=l;try{localStorage.setItem('gvf_lang',l)}catch(e){}
+  applyLang();renderPublic();if(!$('view-calendar').hidden)renderCalendar();
+}
+
+/* ---------- routing ---------- */
+var VIEWS=['donate','calendar','certificate','admin'];
+function render(v){
+  if(VIEWS.indexOf(v)<0)v='donate';
+  VIEWS.forEach(function(x){$('view-'+x).hidden=(x!==v)});
+  document.querySelectorAll('nav a').forEach(function(a){a.setAttribute('aria-current',a.getAttribute('data-view')===v?'page':'false')});
+  if(v==='donate'){renderPublic();if(USE_API)fetchPublic();}
+  if(v==='calendar'){calSel=calSel||null;renderCalendar();if(USE_API)fetchPublic();}
+  if(v==='admin')renderAdmin();
+  track(v);
+}
+function go(v){try{location.hash=v}catch(e){}render(v)}
+document.addEventListener('click',function(e){
+  var a=e.target.closest('[data-view]');if(a){e.preventDefault();go(a.getAttribute('data-view'));window.scrollTo(0,0)}
+});
+window.addEventListener('hashchange',function(){render((location.hash||'').slice(1))});
+
+/* ---------- public page ---------- */
+function applyBranding(){
+  $('brandMr').textContent=S.nameMr;$('brandEn').textContent=S.nameEn;
+  $('footReg').textContent=S.nameEn+' · '+S.regNo;
+  $('footVisits').textContent=(PUB&&PUB.visits&&PUB.visits.total!=null)?'· '+tv('v_count',{n:Number(PUB.visits.total).toLocaleString('en-IN')}):'';
+}
+function realDonations(){
+  if(PUB)return (PUB.donors||[]).map(function(x){return {plants:Number(x.p)||0,amount:Number(x.a)||0}});
+  if(USE_API)return [];
+  return D.filter(function(d){return !d.sample&&d.status==='verified'});
+}
+function renderPublic(){
+  applyBranding();
+  var real=realDonations();
+  $('stPlants').textContent=real.reduce(function(a,d){return a+d.plants},0).toLocaleString('en-IN');
+  $('stDonors').textContent=real.length.toLocaleString('en-IN');
+  $('stRaised').textContent=fmtINR(real.reduce(function(a,d){return a+d.amount},0));
+  $('firstLine').hidden=real.length>0;
+  $('upiIdText').textContent=S.upiId;renderBooks();
+  $('demoNote').hidden=S.upiId!=='demo@upi';
+  updateAmount();
+  if(!$('view-calendar').hidden)renderCalendar();
+}
+var MIN_AMT=150,MAX_AMT=1000000;
+function amountVal(){var n=parseInt($('donAmt').value,10);return isNaN(n)?0:n}
+function plantsFor(a){return Math.max(1,Math.floor(a/S.price))}
+function plantsVal(){return plantsFor(amountVal())}
+function updateAmount(){
+  var amt=amountVal(),n=plantsFor(amt);
+  if(amt<MIN_AMT)amt=MIN_AMT;
+  $('upiPay').href='upi://pay?pa='+encodeURIComponent(S.upiId)+'&pn='+encodeURIComponent(S.payee)+'&am='+amt+'.00&cu=INR&tn='+encodeURIComponent('Vruksh donation '+n+' plant');
+  $('upiPay').textContent=tv('p_btn',{amt:fmtINR(amt)});
+  $('amount').textContent=fmtINR(amt);
+  $('amountNote').textContent=(amountVal()<MIN_AMT?tv('p_min'):'')+tv('p_note1',{count:nPlants(n)});
+  $('plantsHelp').textContent=tv('p_plants_help',{count:nPlants(n)});
+  var box=$('qrBox');
+  if(S.qrImage){
+    box.innerHTML='<img alt="Group payment QR" src="'+S.qrImage+'">';
+    $('qrNote').textContent=tv('p_scan',{amt:fmtINR(amt)});return;
+  }
+  if(typeof QRCode==='undefined'){box.textContent=tv('p_noqr');$('qrNote').textContent='';return}
+  box.innerHTML='';
+  var link='upi://pay?pa='+encodeURIComponent(S.upiId)+'&pn='+encodeURIComponent(S.payee)+'&am='+amt+'.00&cu=INR&tn='+encodeURIComponent('Vruksh donation '+n+' plant');
+  try{new QRCode(box,{text:link,width:200,height:200,colorDark:'#000000',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M})}catch(e){box.textContent='QR could not be drawn.'}
+  $('qrNote').textContent=tv('p_auto',{amt:fmtINR(amt)});
+}
+$('presets').innerHTML=[150,300,450,750,1500].map(function(a){return '<button type="button" class="btn ghost sm" data-amt="'+a+'">'+fmtINR(a)+'</button>'}).join('');
+$('presets').addEventListener('click',function(e){var b=e.target.closest('button[data-amt]');if(b){$('donAmt').value=b.getAttribute('data-amt');updateAmount()}});
+$('donAmt').addEventListener('input',updateAmount);
+$('copyUpi').addEventListener('click',function(){copyText(S.upiId,tv('p_copied'))});
+
+var FIELDS=['donorName','mobile','email','bdayDate','donAmt','utr','consent'];
+function validate(){
+  var v={donorName:$('donorName').value.trim(),mobile:$('mobile').value.replace(/\s+/g,''),email:$('email').value.trim(),
+    place:$('place').value.trim(),bdayName:$('bdayName').value.trim(),bdayDate:$('bdayDate').value,donAmt:amountVal(),amount:amountVal(),plants:plantsFor(amountVal()),
+    species:$('species').value,wish:$('wish').value.trim(),utr:$('utr').value.replace(/\s+/g,'').toUpperCase(),consent:$('consent').checked,showName:$('showName').checked};
+  var e={};
+  if(v.donorName.length<2)e.donorName=tv('e_name');
+  if(!/^[6-9]\d{9}$/.test(v.mobile))e.mobile=tv('e_mobile');
+  if(v.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email))e.email=tv('e_email');
+  if(!v.bdayDate)e.bdayDate=tv('e_bdate');
+  if(!(v.amount>=MIN_AMT&&v.amount<=MAX_AMT))e.donAmt=tv('e_amt');
+  if(!/^[A-Z0-9]{8,22}$/.test(v.utr))e.utr=tv('e_utr');
+  else if(D.some(function(d){return !d.sample&&d.utr===v.utr}))e.utr=tv('e_utr_dup');
+  if(!v.consent)e.consent=tv('e_consent');
+  return {v:v,e:e};
+}
+function showErrors(e){
+  FIELDS.forEach(function(k){var el=$('err-'+k);if(el)el.textContent=e[k]||'';var inp=$(k);if(inp&&inp.type!=='checkbox')inp.setAttribute('aria-invalid',e[k]?'true':'false')});
+  for(var i=0;i<FIELDS.length;i++){if(e[FIELDS[i]]){$(FIELDS[i]).focus();break}}
+}
+function newCertNo(){
+  var d=new Date(),ymd=d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0'),n;
+  do{var r='';for(var i=0;i<4;i++)r+='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'.charAt(Math.floor(Math.random()*32));n='GVF-'+ymd+'-'+r}
+  while(D.some(function(x){return x.certNo===n}));
+  return n;
+}
+var b64=function(o){return btoa(unescape(encodeURIComponent(JSON.stringify(o))))};
+var unb64=function(s){return JSON.parse(decodeURIComponent(escape(atob(s))))};
+
+$('donForm').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var r=validate();showErrors(r.e);
+  if(Object.keys(r.e).length)return;
+  var v=r.v;
+  var rec={id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),certNo:newCertNo(),createdAt:new Date().toISOString(),
+    donorName:v.donorName,mobile:v.mobile,email:v.email,place:v.place,bdayName:v.bdayName||v.donorName,bdayDate:v.bdayDate,
+    plants:v.plants,species:v.species,wish:v.wish,utr:v.utr,showName:v.showName,price:S.price,amount:v.amount,status:'pending',sample:false};
+  var done=function(){$('donForm').reset();$('donAmt').value=S.price;updateAmount();showResult(rec)};
+  if(USE_API){
+    var btn=$('donForm').querySelector('button[type=submit]');btn.disabled=true;
+    api('submit',{rec:rec}).then(function(res){
+      btn.disabled=false;
+      if(res&&res.ok){if(res.certNo)rec.certNo=res.certNo;done();return}
+      if(res&&res.error==='amount'){showErrors({donAmt:tv('e_amt')});return}
+      if(res&&res.error==='dup'){showErrors({utr:tv('e_utr_dup')});return}
+      toast(tv('e_save'));
+    }).catch(function(){btn.disabled=false;toast(tv('e_net'))});
+    return;
+  }
+  D.push(rec);
+  if(!save(KEY.d,D))toast('Saved for this visit only. Browser storage is blocked, so export your data.');
+  renderPublic();done();
+});
+function showResult(rec){
+  var box=$('result');box.hidden=false;
+  $('resultMsg').innerHTML=tv('r_msg',{no:esc(rec.certNo),plants:nPlants(rec.plants),amt:fmtINR(rec.amount),utr:esc(rec.utr)});
+  var fnd=$('waFound');
+  if(!USE_API&&/^\d{10}$/.test(S.phone)){
+    var txt='Vruksh donation\n'+rec.certNo+'\n'+rec.donorName+' ('+rec.mobile+')\n'+rec.plants+' plant(s), '+fmtINR(rec.amount)+'\nUTR '+rec.utr+'\nGVF-CODE:'+b64(rec);
+    fnd.href='https://wa.me/91'+S.phone+'?text='+encodeURIComponent(txt);fnd.hidden=false;$('waHelp').hidden=false;
+  }else{fnd.hidden=true;$('waHelp').hidden=true}
+  box.scrollIntoView({block:'start'});
+}
+function download(url,rec){
+  var a=document.createElement('a');a.href=url;a.download='Certificate-'+rec.certNo.replace(/[^A-Za-z0-9]+/g,'-')+'.png';
+  document.body.appendChild(a);a.click();a.remove();
+  toast('Download requested. If nothing happens, save the image from the preview.');
+}
+$('againBtn').addEventListener('click',function(){$('result').hidden=true;$('donorName').focus()});
+
+/* ---------- open books (public donor and spending tables) ---------- */
+var PUB=null;
+function renderBooks(){
+  var src=PUB,local=false;
+  if(!src){src=USE_API?{donors:[],spending:[]}:buildPublic();local=true}
+  var donors=(src.donors||[]).slice().sort(function(a,b){return String(b.d).localeCompare(String(a.d))}),
+      sp=(src.spending||[]).slice().sort(function(a,b){return String(b.d).localeCompare(String(a.d))});
+  var tot=function(a){return a.reduce(function(t,x){return t+(Number(x.a)||0)},0)},recv=tot(donors),spent=tot(sp);
+  $('bRecv').textContent=fmtINR(recv);$('bSpent').textContent=fmtINR(spent);$('bBal').textContent=fmtINR(recv-spent);
+  $('bDonors').innerHTML=donors.map(function(x){return '<tr><td>'+fmtDate(x.d)+'</td><td>'+esc(x.n==='Anonymous'?tv('anon'):x.n)+'</td><td class="num">'+(Number(x.p)||0)+'</td><td class="num">'+fmtINR(x.a)+'</td></tr>'}).join('');
+  $('bDEmpty').hidden=donors.length>0;
+  $('bDPlants').textContent=donors.reduce(function(t,x){return t+(Number(x.p)||0)},0).toLocaleString('en-IN');$('bDAmt').textContent=fmtINR(recv);
+  $('bSpend').innerHTML=sp.map(function(x){return '<tr><td>'+fmtDate(x.d)+'</td><td>'+esc(x.c)+'</td><td>'+esc(x.t)+'</td><td class="num">'+fmtINR(x.a)+'</td></tr>'}).join('');
+  $('bSEmpty').hidden=sp.length>0;$('bSAmt').textContent=fmtINR(spent);
+  $('booksNote').textContent=local
+    ?((donors.length||sp.length)?tv('b_prev'):tv('b_fill'))
+    :tv('b_upd',{date:fmtDate(src.updated)});
+  if(local&&USE_API)$('booksNote').textContent=tv('b_loading');
+}
+function fetchPublic(){
+  if(USE_SB){api('public').then(function(j){if(j&&Array.isArray(j.donors)&&Array.isArray(j.spending)){PUB=j;renderPublic()}}).catch(function(){});return}
+  var url=USE_API?API_URL+(API_URL.indexOf('?')<0?'?':'&')+'action=public&t='+Date.now():'public-data.json?t='+Date.now();
+  try{fetch(url,{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('http');return r.json()}).then(function(j){
+    if(j&&Array.isArray(j.donors)&&Array.isArray(j.spending)){PUB=j;renderPublic()}}).catch(function(){})}catch(e){}
+}
+
+/* ---------- certificate lookup ---------- */
+var lkRec=null,lkUrl='';
+$('lookupForm').addEventListener('submit',async function(ev){
+  ev.preventDefault();
+  var no=$('lkNo').value.trim().toUpperCase(),mob=$('lkMobile').value.replace(/\s+/g,'');
+  $('lkResult').hidden=true;$('lkInfo').hidden=true;$('err-lookup').textContent='';
+  var rec=null;
+  if(USE_API){
+    try{var res=await api('lookup',{certNo:no,mobile:mob});if(res&&res.found)rec=res.record||{status:res.status}}
+    catch(e){$('err-lookup').textContent=tv('l_net');return}
+  }else rec=D.find(function(d){return d.certNo.toUpperCase()===no&&d.mobile===mob});
+  if(!rec){$('err-lookup').textContent=tv('l_nomatch');return}
+  if(rec.status!=='verified'){$('lkInfo').textContent=tv('l_pending');$('lkInfo').hidden=false;return}
+  lkUrl=(await drawCert(rec)).toDataURL('image/png');lkRec=rec;$('lkImg').src=lkUrl;$('lkResult').hidden=false;
+});
+$('lkDl').addEventListener('click',function(){if(lkRec)download(lkUrl,lkRec)});
+
+/* ---------- certificate drawing ---------- */
+function treeShape(g,cx,baseY,size,color){
+  g.fillStyle=color;g.beginPath();
+  g.rect(cx-size*0.04,baseY-size*0.36,size*0.08,size*0.36);
+  [[0,-0.62,0.28],[-0.2,-0.5,0.2],[0.2,-0.5,0.2],[-0.1,-0.74,0.2],[0.1,-0.74,0.2]].forEach(function(c){
+    var x=cx+c[0]*size,y=baseY+c[1]*size,r=c[2]*size;g.moveTo(x+r,y);g.arc(x,y,r,0,Math.PI*2)});
+  g.fill();
+}
+function corner(g,x,y,sx,sy,leaf,haldi){
+  g.save();g.translate(x,y);g.scale(sx,sy);g.fillStyle=leaf;
+  [18,45,72].forEach(function(a){g.save();g.rotate(a*Math.PI/180);g.beginPath();g.ellipse(52,0,38,11,0,0,Math.PI*2);g.fill();g.restore()});
+  g.fillStyle=haldi;g.beginPath();g.arc(0,0,9,0,Math.PI*2);g.fill();g.restore();
+}
+function wrapLines(g,text,maxW){
+  var words=String(text).split(/\s+/),lines=[],cur='';
+  words.forEach(function(w){var t=cur?cur+' '+w:w;if(g.measureText(t).width>maxW&&cur){lines.push(cur);cur=w}else cur=t});
+  if(cur)lines.push(cur);return lines;
+}
+async function drawCert(rec){
+  try{await Promise.all([document.fonts.load('400 40px "Tiro Devanagari Marathi"'),document.fonts.load('italic 400 40px "Tiro Devanagari Marathi"'),
+    document.fonts.load('400 24px Mukta'),document.fonts.load('700 24px Mukta')])}catch(e){}
+  var W=1754,H=1240,c=document.createElement('canvas');c.width=W;c.height=H;var g=c.getContext('2d');
+  var paper='#FDFCF6',ink='#15251B',leaf='#1E5C3A',haldi='#C98A0A',muted='#55645A';
+  var DISP='"Tiro Devanagari Marathi","Noto Serif Devanagari",Georgia,serif',BODY='Mukta,"Noto Sans Devanagari",system-ui,sans-serif';
+  var T=function(s,y,font,color,x){g.font=font;g.fillStyle=color;g.textAlign='center';g.fillText(s,x==null?W/2:x,y)};
+  var spaced=function(px){if('letterSpacing' in g)g.letterSpacing=px+'px'};
+  g.fillStyle=paper;g.fillRect(0,0,W,H);
+  treeShape(g,W/2,H*0.66,560,'rgba(30,92,58,0.06)');
+  g.strokeStyle=leaf;g.lineWidth=10;g.strokeRect(50,50,W-100,H-100);
+  g.strokeStyle=haldi;g.lineWidth=3;g.strokeRect(74,74,W-148,H-148);
+  corner(g,74,74,1,1,leaf,haldi);corner(g,W-74,74,-1,1,leaf,haldi);corner(g,74,H-74,1,-1,leaf,haldi);corner(g,W-74,H-74,-1,-1,leaf,haldi);
+  treeShape(g,W/2,190,100,leaf);
+  T(S.nameMr,262,'400 54px '+DISP,leaf);
+  spaced(5);T(S.nameEn.toUpperCase(),302,'700 22px '+BODY,muted);spaced(0);
+  g.strokeStyle=haldi;g.lineWidth=2;g.beginPath();g.moveTo(W/2-260,332);g.lineTo(W/2-18,332);g.moveTo(W/2+18,332);g.lineTo(W/2+260,332);g.stroke();
+  g.fillStyle=haldi;g.beginPath();g.moveTo(W/2,322);g.lineTo(W/2+10,332);g.lineTo(W/2,342);g.lineTo(W/2-10,332);g.fill();
+  T('वृक्षदान प्रमाणपत्र',420,'400 72px '+DISP,ink);
+  spaced(6);T('CERTIFICATE OF PLANT DONATION',468,'700 24px '+BODY,haldi);spaced(0);
+  T('This certificate is proudly presented to',545,'400 28px '+BODY,muted);
+  var size=84;g.font='italic 400 '+size+'px '+DISP;while(g.measureText(rec.donorName).width>W-420&&size>40){size-=4;g.font='italic 400 '+size+'px '+DISP}
+  T(rec.donorName,640,'italic 400 '+size+'px '+DISP,ink);
+  g.strokeStyle=haldi;g.lineWidth=2;g.beginPath();g.moveTo(W/2-380,664);g.lineTo(W/2+380,664);g.stroke();
+  var n=rec.plants,pl=n>1?n+' plants':'1 plant';
+  var body='for a donation of '+fmtINR(rec.amount)+' ('+pl+') on the occasion of the birthday of '+rec.bdayName+' ('+fmtDate(rec.bdayDate)+'). The '+(n>1?'plants':'plant')+' will be planted in the coming monsoon season in '+S.place+' and cared for, so that every birthday leaves something behind that grows.';
+  g.font='400 31px '+BODY;var lines=wrapLines(g,body,W-440);
+  lines.slice(0,4).forEach(function(l,i){T(l,730+i*44,'400 31px '+BODY,ink)});
+  T('वाढदिवसानिमित्त वृक्षदान केल्याबद्दल मनःपूर्वक धन्यवाद!',880,'400 34px '+DISP,leaf);
+  if(rec.wish){g.font='italic 400 28px '+DISP;wrapLines(g,'“'+rec.wish+'”',W-520).slice(0,2).forEach(function(l,i){T(l,926+i*36,'italic 400 28px '+DISP,muted)})}
+  var verified=rec.status==='verified',sx=W/2,sy=1040,r=64;
+  g.save();g.lineWidth=5;g.strokeStyle=verified?leaf:'#8A968C';if(!verified)g.setLineDash([10,8]);
+  g.beginPath();g.arc(sx,sy,r,0,Math.PI*2);g.stroke();g.restore();
+  if(verified){g.fillStyle=leaf;g.beginPath();g.arc(sx,sy,r-9,0,Math.PI*2);g.fill();treeShape(g,sx,sy+6,56,paper);T('VERIFIED',sy+36,'700 15px '+BODY,paper)}
+  else{T('PAYMENT',sy-4,'700 16px '+BODY,'#6A776D');T('PENDING',sy+18,'700 16px '+BODY,'#6A776D')}
+  [[260,S.president,'President'],[W-260,S.secretary,'Secretary']].forEach(function(p){
+    g.strokeStyle=ink;g.lineWidth=2;g.beginPath();g.moveTo(p[0]-170,1062);g.lineTo(p[0]+170,1062);g.stroke();
+    if(p[1]){T(p[1],1092,'700 24px '+BODY,ink,p[0]);T(p[2],1118,'400 20px '+BODY,muted,p[0])}else T(p[2],1094,'400 22px '+BODY,muted,p[0]);
+  });
+  T('Certificate No. '+rec.certNo+'   •   Issued '+fmtDate(rec.verifiedAt||rec.createdAt)+'   •   '+S.regNo,1148,'400 20px '+BODY,muted);
+  return c;
+}
+
+/* ---------- modal ---------- */
+var mRec=null,mUrl='';
+async function openCert(rec){
+  mRec=rec;mUrl=(await drawCert(rec)).toDataURL('image/png');$('modalImg').src=mUrl;
+  $('modalWa').href='https://wa.me/91'+rec.mobile+'?text='+encodeURIComponent('Namaskar '+rec.donorName+', your payment is verified. Thank you for donating '+rec.plants+(rec.plants>1?' plants':' plant')+' with '+S.nameEn+'. Your certificate is attached.');
+  $('modal').hidden=false;
+}
+function closeModal(){$('modal').hidden=true}
+$('modalClose').addEventListener('click',closeModal);
+$('modal').addEventListener('click',function(e){if(e.target===$('modal'))closeModal()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()});
+$('modalDl').addEventListener('click',function(){if(mRec)download(mUrl,mRec)});
+
+/* ---------- admin ---------- */
+function renderAdmin(){
+  $('adminGate').hidden=authed;$('adminApp').hidden=!authed;
+  if(!authed){setTimeout(function(){$('pin').focus()},0);return}
+  setTab(tab);
+}
+function loadAdminData(){
+  return apiAdmin('list').then(function(r){
+    if(!r||!r.ok)throw new Error('list');
+    D=r.donations||[];E=r.expenses||[];
+  });
+}
+$('refreshBtn').addEventListener('click',function(){loadAdminData().then(function(){setTab(tab);toast('Refreshed')}).catch(function(){toast('Could not refresh. Check your internet.')})});
+$('pinForm').addEventListener('submit',function(ev){
+  ev.preventDefault();var v=$('pin').value;
+  if(!USE_API){
+    if(v===String(S.pin)){authed=true;$('pin').value='';$('err-pin').textContent='';renderAdmin()}else $('err-pin').textContent='Wrong PIN.';
+    return;
+  }
+  $('err-pin').textContent='Checking…';
+  api('adminLogin',{pin:v}).then(function(r){
+    if(!r||!r.ok){$('err-pin').textContent='Wrong PIN.';return}
+    adminPin=v;
+    return loadAdminData().then(function(){authed=true;$('pin').value='';$('err-pin').textContent='';renderAdmin()});
+  }).catch(function(){$('err-pin').textContent='Could not reach the server. Check your internet and try again.'});
+});
+$('lockBtn').addEventListener('click',function(){authed=false;if(USE_API){adminPin='';D=[];E=[]}renderAdmin()});
+document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener('click',function(){setTab(b.getAttribute('data-tab'))})});
+function setTab(t){
+  tab=t;
+  document.querySelectorAll('.tabs button').forEach(function(b){b.setAttribute('aria-selected',b.getAttribute('data-tab')===t?'true':'false')});
+  ['donations','spending','visitors','settings','roadmap','data'].forEach(function(x){$('tab-'+x).hidden=(x!==t)});
+  renderTiles();
+  if(t==='donations')renderDonations();
+  if(t==='spending')renderSpending();
+  if(t==='visitors')renderVisitors();
+  if(t==='settings')fillSettings();
+  if(t==='roadmap')renderRoadmap();
+}
+
+function ymd(iso){var d=new Date(iso);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function renderTiles(){
+  var recv=0,pend=0,pendN=0,pl=0,spent=0;
+  D.forEach(function(d){if(d.status==='verified'){recv+=d.amount;pl+=d.plants}else{pend+=d.amount;pendN++}});
+  E.forEach(function(x){spent+=x.amount});
+  $('tRecv').textContent=fmtINR(recv);$('tSpent').textContent=fmtINR(spent);$('tBal').textContent=fmtINR(recv-spent);
+  $('tPend').textContent=fmtINR(pend);$('tPendLbl').textContent='Waiting for verification ('+pendN+')';$('tPlants').textContent=pl.toLocaleString('en-IN');
+}
+function renderDonations(){
+  renderTiles();
+  var q=$('fSearch').value.trim().toLowerCase(),st=$('fStatus').value,from=$('fFrom').value,to=$('fTo').value;
+  var rows=D.filter(function(d){
+    if(st!=='all'&&d.status!==st)return false;
+    var dt=ymd(d.createdAt);if(from&&dt<from)return false;if(to&&dt>to)return false;
+    if(!q)return true;
+    return [d.certNo,d.donorName,d.mobile,d.utr,d.bdayName].join(' ').toLowerCase().indexOf(q)>=0;
+  }).sort(function(a,b){return b.createdAt.localeCompare(a.createdAt)});
+  $('dRows').innerHTML=rows.map(function(d){
+    var ok=d.status==='verified';
+    return '<tr><td><b>'+esc(d.certNo)+'</b>'+(d.sample?' <span class="pill">Sample</span>':'')+'<br><small>'+fmtDate(d.createdAt)+'</small></td>'+
+      '<td>'+esc(d.donorName)+'<br><small>'+esc(d.mobile)+(d.place?' · '+esc(d.place):'')+'</small></td>'+
+      '<td>'+esc(d.bdayName)+'<br><small>'+fmtDate(d.bdayDate)+' · '+esc(d.species)+'</small></td>'+
+      '<td class="num">'+d.plants+'</td><td class="num">'+fmtINR(d.amount)+'</td><td class="mono">'+esc(d.utr)+'</td>'+
+      '<td><span class="pill '+d.status+'">'+(ok?'Verified':'Pending')+'</span>'+(ok&&d.verifiedAt?'<br><small>'+fmtDate(d.verifiedAt)+'</small>':'')+'</td>'+
+      '<td class="acts"><button class="btn sm" data-act="verify" data-id="'+d.id+'">'+(ok?'Unverify':'Verify')+'</button> '+
+      (ok?'<button class="btn ghost sm" data-act="cert" data-id="'+d.id+'">Certificate</button> ':'<button class="btn ghost sm" disabled title="Verify the payment first">Certificate</button> ')+
+      '<button class="btn warn sm" data-act="del" data-id="'+d.id+'">Delete</button></td></tr>';
+  }).join('');
+  $('dEmpty').hidden=rows.length>0;
+  $('fPlants').textContent=rows.reduce(function(a,d){return a+d.plants},0).toLocaleString('en-IN');
+  $('fAmt').textContent=fmtINR(rows.reduce(function(a,d){return a+d.amount},0));
+  $('fNote').textContent=rows.length+(rows.length===1?' row':' rows');
+}
+$('fSearch').addEventListener('input',renderDonations);$('fStatus').addEventListener('change',renderDonations);$('fFrom').addEventListener('change',renderDonations);$('fTo').addEventListener('change',renderDonations);
+$('dRows').addEventListener('click',function(e){
+  var b=e.target.closest('button[data-act]');if(!b)return;
+  var id=b.getAttribute('data-id'),act=b.getAttribute('data-act'),rec=D.find(function(d){return d.id===id});if(!rec)return;
+  if(act==='verify'){
+    if(b.getAttribute('data-armed')!=='1'){
+      var old=b.textContent;b.setAttribute('data-armed','1');
+      b.textContent=rec.status==='verified'?'Confirm unverify?':'Money received? Confirm';
+      setTimeout(function(){if(b.isConnected){b.setAttribute('data-armed','0');b.textContent=old}},4000);return;
+    }
+    var ns=rec.status==='verified'?'pending':'verified';
+    var apply=function(vAt){rec.status=ns;rec.verifiedAt=ns==='verified'?(vAt||new Date().toISOString()):'';save(KEY.d,D);renderDonations();
+      toast(ns==='verified'?'Payment verified. You can now open the certificate.':'Marked pending')};
+    if(USE_API){apiAdmin('setStatus',{id:rec.id,status:ns}).then(function(r){if(r&&r.ok)apply(r.verifiedAt);else toast('Could not update. Try again.')}).catch(function(){toast('No connection. Try again.')})}
+    else apply();
+  }
+  if(act==='cert'){if(rec.status!=='verified'){toast('Verify the payment first.');return}openCert(rec)}
+  if(act==='del'){
+    if(b.getAttribute('data-armed')==='1'){
+      var rm=function(){D=D.filter(function(d){return d.id!==id});save(KEY.d,D);renderDonations();toast('Deleted')};
+      if(USE_API){apiAdmin('deleteDonation',{id:id}).then(function(r){if(r&&r.ok)rm();else toast('Could not delete. Try again.')}).catch(function(){toast('No connection. Try again.')})}
+      else rm();
+    }
+    else{b.setAttribute('data-armed','1');b.textContent='Confirm delete?';setTimeout(function(){b.setAttribute('data-armed','0');b.textContent='Delete'},4000)}
+  }
+});
+
+/* spending */
+function renderSpending(){
+  renderTiles();
+  if(!$('eDate').value)$('eDate').value=ymd(new Date().toISOString());
+  var rows=E.slice().sort(function(a,b){return b.date.localeCompare(a.date)||String(b.createdAt).localeCompare(String(a.createdAt))});
+  $('eRows').innerHTML=rows.map(function(x){
+    return '<tr><td>'+fmtDate(x.date)+(x.sample?' <span class="pill">Sample</span>':'')+'</td><td>'+esc(x.cat)+'</td><td>'+esc(x.desc)+'</td><td>'+esc(x.paidTo)+'</td><td class="mono">'+esc(x.ref)+'</td><td class="num">'+fmtINR(x.amount)+'</td>'+
+      '<td class="acts"><button class="btn warn sm" data-act="edel" data-id="'+x.id+'">Delete</button></td></tr>';
+  }).join('');
+  $('eEmpty').hidden=rows.length>0;
+  $('eTotal').textContent=fmtINR(E.reduce(function(a,x){return a+x.amount},0));
+  var by={};E.forEach(function(x){by[x.cat]=(by[x.cat]||0)+x.amount});
+  $('eCats').innerHTML=Object.keys(by).map(function(k){return esc(k)+': <b>'+fmtINR(by[k])+'</b>'}).join(' · ');
+}
+$('expForm').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var desc=$('eDesc').value.trim(),amt=parseInt($('eAmt').value,10),date=$('eDate').value||ymd(new Date().toISOString());
+  var e1=desc.length<2?'Say what it was for.':'',e2=(amt>=1&&amt<=10000000)?'':'Enter the amount in rupees.';
+  $('err-eDesc').textContent=e1;$('err-eAmt').textContent=e2;if(e1||e2)return;
+  var x={id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),createdAt:new Date().toISOString(),date:date,cat:$('eCat').value,desc:desc,
+    paidTo:$('ePaid').value.trim(),ref:$('eRef').value.trim(),amount:amt,sample:false};
+  var ok=function(){E.push(x);save(KEY.e,E);$('eDesc').value='';$('ePaid').value='';$('eAmt').value='';$('eRef').value='';renderSpending();toast('Spending added')};
+  if(USE_API){apiAdmin('addExpense',{expense:x}).then(function(r){if(r&&r.ok)ok();else toast('Could not save. Try again.')}).catch(function(){toast('No connection. Try again.')})}
+  else ok();
+});
+$('eRows').addEventListener('click',function(e){
+  var b=e.target.closest('button[data-act="edel"]');if(!b)return;var id=b.getAttribute('data-id');
+  if(b.getAttribute('data-armed')==='1'){
+    var rm=function(){E=E.filter(function(x){return x.id!==id});save(KEY.e,E);renderSpending();toast('Deleted')};
+    if(USE_API){apiAdmin('deleteExpense',{id:id}).then(function(r){if(r&&r.ok)rm();else toast('Could not delete. Try again.')}).catch(function(){toast('No connection. Try again.')})}
+    else rm();
+  }
+  else{b.setAttribute('data-armed','1');b.textContent='Confirm delete?';setTimeout(function(){b.setAttribute('data-armed','0');b.textContent='Delete'},4000)}
+});
+
+/* settings */
+function fillSettings(){
+  $('s-nameMr').value=S.nameMr;$('s-nameEn').value=S.nameEn;$('s-price').value=S.price;$('s-place').value=S.place;
+  $('s-upi').value=S.upiId;$('s-payee').value=S.payee;$('s-regNo').value=S.regNo;$('s-president').value=S.president;
+  $('s-secretary').value=S.secretary;$('s-phone').value=S.phone;$('s-pin').value=S.pin;
+  pendingQr=undefined;var p=$('qrPrev');if(S.qrImage){p.src=S.qrImage;p.hidden=false}else p.hidden=true;
+}
+$('s-qr').addEventListener('change',function(ev){
+  var f=ev.target.files[0];if(!f)return;var fr=new FileReader();
+  fr.onload=function(){var img=new Image();
+    img.onload=function(){var m=Math.min(1,600/Math.max(img.width,img.height)),c=document.createElement('canvas');
+      c.width=Math.round(img.width*m);c.height=Math.round(img.height*m);c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      pendingQr=c.toDataURL('image/png');$('qrPrev').src=pendingQr;$('qrPrev').hidden=false};
+    img.onerror=function(){toast('That file is not a readable image.')};img.src=fr.result};
+  fr.readAsDataURL(f);
+});
+$('qrRemove').addEventListener('click',function(){pendingQr='';$('qrPrev').hidden=true;$('s-qr').value='';toast('QR image will be removed when you save.')});
+$('setForm').addEventListener('submit',function(ev){
+  ev.preventDefault();var e={};
+  var price=parseInt($('s-price').value,10),upi=$('s-upi').value.trim(),phone=$('s-phone').value.replace(/\s+/g,''),pin=$('s-pin').value.trim();
+  if(!(price>=1&&price<=100000))e['s-price']='Enter an amount from 1 to 100000.';
+  if(!/^[\w.\-]{2,}@[A-Za-z][A-Za-z0-9]{1,}$/.test(upi))e['s-upi']='Enter a UPI ID like name@bank.';
+  if(phone&&!/^\d{10}$/.test(phone))e['s-phone']='Enter 10 digits, without +91.';
+  if(pin.length<4)e['s-pin']='Use at least 4 characters.';
+  ['s-price','s-upi','s-phone','s-pin'].forEach(function(k){$('err-'+k).textContent=e[k]||''});
+  if(Object.keys(e).length)return;
+  S=Object.assign({},S,{nameMr:$('s-nameMr').value.trim()||DEF.nameMr,nameEn:$('s-nameEn').value.trim()||DEF.nameEn,price:price,place:$('s-place').value.trim()||DEF.place,
+    upiId:upi,payee:$('s-payee').value.trim()||DEF.payee,regNo:$('s-regNo').value.trim()||DEF.regNo,president:$('s-president').value.trim(),
+    secretary:$('s-secretary').value.trim(),phone:phone,pin:pin});
+  if(pendingQr!==undefined)S.qrImage=pendingQr;
+  pendingQr=undefined;
+  if(save(KEY.s,S))toast('Settings saved');else toast('Could not save. Browser storage is blocked.');
+  applyBranding();
+});
+
+/* roadmap */
+var ROAD=[
+{h:'1. Decide and prepare',i:[
+ ['legal','Choose the legal form','A Public Trust under the Maharashtra Public Trusts Act is the usual route for a village plantation foundation. A Society or a Section 8 company also works, with more paperwork and compliance.'],
+ ['name','Confirm the name and objects','Check that the name is not already in use by someone else. Write 4 to 6 objects: tree planting, care and watering, environment awareness, school programmes.'],
+ ['trustees','Fix the trustees','At least 2, ideally 3 to 5 (President, Secretary, Treasurer). Collect PAN, Aadhaar, address proof and passport photos from each.'],
+ ['office','Arrange an office address','Rent agreement or owner consent letter, plus a recent electricity bill.']]},
+{h:'2. Register the foundation',i:[
+ ['deed','Draft and sign the trust deed','On stamp paper: objects, trustee powers, irrevocable clause, dissolution clause. Have a lawyer or CA vet it. An irrevocable deed matters later for 12A and 80G.'],
+ ['charity','Apply to the Charity Commissioner','File the application with the deed and documents at the Charity Commissioner office. You receive a registration number and certificate. Print that number on your certificates in Settings.'],
+ ['pan','Get a PAN for the foundation','Apply in the foundation’s name using the registration certificate.'],
+ ['bank','Open a bank account in the foundation’s name','Do not collect donations in a personal account. The QR on this site must point to this account.']]},
+{h:'3. Build donor trust',i:[
+ ['12a','Apply for 12A and 80G','On the Income Tax portal. Provisional registration lasts 3 years. Apply for final registration at least 6 months before it ends, or within 6 months of starting activity, whichever is earlier. Form numbers changed under the Income-tax Act 2025, so ask your CA for the current ones.'],
+ ['darpan','Register on NGO Darpan','Free NITI Aayog portal. Needed for many government grants.'],
+ ['csr','Optional: CSR-1 registration','Lets companies fund you from their CSR budget. Needs 12A and 80G first.'],
+ ['no80g','Do not promise a tax benefit before 80G','Until 80G is granted, call the certificate a thank-you certificate, not a tax receipt.']]},
+{h:'4. Run the plantation',i:[
+ ['land','Get permission for the planting land','Gram Panchayat or landowner letter. Forest department permission for forest land.'],
+ ['plan','Write a planting and care plan','Native species, pit size, tree guards, watering schedule, a paid or volunteer caretaker, a monthly check.'],
+ ['proof','Photograph every plant','Photo with date and location. Send each donor a photo after planting. It brings repeat donors.'],
+ ['books','Keep books from day one','Donation register, bank statement, receipts. Annual CA audit and income tax return.']]},
+{h:'5. Launch the website',i:[
+ ['upi','Set the real UPI ID or QR in Settings','Replace the demo UPI ID. Do a ₹1 test payment and match it in Donations.'],
+ ['pin','Change the admin PIN','The default is 1234.'],
+ ['host','Host the site','Upload this HTML file to free hosting such as Netlify or GitHub Pages, then connect a domain name.'],
+ ['backup','Export a backup every week','Data lives in one browser. Use Data and backup, then JSON, and keep a copy in Google Drive.'],
+ ['promo','Announce','WhatsApp groups, Gram Panchayat, schools, birthday posters with the QR.']]}
+];
+function renderRoadmap(){
+  var total=0,done=0;
+  $('rmList').innerHTML=ROAD.map(function(ph){
+    return '<div class="phase"><h3>'+esc(ph.h)+'</h3>'+ph.i.map(function(t){
+      total++;if(R[t[0]])done++;
+      return '<div class="task"><input type="checkbox" id="rm-'+t[0]+'" data-k="'+t[0]+'"'+(R[t[0]]?' checked':'')+'><div><label for="rm-'+t[0]+'">'+esc(t[1])+'</label><p>'+esc(t[2])+'</p></div></div>';
+    }).join('')+'</div>';
+  }).join('');
+  $('rmCount').textContent=done+' of '+total+' steps done';$('rmBar').style.width=(total?done/total*100:0)+'%';
+}
+$('rmList').addEventListener('change',function(e){
+  var k=e.target.getAttribute('data-k');if(!k)return;
+  if(e.target.checked)R[k]=1;else delete R[k];
+  save(KEY.r,R);
+  var total=0,done=0;ROAD.forEach(function(p){p.i.forEach(function(t){total++;if(R[t[0]])done++})});
+  $('rmCount').textContent=done+' of '+total+' steps done';$('rmBar').style.width=(done/total*100)+'%';
+});
+
+/* data tab */
+function csvCell(v){v=String(v==null?'':v);if(/^[=+\-@]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"'}
+function exportXlsx(){
+  if(typeof XLSX==='undefined'){toast('Excel library could not load. Use Show CSV and open it in Excel.');return}
+  if(!D.length&&!E.length){toast('Nothing to export yet.');return}
+  var rows=D.slice().sort(function(a,b){return a.createdAt.localeCompare(b.createdAt)}).map(function(d){return {
+    'Certificate No':d.certNo,'Date':fmtDate(d.createdAt),'Donor Name':d.donorName,'Mobile':d.mobile,'Email':d.email,'Place':d.place,
+    'Birthday Of':d.bdayName,'Birthday Date':fmtDate(d.bdayDate),'Plants':d.plants,'Tree Type':d.species,'Rate (Rs)':d.price,
+    'Amount (Rs)':d.amount,'UTR':d.utr,'Status':d.status==='verified'?'Verified':'Pending','Verified On':d.verifiedAt?fmtDate(d.verifiedAt):'','Wish':d.wish,'Sample':d.sample?'Yes':''}});
+  var ws=XLSX.utils.json_to_sheet(rows);
+  ws['!cols']=[22,13,24,13,24,16,22,13,8,16,10,12,24,10,13,30,8].map(function(w){return {wch:w}});
+  var ex=E.slice().sort(function(a,b){return a.date.localeCompare(b.date)}).map(function(x){return {
+    'Date':fmtDate(x.date),'Category':x.cat,'Description':x.desc,'Paid To':x.paidTo,'Bill / Ref':x.ref,'Amount (Rs)':x.amount,'Sample':x.sample?'Yes':''}});
+  var wsE=XLSX.utils.json_to_sheet(ex);
+  wsE['!cols']=[13,22,36,22,16,12,8].map(function(w){return {wch:w}});
+  var rd=D.filter(function(d){return !d.sample}),ver=rd.filter(function(d){return d.status==='verified'}),pen=rd.filter(function(d){return d.status!=='verified'});
+  var sm=function(a,f){return a.reduce(function(t,x){return t+f(x)},0)};
+  var spent=sm(E.filter(function(x){return !x.sample}),function(x){return x.amount}),recv=sm(ver,function(d){return d.amount});
+  var sum=XLSX.utils.aoa_to_sheet([['Group',S.nameEn],['Exported on',fmtDate(new Date().toISOString())],[],
+    ['Verified plants',sm(ver,function(d){return d.plants})],['Received, verified (Rs)',recv],['Waiting for verification (Rs)',sm(pen,function(d){return d.amount})],
+    ['Spent (Rs)',spent],['Balance (Rs)',recv-spent]]);
+  sum['!cols']=[{wch:30},{wch:34}];
+  var wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Donations');XLSX.utils.book_append_sheet(wb,wsE,'Spending');XLSX.utils.book_append_sheet(wb,sum,'Summary');
+  try{XLSX.writeFile(wb,'gvf-accounts-'+new Date().toISOString().slice(0,10)+'.xlsx');toast('Excel file requested. If nothing downloads, host the HTML file and try there.')}
+  catch(e){toast('Could not create the file here. Use Show CSV and Copy.')}
+}
+$('xlsxBtn').addEventListener('click',exportXlsx);$('xlsxTop').addEventListener('click',exportXlsx);
+function buildPublic(){
+  return {updated:new Date().toISOString(),
+    donors:D.filter(function(d){return !d.sample&&d.status==='verified'}).sort(function(a,b){return a.createdAt.localeCompare(b.createdAt)}).map(function(d){
+      return {d:ymd(d.createdAt),n:d.showName?d.donorName:'Anonymous',p:d.plants,a:d.amount}}),
+    spending:E.filter(function(x){return !x.sample}).sort(function(a,b){return a.date.localeCompare(b.date)}).map(function(x){
+      return {d:x.date,c:x.cat,t:x.desc,a:x.amount}})};
+}
+$('pubMake').addEventListener('click',function(){$('pubOut').value=JSON.stringify(buildPublic(),null,1);toast('Created. Copy it into public-data.json on GitHub.')});
+$('pubCopy').addEventListener('click',function(){var t=$('pubOut');if(!t.value){toast('Press Create first.');return}copyText(t.value,'Copied',t)});
+var outName='export.txt',outType='text/plain';
+$('exCsv').addEventListener('click',function(){
+  var cols=['certNo','createdAt','donorName','mobile','email','place','bdayName','bdayDate','plants','species','amount','utr','status','wish'];
+  $('dataOut').value=[cols.join(',')].concat(D.map(function(d){return cols.map(function(c){return csvCell(d[c])}).join(',')})).join('\n');
+  outName='gvf-donations.csv';outType='text/csv';
+});
+$('exJson').addEventListener('click',function(){
+  $('dataOut').value=JSON.stringify({settings:S,donations:D,expenses:E,roadmap:R},null,1);outName='gvf-backup.json';outType='application/json';
+});
+$('copyOut').addEventListener('click',function(){var t=$('dataOut');if(!t.value){toast('Press Show CSV or Show JSON first.');return}copyText(t.value,'Copied',t)});
+$('saveOut').addEventListener('click',function(){
+  var t=$('dataOut').value;if(!t){toast('Press Show CSV or Show JSON first.');return}
+  try{var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:outType}));a.download=outName;document.body.appendChild(a);a.click();a.remove();toast('Download requested. If nothing happens, use Copy.')}catch(e){toast('Use Copy instead.')}
+});
+$('codeAdd').addEventListener('click',function(){
+  var txt=$('codeIn').value,re=/GVF-CODE:([A-Za-z0-9+\/=]+)/g,m,added=0,skipped=0,bad=0;
+  while((m=re.exec(txt))){
+    try{
+      var o=unb64(m[1]);
+      if(!o||!o.certNo||!o.utr||!(o.plants>=1)){bad++;continue}
+      if(D.some(function(d){return d.certNo===o.certNo||d.utr===String(o.utr)})){skipped++;continue}
+      var cl=function(s,n){return String(s==null?'':s).slice(0,n)};
+      var plants=Math.min(500,parseInt(o.plants,10)||1);
+      D.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),certNo:cl(o.certNo,30),createdAt:o.createdAt||new Date().toISOString(),
+        donorName:cl(o.donorName,60),mobile:cl(o.mobile,12),email:cl(o.email,80),place:cl(o.place,60),bdayName:cl(o.bdayName,60),bdayDate:cl(o.bdayDate,10),
+        plants:plants,species:cl(o.species,30),wish:cl(o.wish,120),utr:cl(o.utr,24).toUpperCase(),price:Number(o.price)||S.price,amount:Number(o.amount)||plants*S.price,showName:!!o.showName,status:'pending',sample:false});
+      added++;
+    }catch(e){bad++}
+  }
+  save(KEY.d,D);$('codeIn').value='';
+  toast(added+' added'+(skipped?', '+skipped+' already there':'')+(bad?', '+bad+' unreadable':''));
+});
+function arm(btn,label,fn){
+  btn.addEventListener('click',function(){
+    if(btn.getAttribute('data-armed')==='1'){btn.setAttribute('data-armed','0');btn.textContent=label;fn()}
+    else{btn.setAttribute('data-armed','1');btn.textContent='Press again to confirm';setTimeout(function(){btn.setAttribute('data-armed','0');btn.textContent=label},4000)}
+  });
+}
+arm($('jsonRestore'),'Replace data with backup',function(){
+  try{
+    var o=JSON.parse($('jsonIn').value);if(!o||!Array.isArray(o.donations))throw 0;
+    D=o.donations;S=Object.assign({},DEF,o.settings||{});R=o.roadmap||{};E=Array.isArray(o.expenses)?o.expenses:[];save(KEY.e,E);
+    save(KEY.d,D);save(KEY.s,S);save(KEY.r,R);$('jsonIn').value='';applyBranding();toast('Backup restored');
+  }catch(e){toast('That is not a valid backup.')}
+});
+arm($('wipeAll'),'Delete all data',function(){D=[];E=[];R={};S=Object.assign({},DEF);save(KEY.d,D);save(KEY.e,E);save(KEY.r,R);save(KEY.s,S);applyBranding();toast('All data deleted')});
+$('addSamples').addEventListener('click',function(){
+  var now=Date.now(),mk=function(i,n,mob,pl,st,b){return {id:'s'+now+i,certNo:'GVF-SAMPLE-000'+(i+1),createdAt:new Date(now-i*86400000).toISOString(),donorName:n,mobile:mob,email:'',place:S.place,
+    bdayName:b,bdayDate:new Date(now-i*86400000*20).toISOString().slice(0,10),plants:pl,species:'Neem',wish:'Happy birthday!',utr:'SAMPLE'+(100000+i),price:S.price,amount:pl*S.price,status:st,sample:true}};
+  D=D.filter(function(d){return !d.sample}).concat([mk(0,'Sample Donor A','9000000001',1,'verified','Sample Donor A'),mk(1,'Sample Donor B','9000000002',3,'pending','Sample Child B'),mk(2,'Sample Donor C','9000000003',5,'pending','Sample Donor C')]);
+  E=E.filter(function(x){return !x.sample}).concat([
+    {id:'se1'+now,createdAt:new Date(now).toISOString(),date:ymd(new Date(now-86400000).toISOString()),cat:'Plants / saplings',desc:'Sample: 10 neem saplings',paidTo:'Sample Nursery',ref:'B-101',amount:800,sample:true},
+    {id:'se2'+now,createdAt:new Date(now).toISOString(),date:ymd(new Date(now-2*86400000).toISOString()),cat:'Tree guards',desc:'Sample: 5 tree guards',paidTo:'Sample Supplier',ref:'B-102',amount:600,sample:true}]);
+  save(KEY.d,D);save(KEY.e,E);toast('Sample rows added. Open Donations and Spending to see them.');
+});
+$('rmSamples').addEventListener('click',function(){D=D.filter(function(d){return !d.sample});E=E.filter(function(x){return !x.sample});save(KEY.d,D);save(KEY.e,E);toast('Sample rows removed')});
+
+/* ---------- calendar ---------- */
+var MONTHS={mr:['जानेवारी','फेब्रुवारी','मार्च','एप्रिल','मे','जून','जुलै','ऑगस्ट','सप्टेंबर','ऑक्टोबर','नोव्हेंबर','डिसेंबर'],
+  en:['January','February','March','April','May','June','July','August','September','October','November','December']};
+var WDAYS={mr:['रवि','सोम','मंगळ','बुध','गुरु','शुक्र','शनि'],en:['Sun','Mon','Tue','Wed','Thu','Fri','Sat']};
+var calY,calM,calSel=null;
+function pad2(n){return String(n).padStart(2,'0')}
+function todayStr(){var d=new Date();return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())}
+function calEvents(){
+  var out=[];
+  if(PUB){(PUB.donors||[]).forEach(function(x){if(x.b)out.push({date:String(x.b).slice(0,10),name:x.n==='Anonymous'?tv('anon'):x.n,plants:Number(x.p)||1})})}
+  else if(!USE_API){D.forEach(function(d){if(!d.sample&&d.status==='verified'&&d.bdayDate)out.push({date:String(d.bdayDate).slice(0,10),name:d.showName?d.donorName:tv('anon'),plants:d.plants})})}
+  return out;
+}
+function fmtDay(ds){var p=String(ds).split('-');return (+p[2])+' '+MONTHS[LANG][(+p[1])-1]+' '+p[0]}
+function monthSvg(id){return '<svg viewBox="0 0 64 64" aria-hidden="true"><use href="#'+id+'"/></svg>'}
+function renderCalendar(){
+  if(calY==null){var n=new Date();calY=n.getFullYear();calM=n.getMonth();calSel=todayStr()}
+  var ev=calEvents(),by={};ev.forEach(function(e){(by[e.date]=by[e.date]||[]).push(e)});
+  var season=(calM===5||calM===6);
+  $('calBox').className='toon'+(season?' season':'');
+  $('calMascot').innerHTML='<use href="#'+(season?'toon-cloud':'toon-sapling')+'"/>';
+  $('calTitle').textContent=MONTHS[LANG][calM]+' '+calY;
+  var first=new Date(calY,calM,1).getDay(),days=new Date(calY,calM+1,0).getDate(),tstr=todayStr();
+  var mb=0,mp=0;
+  for(var k=1;k<=days;k++){var key=calY+'-'+pad2(calM+1)+'-'+pad2(k);(by[key]||[]).forEach(function(e){mb++;mp+=e.plants})}
+  $('calSub').textContent=(season?tv('c_sub_season'):tv('c_sub_norm'))+(mb?' · '+tv('c_month_stat',{b:mb,p:mp}):'');
+  $('calHead').innerHTML=WDAYS[LANG].map(function(w){return '<div class="dow">'+esc(w)+'</div>'}).join('');
+  var html='';
+  for(var i=0;i<first;i++)html+='<div class="dc blank"></div>';
+  for(var d=1;d<=days;d++){
+    var ds=calY+'-'+pad2(calM+1)+'-'+pad2(d),list=by[ds]||[],cls='dc'+(ds===tstr?' today':'')+(ds===calSel?' sel':'')+(list.length?' has':'')+(season?' rain':'');
+    html+='<button type="button" class="'+cls+'" data-d="'+ds+'" aria-label="'+d+' '+esc(MONTHS[LANG][calM])+(list.length?', '+list.length:'')+'"><span class="dn">'+d+'</span>'+
+      (list.length?monthSvg('toon-cake')+(list.length>1?'<span class="bd">'+list.length+'</span>':''):'')+'</button>';
+  }
+  $('calGrid').innerHTML=html;
+  renderCalSel(by);
+  var up=ev.filter(function(e){return e.date>=tstr}).sort(function(a,b){return a.date.localeCompare(b.date)}).slice(0,6);
+  $('calNextList').innerHTML=up.length?up.map(function(e){return '<div class="evrow">'+monthSvg('toon-cake')+'<div><b>'+esc(fmtDay(e.date))+'</b><br><span class="small">'+esc(e.name)+' · '+esc(nPlants(e.plants))+'</span></div></div>'}).join(''):'<p class="small">'+tv('c_none_next')+'</p>';
+}
+function renderCalSel(by){
+  if(!calSel){$('calSel').innerHTML='';return}
+  by=by||{};var list=by[calSel]||[],past=calSel<todayStr();
+  var h='<h3>'+esc(fmtDay(calSel))+'</h3>';
+  if(list.length)h+='<div style="margin-top:10px">'+list.map(function(e){return '<div class="evrow">'+monthSvg('toon-cake')+'<div><b>'+esc(e.name)+'</b><br><span class="small">'+esc(nPlants(e.plants))+'</span></div></div>'}).join('')+'</div>';
+  else h+='<p class="small" style="margin-top:8px">'+tv('c_sel_none')+'</p>';
+  if(!past)h+='<div class="row" style="margin-top:12px"><button type="button" class="btn" id="calPlant" data-d="'+calSel+'">'+tv('c_sel_btn')+'</button></div>';
+  else h+='<p class="small" style="margin-top:8px">'+tv('c_sel_past')+'</p>';
+  $('calSel').innerHTML=h;
+}
+$('calGrid').addEventListener('click',function(e){
+  var b=e.target.closest('button[data-d]');if(!b)return;calSel=b.getAttribute('data-d');renderCalendar();
+});
+$('calSel').addEventListener('click',function(e){
+  var b=e.target.closest('#calPlant');if(!b)return;
+  $('bdayDate').value=b.getAttribute('data-d');go('donate');setTimeout(function(){$('donForm').scrollIntoView({behavior:'smooth',block:'start'});$('donorName').focus()},60);
+});
+function calGo(dm){calM+=dm;if(calM<0){calM=11;calY--}if(calM>11){calM=0;calY++}renderCalendar()}
+$('calPrev').addEventListener('click',function(){calGo(-1)});$('calNext').addEventListener('click',function(){calGo(1)});
+$('calToday').addEventListener('click',function(){calY=null;renderCalendar()});
+
+/* ---------- anonymous visit counter ---------- */
+function rid(n){var c='abcdefghijklmnopqrstuvwxyz0123456789',s='';for(var i=0;i<n;i++)s+=c.charAt(Math.floor(Math.random()*c.length));return s}
+var VID=(function(){try{var v=localStorage.getItem('gvf_vid');if(!v){v=rid(14);localStorage.setItem('gvf_vid',v)}return v}catch(e){return rid(14)}})();
+function devType(){var u=navigator.userAgent||'';return /iPad|Tablet/i.test(u)?'tablet':(/Mobi|Android|iPhone/i.test(u)?'mobile':'desktop')}
+function track(page){
+  if(!USE_SB||page==='admin')return;
+  var k='gvf_t_'+page;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1')}catch(e){}
+  api('visit',{vid:VID,page:page,lang:LANG,dev:devType()}).catch(function(){});
+}
+
+/* ---------- admin: visitors ---------- */
+function renderVisitors(){
+  var box=$('visBody');
+  if(!USE_SB){box.innerHTML='<div class="notice">Visitor counting needs the Supabase database. Connect it first (SB_URL and SB_KEY in the website file), then run supabase-update-3.sql.</div>';return}
+  box.innerHTML='<p class="small">Loading…</p>';
+  apiAdmin('stats').then(function(r){
+    if(!r||!r.ok)throw new Error('stats');
+    var max=Math.max.apply(null,r.days.map(function(x){return x.n}).concat([1]));
+    var bars=r.days.map(function(x,i){var hgt=Math.max(3,Math.round(x.n/max*110));
+      return '<div class="vbar'+(i===r.days.length-1?' now':'')+'" title="'+esc(fmtDate(x.d))+': '+x.n+'"><span class="vn">'+x.n+'</span><i style="height:'+hgt+'px"></i><span class="vd">'+x.d.slice(8)+'</span></div>'}).join('');
+    var rows=r.recent.map(function(x){return '<tr><td>'+esc(new Date(x.at).toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}))+'</td><td class="mono">V-'+esc(x.vid)+'</td><td>'+esc(x.page)+'</td><td>'+esc(x.dev)+'</td><td>'+(x.lang==='mr'?'Marathi':'English')+'</td><td class="num">'+x.n+(x.n>1?' (returning)':' (new)')+'</td></tr>'}).join('');
+    box.innerHTML='<div class="tiles"><div class="stat"><b>'+Number(r.total).toLocaleString('en-IN')+'</b><span>Total visits</span></div><div class="stat"><b>'+Number(r.uniq).toLocaleString('en-IN')+'</b><span>Unique visitors</span></div><div class="stat"><b>'+Number(r.today).toLocaleString('en-IN')+'</b><span>Visits today</span></div></div>'+
+      '<h3 style="margin-bottom:8px">Last 14 days</h3><div class="vchart">'+bars+'</div>'+
+      '<h3 style="margin:20px 0 8px">Recent visits</h3><div class="scroll"><table style="min-width:640px"><thead><tr><th>Time</th><th>Visitor</th><th>First page</th><th>Device</th><th>Language</th><th class="num">Visit no.</th></tr></thead><tbody>'+(rows||'<tr><td colspan="6" class="empty">No visits yet.</td></tr>')+'</tbody></table></div>';
+  }).catch(function(){box.innerHTML='<div class="notice">Could not load visitor numbers. Make sure supabase-update-3.sql was run, then press Refresh.</div>'});
+}
+
+
+/* ---------- start ---------- */
+document.querySelectorAll('.apionly').forEach(function(el){el.hidden=!USE_API});
+document.querySelectorAll('.localonly').forEach(function(el){el.hidden=USE_API});
+$('langBtn').addEventListener('click',function(){setLang(LANG==='mr'?'en':'mr')});
+applyLang();
+render((location.hash||'').slice(1));
+if(!USE_API)fetchPublic();
+})();
+</script>
+
+</html>

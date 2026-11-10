@@ -248,7 +248,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
   <div class="wrap bar">
     <a class="brand" href="#donate" data-view="donate">
       <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><g fill="currentColor"><circle cx="20" cy="14" r="10"/><circle cx="11" cy="20" r="7"/><circle cx="29" cy="20" r="7"/><rect x="18" y="22" width="4" height="14" rx="1"/></g></svg>
-      <span><b id="brandMr" lang="mr">गुगळगाव वृक्ष मित्र मंडळ</b><small id="brandEn">Gugalgaon Vruksh Mitra Group</small></span>
+      <span><b id="brandMr" lang="mr">गुगळगाव वृक्ष मित्र मंडळ</b><small id="brandEn">Gugalgaon Vruksh Mitra Mandal</small></span>
     </a>
     <div class="navrow">
       <nav aria-label="Main">
@@ -479,7 +479,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
     <div class="hero" style="padding-bottom:0">
       <div class="row" style="justify-content:space-between">
         <div><div class="eyebrow">Admin</div><h1 style="font-size:2rem">Group desk</h1></div>
-        <button class="btn ghost" id="lockBtn" type="button">Lock</button>
+        <div class="row"><button class="btn ghost apionly" id="refreshBtn2" type="button" hidden>Refresh data</button><button class="btn ghost" id="lockBtn" type="button">Lock</button></div>
       </div>
     </div>
     <div class="tiles" id="adminTiles">
@@ -491,6 +491,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
     </div>
     <div class="tabs" role="tablist">
       <button role="tab" data-tab="donations" aria-selected="true">Donations</button>
+      <button role="tab" data-tab="birthdays" aria-selected="false">Birthdays</button>
       <button role="tab" data-tab="spending" aria-selected="false">Spending</button>
       <button role="tab" data-tab="visitors" aria-selected="false">Visitors</button>
       <button role="tab" data-tab="settings" aria-selected="false">Settings</button>
@@ -514,6 +515,36 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
           <tfoot><tr><td colspan="3">Total (rows shown)</td><td class="num" id="fPlants"></td><td class="num" id="fAmt"></td><td colspan="3" class="small" id="fNote"></td></tr></tfoot>
         </table>
         <div class="empty" id="dEmpty" hidden>No donations yet. When someone submits the form, it appears here. Compare the UTR with your bank statement, then press Verify.</div>
+      </div>
+    </div>
+
+    <div id="tab-birthdays" hidden>
+      <div class="notice" style="margin-bottom:16px">Birthdays from donations and the ones you add here appear in one list. Press a <b>date</b> or <b>Message</b> to get a ready WhatsApp message with the website link. The wording changes by date: a wish for today, an early wish for a coming birthday, a belated wish for a past one. You can edit the text before you send. Nothing is sent automatically.</div>
+      <form id="bdForm" class="card" novalidate style="margin-bottom:18px">
+        <h3>Add a birthday</h3>
+        <div class="grid2">
+          <div class="field"><label for="bdName">Name</label><input id="bdName" type="text" maxlength="60"><span class="err" id="err-bdName"></span></div>
+          <div class="field"><label for="bdMobile">WhatsApp number (10 digits)</label><input id="bdMobile" type="tel" inputmode="numeric" maxlength="12"><span class="err" id="err-bdMobile"></span></div>
+          <div class="field"><label for="bdDate">Birthday date</label><input id="bdDate" type="date"><span class="help">Repeats every year. The year you pick does not matter.</span><span class="err" id="err-bdDate"></span></div>
+          <div class="field"><label for="bdNote">Note (optional)</label><input id="bdNote" type="text" maxlength="100" placeholder="e.g. school friend"></div>
+        </div>
+        <div class="row"><button class="btn" type="submit">Add birthday</button></div>
+      </form>
+      <div class="toolbar">
+        <select id="bdFilter" aria-label="Show">
+          <option value="near">Last 7 days and next 30 days</option>
+          <option value="soon">Today and next 30 days</option>
+          <option value="recent">Last 30 days</option>
+          <option value="all">All</option>
+        </select>
+        <input id="bdSearch" type="text" placeholder="Search name or number" aria-label="Search birthdays">
+      </div>
+      <div class="scroll">
+        <table style="min-width:780px">
+          <thead><tr><th>Date</th><th>When</th><th>Name</th><th>Birthday of</th><th>WhatsApp</th><th>Source</th><th>Actions</th></tr></thead>
+          <tbody id="bdRows"></tbody>
+        </table>
+        <div class="empty" id="bdEmpty" hidden>No birthdays in this view. Add one above, or change the filter.</div>
       </div>
     </div>
 
@@ -636,6 +667,22 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
 </footer>
 </main>
 
+<div class="overlay" id="msgModal" hidden role="dialog" aria-modal="true" aria-label="Birthday message">
+  <div class="modal" style="max-width:640px">
+    <div><b id="msgTitle"></b><div class="small" id="msgWhen"></div></div>
+    <div class="row">
+      <button type="button" class="btn ghost sm" id="msgMr">मराठी</button>
+      <button type="button" class="btn ghost sm" id="msgEn">English</button>
+    </div>
+    <textarea id="msgText" style="min-height:240px" aria-label="Message text"></textarea>
+    <div class="row">
+      <a class="btn" id="msgWa" target="_blank" rel="noopener">Open WhatsApp</a>
+      <button type="button" class="btn ghost" id="msgCopy">Copy message</button>
+      <button type="button" class="btn ghost" id="msgClose">Close</button>
+    </div>
+    <p class="small">WhatsApp opens with this text ready. You only press Send. The number is the donor’s own number, or the one you typed.</p>
+  </div>
+</div>
 <div class="overlay" id="modal" hidden role="dialog" aria-modal="true" aria-label="Certificate">
   <div class="modal">
     <img id="modalImg" class="certImg" alt="Certificate">
@@ -666,7 +713,7 @@ var adminPin='';
 /* ---------- storage (localStorage, with in-memory fallback) ---------- */
 var mem={};
 function load(k,d){try{var v=localStorage.getItem(k);if(v!==null)return JSON.parse(v)}catch(e){}return (k in mem)?mem[k]:d}
-function save(k,v){if(USE_API&&(k==='gvf_donations'||k==='gvf_expenses'))return true;mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}
+function save(k,v){if(USE_API&&(k==='gvf_donations'||k==='gvf_expenses'))return true;if(USE_SB&&k==='gvf_birthdays')return true;mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}
 
 function api(action,payload){
   if(USE_SB){
@@ -676,14 +723,16 @@ function api(action,payload){
   return fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({action:action},payload||{}))}).then(function(r){return r.json()});
 }
 function apiAdmin(action,payload){return api(action,Object.assign({pin:adminPin},payload||{}))}
-var DEF={nameMr:'गुगळगाव वृक्ष मित्र मंडळ',nameEn:'Gugalgaon Vruksh Mitra Group',price:150,upiId:'8411939227@upi',payee:'Gugalgaon Vruksh Mitra',
+var DEF={nameMr:'गुगळगाव वृक्ष मित्र मंडळ',nameEn:'Gugalgaon Vruksh Mitra Mandal',price:150,upiId:'8411939227@upi',payee:'Gugalgaon Vruksh Mitra Mandal',
   qrImage:'',regNo:'Informal friends group, not a registered organisation. Thank-you certificate, not a tax receipt.',place:'Gugalgaon',president:'',secretary:'',phone:'',pin:'1234'};
-var KEY={s:'gvf_settings',d:'gvf_donations',r:'gvf_roadmap',e:'gvf_expenses'};
+var KEY={s:'gvf_settings',d:'gvf_donations',r:'gvf_roadmap',e:'gvf_expenses',b:'gvf_birthdays'};
 var S=Object.assign({},DEF,load(KEY.s,{}));
 var D=load(KEY.d,[]); if(!Array.isArray(D))D=[];
 var R=load(KEY.r,{}); if(!R||typeof R!=='object')R={};
 var E=load(KEY.e,[]); if(!Array.isArray(E))E=[];
+var BD=load(KEY.b,[]); if(!Array.isArray(BD))BD=[];
 if(USE_API){D=[];E=[];}
+if(USE_SB)BD=[];
 var authed=false, pendingQr, lastRec=null, lastUrl='', tab='donations';
 
 var tt;function toast(m){var t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(function(){t.hidden=true},3800)}
@@ -1063,10 +1112,11 @@ function renderAdmin(){
 function loadAdminData(){
   return apiAdmin('list').then(function(r){
     if(!r||!r.ok)throw new Error('list');
-    D=r.donations||[];E=r.expenses||[];
+    D=r.donations||[];E=r.expenses||[];if(USE_SB)BD=r.birthdays||[];
   });
 }
-$('refreshBtn').addEventListener('click',function(){loadAdminData().then(function(){setTab(tab);toast('Refreshed')}).catch(function(){toast('Could not refresh. Check your internet.')})});
+function refreshAdmin(){loadAdminData().then(function(){setTab(tab);toast('Refreshed')}).catch(function(){toast('Could not refresh. Check your internet.')})}
+$('refreshBtn').addEventListener('click',refreshAdmin);$('refreshBtn2').addEventListener('click',refreshAdmin);
 $('pinForm').addEventListener('submit',function(ev){
   ev.preventDefault();var v=$('pin').value;
   if(!USE_API){
@@ -1080,15 +1130,16 @@ $('pinForm').addEventListener('submit',function(ev){
     return loadAdminData().then(function(){authed=true;$('pin').value='';$('err-pin').textContent='';renderAdmin()});
   }).catch(function(){$('err-pin').textContent='Could not reach the server. Check your internet and try again.'});
 });
-$('lockBtn').addEventListener('click',function(){authed=false;if(USE_API){adminPin='';D=[];E=[]}renderAdmin()});
+$('lockBtn').addEventListener('click',function(){authed=false;if(USE_API){adminPin='';D=[];E=[];if(USE_SB)BD=[]}renderAdmin()});
 document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener('click',function(){setTab(b.getAttribute('data-tab'))})});
 function setTab(t){
   tab=t;
   document.querySelectorAll('.tabs button').forEach(function(b){b.setAttribute('aria-selected',b.getAttribute('data-tab')===t?'true':'false')});
-  ['donations','spending','visitors','settings','roadmap','data'].forEach(function(x){$('tab-'+x).hidden=(x!==t)});
+  ['donations','birthdays','spending','visitors','settings','roadmap','data'].forEach(function(x){$('tab-'+x).hidden=(x!==t)});
   renderTiles();
   if(t==='donations')renderDonations();
   if(t==='spending')renderSpending();
+  if(t==='birthdays')renderBirthdays();
   if(t==='visitors')renderVisitors();
   if(t==='settings')fillSettings();
   if(t==='roadmap')renderRoadmap();
@@ -1314,7 +1365,7 @@ $('exCsv').addEventListener('click',function(){
   outName='gvf-donations.csv';outType='text/csv';
 });
 $('exJson').addEventListener('click',function(){
-  $('dataOut').value=JSON.stringify({settings:S,donations:D,expenses:E,roadmap:R},null,1);outName='gvf-backup.json';outType='application/json';
+  $('dataOut').value=JSON.stringify({settings:S,donations:D,expenses:E,birthdays:BD,roadmap:R},null,1);outName='gvf-backup.json';outType='application/json';
 });
 $('copyOut').addEventListener('click',function(){var t=$('dataOut');if(!t.value){toast('Press Show CSV or Show JSON first.');return}copyText(t.value,'Copied',t)});
 $('saveOut').addEventListener('click',function(){
@@ -1348,7 +1399,7 @@ function arm(btn,label,fn){
 arm($('jsonRestore'),'Replace data with backup',function(){
   try{
     var o=JSON.parse($('jsonIn').value);if(!o||!Array.isArray(o.donations))throw 0;
-    D=o.donations;S=Object.assign({},DEF,o.settings||{});R=o.roadmap||{};E=Array.isArray(o.expenses)?o.expenses:[];save(KEY.e,E);
+    D=o.donations;S=Object.assign({},DEF,o.settings||{});R=o.roadmap||{};E=Array.isArray(o.expenses)?o.expenses:[];save(KEY.e,E);BD=Array.isArray(o.birthdays)?o.birthdays:[];save(KEY.b,BD);
     save(KEY.d,D);save(KEY.s,S);save(KEY.r,R);$('jsonIn').value='';applyBranding();toast('Backup restored');
   }catch(e){toast('That is not a valid backup.')}
 });
@@ -1451,6 +1502,126 @@ function renderVisitors(){
   }).catch(function(){box.innerHTML='<div class="notice">Could not load visitor numbers. Make sure supabase-update-3.sql was run, then press Refresh.</div>'});
 }
 
+
+/* ---------- admin: birthdays and wish messages ---------- */
+function dayDiff(ds){return Math.round((new Date(ds+'T00:00:00')-new Date(todayStr()+'T00:00:00'))/86400000)}
+function occurrence(y,mmdd){
+  var m=mmdd.slice(0,2),d=mmdd.slice(3,5);
+  if(m==='02'&&d==='29'&&!((y%4===0&&y%100!==0)||y%400===0))d='28';
+  return y+'-'+m+'-'+d;
+}
+function bdEntries(){
+  var out=[],y=new Date().getFullYear();
+  D.forEach(function(d){
+    if(d.sample||!d.bdayDate)return;
+    out.push({key:'d:'+d.id,src:'donation',date:String(d.bdayDate).slice(0,10),name:d.donorName,forName:d.bdayName||d.donorName,mobile:d.mobile,plants:d.plants,verified:d.status==='verified',note:''});
+  });
+  BD.forEach(function(b){
+    var mmdd=String(b.date).slice(5,10),occ=occurrence(y,mmdd);
+    if(dayDiff(occ)<-30)occ=occurrence(y+1,mmdd);
+    out.push({key:'b:'+b.id,src:'manual',id:b.id,date:occ,name:b.name,forName:b.name,mobile:b.mobile,plants:0,verified:false,note:b.note||''});
+  });
+  out.forEach(function(e){e.diff=dayDiff(e.date)});
+  return out;
+}
+function relLabel(n){
+  if(n===0)return 'Today';if(n===1)return 'Tomorrow';if(n===-1)return 'Yesterday';
+  return n>0?'In '+n+' days':(-n)+' days ago';
+}
+function renderBirthdays(){
+  var f=$('bdFilter').value,q=$('bdSearch').value.trim().toLowerCase();
+  var rows=bdEntries().filter(function(e){
+    if(f==='near'&&!(e.diff>=-7&&e.diff<=30))return false;
+    if(f==='soon'&&!(e.diff>=0&&e.diff<=30))return false;
+    if(f==='recent'&&!(e.diff<0&&e.diff>=-30))return false;
+    if(!q)return true;
+    return (e.name+' '+e.forName+' '+e.mobile).toLowerCase().indexOf(q)>=0;
+  }).sort(function(a,b){
+    var af=a.diff>=0,bf=b.diff>=0;
+    if(af!==bf)return af?-1:1;
+    return af?a.diff-b.diff:b.diff-a.diff;
+  });
+  $('bdRows').innerHTML=rows.map(function(e){
+    var cls=e.diff===0?'pill verified':'pill';
+    return '<tr><td><button type="button" class="btn ghost sm" data-act="bmsg" data-k="'+esc(e.key)+'">'+esc(fmtDate(e.date))+'</button></td>'+
+      '<td><span class="'+cls+'">'+esc(relLabel(e.diff))+'</span></td>'+
+      '<td>'+esc(e.name)+(e.note?'<br><small>'+esc(e.note)+'</small>':'')+'</td>'+
+      '<td>'+esc(e.forName)+(e.src==='donation'?'<br><small>'+e.plants+(e.plants>1?' plants':' plant')+(e.verified?' · verified':' · pending')+'</small>':'')+'</td>'+
+      '<td class="mono">'+esc(e.mobile)+'</td><td>'+(e.src==='donation'?'Donation':'Added by hand')+'</td>'+
+      '<td class="acts"><button type="button" class="btn sm" data-act="bmsg" data-k="'+esc(e.key)+'">Message</button>'+
+      (e.src==='manual'?' <button type="button" class="btn warn sm" data-act="bdel" data-id="'+esc(e.id)+'">Delete</button>':'')+'</td></tr>';
+  }).join('');
+  $('bdEmpty').hidden=rows.length>0;
+}
+$('bdFilter').addEventListener('change',renderBirthdays);$('bdSearch').addEventListener('input',renderBirthdays);
+$('bdForm').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var name=$('bdName').value.trim(),mob=$('bdMobile').value.replace(/\s+/g,''),date=$('bdDate').value,note=$('bdNote').value.trim();
+  var e1=name.length<2?'Enter the name.':'',e2=/^[6-9]\d{9}$/.test(mob)?'':'Enter a 10-digit mobile number.',e3=date?'':'Pick the birthday date.';
+  $('err-bdName').textContent=e1;$('err-bdMobile').textContent=e2;$('err-bdDate').textContent=e3;
+  if(e1||e2||e3)return;
+  var rec={id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),name:name,mobile:mob,date:date,note:note,createdAt:new Date().toISOString()};
+  var ok=function(){BD.push(rec);save(KEY.b,BD);$('bdForm').reset();renderBirthdays();toast('Birthday added')};
+  if(USE_SB){apiAdmin('addBirthday',{bday:rec}).then(function(r){if(r&&r.ok)ok();else toast('Could not save. Run supabase-update-4.sql and try again.')}).catch(function(){toast('No connection. Try again.')})}
+  else ok();
+});
+$('bdRows').addEventListener('click',function(e){
+  var b=e.target.closest('button[data-act]');if(!b)return;
+  if(b.getAttribute('data-act')==='bmsg'){
+    var en=bdEntries().filter(function(x){return x.key===b.getAttribute('data-k')})[0];if(en)openMsg(en);return;
+  }
+  if(b.getAttribute('data-act')==='bdel'){
+    var id=b.getAttribute('data-id');
+    if(b.getAttribute('data-armed')!=='1'){b.setAttribute('data-armed','1');b.textContent='Confirm delete?';setTimeout(function(){if(b.isConnected){b.setAttribute('data-armed','0');b.textContent='Delete'}},4000);return}
+    var rm=function(){BD=BD.filter(function(x){return x.id!==id});save(KEY.b,BD);renderBirthdays();toast('Deleted')};
+    if(USE_SB){apiAdmin('deleteBirthday',{id:id}).then(function(r){if(r&&r.ok)rm();else toast('Could not delete. Try again.')}).catch(function(){toast('No connection. Try again.')})}
+    else rm();
+  }
+});
+
+function fmtDayL(ds,l){var p=String(ds).split('-');return (+p[2])+' '+MONTHS[l][(+p[1])-1]+' '+p[0]}
+function siteLink(){return location.href.split('#')[0].split('?')[0]}
+function bdMessage(e,l){
+  var d=e.diff,link=siteLink(),N=e.name,B=e.forName,other=e.src==='donation'&&B&&B!==N,dt=fmtDayL(e.date,l),price=fmtINR(S.price);
+  var pTxt=e.plants>1?(l==='mr'?e.plants+' झाडे':e.plants+' trees'):(l==='mr'?'1 झाड':'1 tree');
+  var hasTree=e.src==='donation'&&e.verified,g,line,tree,sign;
+  if(l==='mr'){
+    var who=other?B+' यांचा':'तुमचा';
+    if(d===0){g='🎂 *वाढदिवसाच्या हार्दिक शुभेच्छा, '+N+'!* 🎉';line=other?'आज '+B+' यांचा वाढदिवस! गुगळगाव वृक्ष मित्र मंडळातर्फे त्यांना खूप खूप शुभेच्छा. 💐':'आज तुमचा वाढदिवस! गुगळगाव वृक्ष मित्र मंडळातर्फे तुम्हाला खूप खूप शुभेच्छा. 💐'}
+    else if(d>0){g='नमस्कार '+N+' 🙏';line=who+' वाढदिवस '+dt+' ला ('+(d===1?'उद्या':d+' दिवसांनी')+') येत आहे. आधीच हार्दिक शुभेच्छा! 💐'}
+    else{g='नमस्कार '+N+' 🙏';line=who+' वाढदिवस '+dt+' ला होता. उशिरा का होईना, गुगळगाव वृक्ष मित्र मंडळातर्फे मनापासून शुभेच्छा! 💐'}
+    if(hasTree)tree=(other?B+' यांच्या नावाने':'तुमच्या नावाने')+' येत्या पावसाळ्यात (जून ते जुलै) गुगळगाव येथे '+pTxt+' लावण्यात येईल. 🌱 धन्यवाद!';
+    else tree=d<0?'पुढच्या शुभप्रसंगाला एक झाड लावा, एका झाडासाठी फक्त '+price+'. 🌱':'या वाढदिवसाला एक झाड लावा, एका झाडासाठी फक्त '+price+'. 🌱';
+    sign='— गुगळगाव वृक्ष मित्र मंडळ';
+  }else{
+    var whose=other?B+'’s':'your';
+    if(d===0){g='🎂 *Happy Birthday, '+N+'!* 🎉';line=other?'Today is '+B+'’s birthday! Warm wishes from Gugalgaon Vruksh Mitra Mandal. 💐':'Today is your birthday! Warm wishes from Gugalgaon Vruksh Mitra Mandal. 💐'}
+    else if(d>0){g='Hello '+N+' 🙏';line='It is '+whose+' birthday on '+dt+' ('+(d===1?'tomorrow':'in '+d+' days')+'). Early wishes! 💐'}
+    else{g='Hello '+N+' 🙏';line=(other?B+'’s':'Your')+' birthday was on '+dt+'. Belated wishes from Gugalgaon Vruksh Mitra Mandal! 💐'}
+    if(hasTree)tree='In '+(other?B+'’s':'your')+' name, '+pTxt+' will be planted in Gugalgaon in the coming monsoon (June to July). 🌱 Thank you!';
+    else tree=d<0?'For the next happy occasion, plant a tree: only '+price+' per tree. 🌱':'Plant a tree for this birthday: only '+price+' per tree. 🌱';
+    sign='— Gugalgaon Vruksh Mitra Mandal';
+  }
+  return [g,line,tree,'👉 '+link,sign].join('\n\n');
+}
+var msgEntry=null,msgLang='mr';
+function setMsgLang(l){
+  msgLang=l;$('msgText').value=bdMessage(msgEntry,l);
+  $('msgMr').className='btn sm'+(l==='mr'?'':' ghost');$('msgEn').className='btn sm'+(l==='en'?'':' ghost');updateMsgLink();
+}
+function updateMsgLink(){$('msgWa').href='https://wa.me/91'+msgEntry.mobile+'?text='+encodeURIComponent($('msgText').value)}
+function openMsg(e){
+  msgEntry=e;
+  $('msgTitle').textContent=e.name+(e.forName&&e.forName!==e.name?' (birthday of '+e.forName+')':'');
+  $('msgWhen').textContent=fmtDate(e.date)+' · '+relLabel(e.diff)+' · '+e.mobile;
+  $('msgModal').hidden=false;setMsgLang(LANG==='en'?'en':'mr');
+}
+$('msgMr').addEventListener('click',function(){setMsgLang('mr')});$('msgEn').addEventListener('click',function(){setMsgLang('en')});
+$('msgText').addEventListener('input',updateMsgLink);
+$('msgCopy').addEventListener('click',function(){copyText($('msgText').value,'Message copied',$('msgText'))});
+$('msgClose').addEventListener('click',function(){$('msgModal').hidden=true});
+$('msgModal').addEventListener('click',function(e){if(e.target===$('msgModal'))$('msgModal').hidden=true});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')$('msgModal').hidden=true});
 
 /* ---------- start ---------- */
 document.querySelectorAll('.apionly').forEach(function(el){el.hidden=!USE_API});

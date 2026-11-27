@@ -1,0 +1,32 @@
+{
+ "name": "गुगळगाव वृक्ष मित्र मंडळ",
+ "short_name": "वृक्ष मित्र",
+ "description": "एक वाढदिवस, एक झाड. ₹१५० = १ झाड.",
+ "start_url": "./index.html",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#f4f8f1",
+ "theme_color": "#1b5e20",
+ "lang": "mr",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

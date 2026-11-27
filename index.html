@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Gugalgaon Vruksh Mitra</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#1b5e20">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700&family=Tiro+Devanagari+Marathi:ital@0;1&family=Baloo+2:wght@600;800&display=swap">
@@ -257,6 +261,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
         <a href="#certificate" data-view="certificate" data-i="nav_cert">माझे प्रमाणपत्र</a>
         <a href="#admin" data-view="admin">Admin</a>
       </nav>
+      <button type="button" class="btn sm" id="installBtn" hidden>📲 ॲप इन्स्टॉल करा</button>
       <button type="button" class="btn ghost sm" id="langBtn" aria-label="Language">English</button>
     </div>
   </div>
@@ -1633,4 +1638,15 @@ if(!USE_API)fetchPublic();
 })();
 </script>
 
+<script>
+/* installable app (PWA) */
+(function(){
+  if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
+  var dp=null,b=document.getElementById('installBtn');
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;if(b)b.hidden=false});
+  if(b)b.addEventListener('click',function(){if(!dp)return;dp.prompt();dp.userChoice.then(function(){dp=null;b.hidden=true})});
+  window.addEventListener('appinstalled',function(){if(b)b.hidden=true});
+})();
+</script>
 </html>
+
